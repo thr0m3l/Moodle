@@ -21,7 +21,7 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("Login.fxml"));
         Parent root = loader.load();
 
-        // Loading the controller
+        // Loading the controller and aro onek kisu
         LoginController controller = loader.getController();
         controller.setMain(this);
 
