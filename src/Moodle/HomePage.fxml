@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="664.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.HomeController">
+    <children>
+        <Label fx:id="pageTitle" layoutX="24.0" layoutY="33.0" prefHeight="56.0" prefWidth="461.0" text="LAN Academic Newsgroup">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <Button fx:id="userFiles" layoutX="755.0" layoutY="161.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="165.0" text="Manage My Files" />
+        <Button fx:id="forum" layoutX="41.0" layoutY="239.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Go to forum" />
+        <Button fx:id="chat" layoutX="41.0" layoutY="346.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="238.0" text="Initiate chat with a participant" />
+        <Button fx:id="groupChat" layoutX="41.0" layoutY="442.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="230.0" text="Start a group chat" />
+        <Button fx:id="seeUsers" layoutX="755.0" layoutY="257.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="165.0" text="See Participants" />
+        <Button fx:id="updateProfile" layoutX="762.0" layoutY="346.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Update my profile" />
+        <Button fx:id="logout" layoutX="804.0" layoutY="97.0" mnemonicParsing="false" text="Logout" />
+        <Label fx:id="type" layoutX="43.0" layoutY="128.0" prefHeight="56.0" prefWidth="135.0" text="(Admin/Participant)" />
+    </children>
+</AnchorPane>
+
