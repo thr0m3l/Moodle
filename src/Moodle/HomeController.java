@@ -12,4 +12,9 @@ public class HomeController {
     public Button chat,groupChat,seeUsers;
     public Button updateProfile,logout;
 
+
+    void tryingOutNewShit(){
+        
+    }
 }
+
