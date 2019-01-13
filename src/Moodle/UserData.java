@@ -1,21 +1,20 @@
 package Moodle;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Iterator;
+import java.util.Collections;
 
 public class UserData {
     private static UserData userData = new UserData();
-    private static String fileName = new String("userCredentials.txt");
+    private static String fileName = new String("userCredentials.dat");
 
-    private ObservableList<User> users;
+    private ObservableList<User> users = FXCollections.observableArrayList();
 
     public static UserData getUserData() {
         return userData;
@@ -41,44 +40,32 @@ public class UserData {
         this.users = users;
     }
     public void loadUserData() throws IOException {
-        //Debug Code
-//        System.out.println("Inside loadUserData()");
-        users = FXCollections.observableArrayList();
-        Path path = Paths.get(fileName);
-        BufferedReader br = Files.newBufferedReader(path);
-        String input;
-        try{
-            while((input = br.readLine())!=null){
-                String[] itemPieces = input.split(",");
-                String userName = itemPieces[0];
-                String password = itemPieces[1];
-
-                users.add(new User(userName, password));
+        Path locPath = FileSystems.getDefault().getPath(fileName);
+        try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(locPath)))) {
+            boolean eof = false;
+            while(!eof) {
+                try {
+                    User user = (User) locFile.readObject();
+                    users.add(user);
+                } catch(EOFException e) {
+                    eof = true;
+                }
             }
-        } finally {
-            if(br!=null){
-                br.close();
-            }
+        } catch(InvalidClassException e) {
+            System.out.println("InvalidClassException " + e.getMessage());
+        } catch(IOException e) {
+            System.out.println("IOException " + e.getMessage());
+        } catch(ClassNotFoundException e) {
+            System.out.println("ClassNotFoundException " + e.getMessage());
         }
     }
     public void saveUserData () throws IOException{
-        Path path = Paths.get(fileName);
-        BufferedWriter bw = Files.newBufferedWriter(path);
-        try{
-            Iterator<User> iter = users.iterator();
-            while(iter.hasNext()){
-                User item = iter.next();
-                bw.write(String.format("%s,%s",item.getUserName(), item.getPassword()));
-                bw.newLine();
-            }
-        }
-        finally {
-            if(bw!=null){
-                bw.close();
+        Path locPath = FileSystems.getDefault().getPath(fileName);
+        try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(locPath)))) {
+            for(User user : users) {
+                locFile.writeObject(user);
             }
         }
     }
-    public void habijabi(){
-        System.out.println("Hello");
-    }
+
 }

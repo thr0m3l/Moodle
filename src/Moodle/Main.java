@@ -26,8 +26,22 @@ public class Main extends Application {
         controller.setMain(this);
 
         // Set the primary stage
-        stage.setTitle("Hello World");
-        stage.setScene(new Scene(root, 400, 250));
+        stage.setTitle("Login");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
+    }
+    public void showSignUpPage () throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("Registration.fxml"));
+        Parent root = loader.load();
+
+        // Loading the controller and aro onek kisu
+        RegistrationController controller = loader.getController();
+        controller.setMain(this);
+
+        // Set the primary stage
+        stage.setTitle("Sign Up");
+        stage.setScene(new Scene(root, 1280, 720));
         stage.show();
     }
 
@@ -36,7 +50,19 @@ public class Main extends Application {
     }
 
     public void showHomePage (User user) throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("HomePage.fxml"));
+        Parent root = loader.load();
 
+        // Loading the controller
+        HomeController controller = loader.getController();
+        //controller.init(userName);
+        controller.setMain(this);
+
+        // Set the primary stage
+        stage.setTitle("Moodle HomePage");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
     }
     @Override
     public void init() throws Exception {

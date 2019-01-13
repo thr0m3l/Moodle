@@ -1,25 +1,55 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<AnchorPane fx:id = "loginAnchorPane"
-        prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.LoginController">
-    <children>
-        <Label layoutX="74.0" layoutY="63.0" text="Username" />
-        <Label layoutX="74.0" layoutY="125.0" text="Password" />
-        <TextField fx:id="userText" layoutX="169.0" layoutY="58.0" />
-        <PasswordField fx:id="passwordText" layoutX="169.0" layoutY="120.0" />
-        <ButtonBar layoutX="137.0" layoutY="193.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetAction" text="Reset" />
-                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginAction" text="Login" />
-            </buttons>
-        </ButtonBar>
-    </children>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #112f60;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.LoginController">
+   <children>
+      <Label alignment="CENTER" layoutX="432.0" layoutY="100.0" text="Welcome to Moodle!" textAlignment="CENTER" textFill="#792424">
+         <font>
+            <Font name="Calibri Bold" size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="signUpButton" onAction="#signUp" layoutX="1122.0" layoutY="104.0" mnemonicParsing="false" style="-fx-background-color: #051a3d;" text="Sign Up" textFill="#e83535" textOverrun="CLIP">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Label layoutX="976.0" layoutY="109.0" text="Not a Member?" textFill="#daced3">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userText" layoutX="414.0" layoutY="257.0" prefHeight="51.0" prefWidth="448.0" promptText="Username" style="-fx-background-color: #051a3d;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordText" layoutX="414.0" layoutY="326.0" prefHeight="51.0" prefWidth="448.0" promptText="Password" style="-fx-background-color: #051a3d;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </PasswordField>
+      <CheckBox layoutX="414.0" layoutY="417.0" mnemonicParsing="false" text="Remember Me" textFill="#f2eeee">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="loginButton" layoutX="771.0" layoutY="401.0" mnemonicParsing="false" onAction="#loginAction" style="-fx-background-color: #051a3d;" text="Login" textFill="#d02020">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="forgotButton" layoutX="528.0" layoutY="622.0" mnemonicParsing="false" onAction="#forgotPassword" style="-fx-background-color: #051a3d;" text="Forgot password?" textFill="#cd1616">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>

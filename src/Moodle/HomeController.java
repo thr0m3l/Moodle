@@ -1,21 +1,15 @@
-
 package Moodle;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-
-
 public class HomeController {
-    @FXML
-    public Label pageTitle,type;
-    public Button userFiles,forum;
-    public Button chat,groupChat,seeUsers;
-    public Button updateProfile,logout;
 
+    private Main main;
 
-    void tryingOutNewShit(){
-        
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }
 

@@ -16,7 +16,7 @@ public class LoginController {
     private Main main;
 
     @FXML
-    private TextField userText; ///emnei comment
+    private TextField userText;
 
     @FXML
     private PasswordField passwordText;
@@ -26,6 +26,8 @@ public class LoginController {
 
     @FXML
     private Button loginButton;
+    @FXML
+    private Button signUpButton;
 
     @FXML
     private AnchorPane loginAnchorPane;
@@ -39,10 +41,12 @@ public class LoginController {
         boolean success = false;
         while(iter.hasNext()){
             User temp = iter.next();
-            if(temp.userName.equals(userText.getText()) && temp.password.equals(passwordText.getText())){
-
+            if(temp.getUserName().equals(userText.getText()) && temp.getPassword().equals(passwordText.getText())){
                 main.showHomePage(temp);
                 success = true;
+
+                //debug
+                System.out.println(userObservableList);
             }
         }
             // failed login
@@ -65,31 +69,18 @@ public class LoginController {
         this.main = main;
     }
 
-    void showSignUpDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(loginAnchorPane.getScene().getWindow());
-        dialog.setTitle("Sign up");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
+    public Main getMain() {
+        return main;
+    }
 
-        try{
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-        } catch(IOException e){
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-            return;
-        }
+    @FXML
+    void signUp() throws Exception{
+        main.showSignUpPage();
+//        System.out.println("Sign up");
+    }
+    @FXML
+    public void forgotPassword(){
 
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        if(result.isPresent() && result.get()== ButtonType.OK) {
-//            DialogController controller = fxmlLoader.getController();
-//            TodoItem newItem = controller.processResults();
-////            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
-//            todoListView.getSelectionModel().select(newItem);
-        }
     }
 }
 
