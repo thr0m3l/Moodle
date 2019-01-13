@@ -40,14 +40,29 @@ public class RegistrationController {
     public void initialize(){ }
     @FXML
     public void signUpComplete() throws Exception {
+        boolean success = true;
         RadioButton selectedRadioButton = (RadioButton) SF.getSelectedToggle();
         String toogleGroupValue = selectedRadioButton.getText();
-        User user = new User(userName.getText(),password.getText(),fullName.getText(),eMail.getText(),toogleGroupValue);
-        System.out.println(user);
-        UserData.getUserData().getUsers().add(user);
-        UserData.getUserData().saveUserData();
-        System.out.println("Successful");
-        main.showHomePage(user);
+        if(!password.getText().equals(password1.getText()) || password.getText().length() <8){
+            success = false;
+        }
+        if(!success) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect Credentials");
+            alert.setHeaderText("Incorrect Credentials");
+            alert.setContentText("Please make sure that both passwords match and the password is at least 8 digits long");
+            alert.showAndWait();
+        }
+        else {
+            User user = new User(userName.getText(), password.getText(), fullName.getText(), eMail.getText(), toogleGroupValue);
+            System.out.println(user);
+            UserData.getUserData().getUsers().add(user);
+            UserData.getUserData().saveUserData();
+            System.out.println("Successful");
+            main.showHomePage(user);
+        }
+
+
     }
     @FXML
     public void returnToLogin() throws Exception{

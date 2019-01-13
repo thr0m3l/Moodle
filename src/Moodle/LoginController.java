@@ -44,12 +44,9 @@ public class LoginController {
             if(temp.getUserName().equals(userText.getText()) && temp.getPassword().equals(passwordText.getText())){
                 main.showHomePage(temp);
                 success = true;
-
-                //debug
-                System.out.println(userObservableList);
             }
         }
-            // failed login
+
             if(!success) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Incorrect Credentials");

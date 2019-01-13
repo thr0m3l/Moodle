@@ -41,11 +41,11 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="fullName" layoutX="402.0" layoutY="199.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d;" />
-      <TextField fx:id="userName" layoutX="402.0" layoutY="243.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d;" />
-      <TextField fx:id="eMail" layoutX="402.0" layoutY="287.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d;" />
-      <PasswordField fx:id="password" layoutX="402.0" layoutY="332.0" prefHeight="31.0" prefWidth="610.0" promptText="Password length should at least be eight digits" style="-fx-background-color: #051a3d;" />
-      <PasswordField fx:id="password1" layoutX="402.0" layoutY="376.0" prefHeight="31.0" prefWidth="610.0" promptText="Type the password again" style="-fx-background-color: #051a3d;" />
+      <TextField fx:id="fullName" layoutX="402.0" layoutY="199.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d; -fx-text-inner-color: #e6e9ef;" />
+      <TextField fx:id="userName" layoutX="402.0" layoutY="243.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d; -fx-text-inner-color: #e6e9ef;" />
+      <TextField fx:id="eMail" layoutX="402.0" layoutY="287.0" prefHeight="31.0" prefWidth="610.0" style="-fx-background-color: #051a3d; -fx-text-inner-color: #e6e9ef;" />
+      <PasswordField fx:id="password" layoutX="402.0" layoutY="332.0" prefHeight="31.0" prefWidth="610.0" promptText="Password length should at least be eight digits" style="-fx-background-color: #051a3d; -fx-text-inner-color: #e6e9ef;" />
+      <PasswordField fx:id="password1" layoutX="402.0" layoutY="376.0" prefHeight="31.0" prefWidth="610.0" promptText="Type the password again" style="-fx-background-color: #051a3d; -fx-text-inner-color: #e6e9ef;" />
       <RadioButton fx:id="faculty" layoutX="402.0" layoutY="458.0" mnemonicParsing="false" text="Faculty" textFill="#e0cbcb">
          <font>
             <Font size="24.0" />
