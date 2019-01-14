@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="496.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.PostingNoticeController">
+   <children>
+      <Label layoutX="68.0" layoutY="36.0" prefHeight="33.0" prefWidth="141.0" text="Write Here:" />
+      <TextField fx:id="TakeNotice" layoutX="68.0" layoutY="92.0" prefHeight="275.0" prefWidth="489.0" />
+      <Button fx:id="Post_to_Forum" layoutX="238.0" layoutY="396.0" mnemonicParsing="false" onAction="#PostToForumAction" prefHeight="32.0" prefWidth="150.0" text="Post to forum" />
+      <Button fx:id="Back" layoutX="222.0" layoutY="441.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="180.0" text="Back to Home Page" />
+   </children>
+</AnchorPane>

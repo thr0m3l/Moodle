@@ -26,7 +26,7 @@ public class Main extends Application {
 
         // Set the primary stage
         stage.setTitle("Login");
-        stage.setScene(new Scene(root, 1280, 720));
+        stage.setScene(new Scene(root, 1200, 700));
         stage.show();
     }
     public void showSignUpPage () throws Exception{
@@ -40,6 +40,20 @@ public class Main extends Application {
         // Set the primary stage
         stage.setTitle("Sign Up");
         stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
+    }
+
+    public void showPostNotice () throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("PostingNotice.fxml"));
+        Parent root = loader.load();
+
+        PostingNoticeController controller = loader.getController();
+        controller.setMain(this);
+
+        // Set the primary stage
+        stage.setTitle("Edit post");
+        stage.setScene(new Scene(root, 600, 700));
         stage.show();
     }
 
@@ -59,9 +73,11 @@ public class Main extends Application {
 
         // Set the primary stage
         stage.setTitle("Moodle HomePage");
-        stage.setScene(new Scene(root, 1280, 720));
+        stage.setScene(new Scene(root, 1070, 650));
         stage.show();
     }
+
+
     @Override
     public void init() throws Exception {
         try{
