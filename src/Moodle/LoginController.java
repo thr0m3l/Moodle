@@ -1,7 +1,6 @@
 package Moodle;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -73,11 +72,15 @@ public class LoginController {
     @FXML
     void signUp() throws Exception{
         main.showSignUpPage();
-//        System.out.println("Sign up");
     }
     @FXML
     public void forgotPassword(){
 
+    }
+    @FXML
+    public void initialize(){
+        userText.setText("r0m3l");
+        passwordText.setText("T4nz1mH05541nR0m3l");
     }
 }
 

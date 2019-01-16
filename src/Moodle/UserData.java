@@ -3,16 +3,25 @@ package Moodle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import java.util.Collections;
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 
 public class UserData {
     private static UserData userData = new UserData();
     private static String fileName = new String("userCredentials.dat");
+
+    private User lastUser;
+
+    public User getLastUser() {
+        return lastUser;
+    }
+
+    public void setLastUser(User lastUser) {
+        this.lastUser = lastUser;
+    }
 
     private ObservableList<User> users = FXCollections.observableArrayList();
 
@@ -60,11 +69,16 @@ public class UserData {
         }
     }
     public void saveUserData () throws IOException{
+        UserData.getUserData().getUsers().add(new User("r0m3l","1705069",
+                "Tanzim Hossain Romel", "romel.rcs@gmail.com","Student"));
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(locPath)))) {
             for(User user : users) {
                 locFile.writeObject(user);
             }
+
+        } catch (IOException e){
+            System.out.println("Unable to save UserData" + " " + e.getMessage());
         }
     }
 

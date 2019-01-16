@@ -1,7 +1,11 @@
 package Moodle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class User implements Serializable {
 
@@ -11,6 +15,8 @@ public class User implements Serializable {
     private String eMail;
     private String userType;
 
+    //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
+    private ArrayList<Course> courseArrayList = new ArrayList<>();
     private long serialVersionUID = 1L;
 
     public String getUserName() {
