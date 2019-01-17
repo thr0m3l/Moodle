@@ -45,20 +45,17 @@ public class HomeController {
         this.currentUser = currentUser;
     }
 
-    public HomeController(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
     public void initialize(){
 //        userNameLabel.setText(currentUser.getFullName());
+       System.out.println(currentUser);
         courseObservableList.add(
                 new Course(new User("abc","123","ABC","abc","Faculty")
                         ,"101","EEE","Introduction to Electrical Engineering"));
         courseObservableList.add(
                 new Course(new User("abc","123","ABC","abc","Faculty")
                         ,"101","CSE", "Structured Programming Language"));
-
-        courseListView.getStylesheets().add(getClass().getResource("Style1.css").toExternalForm());
+//        courseListView = new ListView<Course>();
+        System.out.println(courseObservableList);
         courseListView.setItems(courseObservableList);
         courseListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         courseListView.getSelectionModel().selectFirst();

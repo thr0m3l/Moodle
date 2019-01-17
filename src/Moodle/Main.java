@@ -87,6 +87,8 @@ public class Main extends Application {
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
+
+        System.out.println(UserData.getUserData().getUsers());
     }
     @Override
     public void stop() throws Exception {
