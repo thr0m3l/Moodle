@@ -1,5 +1,6 @@
 package Moodle;
 
+//This is a singleton class used to save user data on file
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,8 +70,6 @@ public class UserData {
         }
     }
     public void saveUserData () throws IOException{
-        UserData.getUserData().getUsers().add(new User("r0m3l","1705069",
-                "Tanzim Hossain Romel", "romel.rcs@gmail.com","Student"));
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(locPath)))) {
             for(User user : users) {

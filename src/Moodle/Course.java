@@ -4,17 +4,44 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Course {
-    private ObservableList<User> faculty = FXCollections.observableArrayList();
-    private ObservableList<User> student = FXCollections.observableArrayList();
-    private ObservableList<Post> posts = FXCollections.observableArrayList();
-    private String number = new String();
-    private String title = new String();
+public class Course implements Serializable{
+    private ArrayList<User> faculty = new ArrayList<>();
+    private ArrayList<User> student = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
+    private String number;
+    private String title;
     private String description;
+
+    private long serialVersionUID = 2L;
 
     public String getDescription() {
         return description;
+    }
+
+    public ArrayList<User> getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(ArrayList<User> faculty) {
+        this.faculty = faculty;
+    }
+
+    public ArrayList<User> getStudent() {
+        return student;
+    }
+
+    public void setStudent(ArrayList<User> student) {
+        this.student = student;
+    }
+
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
     }
 
     public void setDescription(String description) {
@@ -31,29 +58,7 @@ public class Course {
         this.hidden = hidden;
     }
 
-    public ObservableList<User> getFaculty() {
-        return faculty;
-    }
 
-    public void setFaculty(ObservableList<User> faculty) {
-        this.faculty = faculty;
-    }
-
-    public ObservableList<User> getStudent() {
-        return student;
-    }
-
-    public void setStudent(ObservableList<User> student) {
-        this.student = student;
-    }
-
-    public ObservableList<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ObservableList<Post> posts) {
-        this.posts = posts;
-    }
 
     public String getNumber() {
         return number;

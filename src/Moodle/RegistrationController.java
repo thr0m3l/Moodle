@@ -46,6 +46,15 @@ public class RegistrationController {
         if(!password.getText().equals(password1.getText()) || password.getText().length() <8){
             success = false;
         }
+        for(User user : UserData.getUserData().getUsers()){
+            if(userName.getText() == user.getUserName()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Username already exists");
+                alert.setHeaderText("The username you is already registered");
+                alert.setContentText("Please try another username");
+                alert.showAndWait();
+            }
+        }
         if(!success) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect Credentials");
