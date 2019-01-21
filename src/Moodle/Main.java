@@ -1,10 +1,13 @@
 package Moodle;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -131,5 +134,17 @@ public class Main extends Application {
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
+    }
+    public void showChatScreen() throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/LoginView.fxml"));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Socket Chat : Client version 0.3");
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
+        Scene mainScene = new Scene(root, 350, 420);
+        mainScene.setRoot(root);
+        stage.setResizable(false);
+        stage.setScene(mainScene);
+        stage.show();
+        stage.setOnCloseRequest(e -> Platform.exit());
     }
 }

@@ -15,6 +15,8 @@ public class User implements Serializable, Comparable<User> {
     private String fullName;
     private String eMail;
     private String userType;
+    private Status status;
+    private String picture;
 
     //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private ArrayList<Course> courseArrayList = new ArrayList<>();
@@ -87,7 +89,21 @@ public class User implements Serializable, Comparable<User> {
         this.password="";
     }
 
+    public Status getStatus() {
+        return status;
+    }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     @Override
     public String toString() {
