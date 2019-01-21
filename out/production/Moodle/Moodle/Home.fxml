@@ -110,6 +110,8 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
+            <Button fx:id="PostBtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#PostBtnAction" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: #05071F;" text="Post to Forum" textFill="WHITE" />
+            <Button fx:id="SiteNews" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#SiteNewsAction" prefHeight="31.0" prefWidth="148.0" style="-fx-background-color: #05071F;" text="Site News" textFill="WHITE" />
             <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#logOut" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Sign Out">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -160,7 +162,7 @@
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="addCourseButton" onAction="#showNewCourseDialog" layoutX="1067.0" layoutY="49.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: #05071F #05071F;" text="Add a Course" textFill="#f5e8e8" />
+      <Button fx:id="addCourseButton" layoutX="1067.0" layoutY="49.0" mnemonicParsing="false" onAction="#showNewCourseDialog" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: #05071F #05071F;" text="Add a Course" textFill="#f5e8e8" />
    </children>
    <effect>
       <DropShadow color="#1b1eeb" />

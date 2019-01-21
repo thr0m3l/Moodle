@@ -1,40 +1,62 @@
 package Moodle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.*;
+
 import java.io.IOException;
+import java.text.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javafx.collections.ObservableList;
+import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
 
 public class PostingNoticeController {
+    public ArrayList<SiteNews>news=new ArrayList<>();
     private Main main;
+    private final String filename="SiteNews.data";
+    private User currentUser;
     @FXML
     private Button Post_to_Forum;
     @FXML
-    private TextField TakeNotice;
+    private TextArea TakeDetail;
     @FXML
     private Button Back;
-    @FXML
-    void PostToForumAction()throws Exception{
-        String filename="ForumNotices.txt";
-        String Notice=TakeNotice.getText();
-        //File file=new File(filename);
-        try{
-            FileOutputStream fos=new FileOutputStream(filename);
-            fos.write(Notice.getBytes());
-            fos.flush();
-            fos.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+    private int idx=0;
+
+
 
     @FXML
-    void ButtonBackAction()throws Exception{
-        //main.showHomePage();
+    void PostToForumAction()throws Exception{
+        TakeDetail.setWrapText(true);
+        String detail=TakeDetail.getText();
+
+        DateFormat dtf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date=new Date();
+        String time=dtf.format(date);
+
+        String name=currentUser.getFullName();
+        SiteNews siteNews=new SiteNews(name,time,detail);
+        SiteNewsData.getSiteNewsData().getSiteNews().add(siteNews);
+        SiteNewsData.getSiteNewsData().saveSiteNewsData();
+        main.showHomePage(currentUser);
     }
+
+
+    @FXML
+    void Action()throws Exception{
+        main.showHomePage(currentUser);
+    }
+
+
 
 
     public Main getMain() {
@@ -43,5 +65,9 @@ public class PostingNoticeController {
 
     public void setMain(Main main) {
         this.main = main;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

@@ -79,6 +79,37 @@ public class Main extends Application {
         stage.show();
     }
 
+    public void showSiteNews(User user)throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("SiteNews.fxml"));
+        Parent root = loader.load();
+        // Loading the controller
+        SiteNewsController controller = loader.getController();
+        controller.setCurrentUser(user);
+        controller.setMain(this);
+
+        // Set the primary stage
+        stage.setTitle("Site News");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
+    }
+
+    public void showPostingNotice (User user) throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("PostingNotice.fxml"));
+        Parent root = loader.load();
+        // Loading the controller
+        PostingNoticeController controller = loader.getController();
+        controller.setCurrentUser(user);
+        //controller.init(userName);
+        controller.setMain(this);
+
+        // Set the primary stage
+        stage.setTitle("Post Page");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
+    }
+
 
     @Override
     public void init() throws Exception {
