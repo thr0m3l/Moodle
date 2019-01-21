@@ -2,33 +2,27 @@
 
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Moodle.newCourseDialogController">
+<DialogPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.newCourseDialogController">
     <headerText>
         Add Courses
     </headerText>
-    <content>
-        <GridPane hgap="10" prefHeight="361.0" prefWidth="696.0" vgap="10">
-            <Label text="Course" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="courseNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <TextField fx:id="courseTitleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea fx:id="detailsArea" WrapText="true" prefHeight="219.0" prefWidth="598.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Deadline:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" />
-         </rowConstraints>
-        </GridPane>
-    </content>
+   <header>
+      <AnchorPane prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <Label layoutX="76.0" layoutY="79.0" text="Course Title: " />
+            <TextField fx:id="courseTitleTextField" layoutX="251.0" layoutY="74.0" prefHeight="31.0" prefWidth="856.0" />
+            <Label layoutX="76.0" layoutY="126.0" text="Course Number: " />
+            <TextField fx:id="courseNumberTextField" layoutX="251.0" layoutY="121.0" prefHeight="31.0" prefWidth="200.0" />
+            <Label layoutX="76.0" layoutY="176.0" text="Description:" />
+            <TextField fx:id="courseDescriptionTextField" layoutX="251.0" layoutY="171.0" prefHeight="134.0" prefWidth="857.0" />
+            <Label layoutX="76.0" layoutY="318.0" text="Add Faculties:" />
+            <Label layoutX="76.0" layoutY="398.0" text="Add Students:" />
+            <TextField fx:id="addFaculties" layoutX="252.0" layoutY="313.0" prefHeight="31.0" prefWidth="856.0" promptText="Write faculty usernames seperated by ; (Semi-colon)" />
+            <TextField fx:id="addStudents" layoutX="252.0" layoutY="393.0" prefHeight="31.0" prefWidth="856.0" promptText="Write student usernames seperated by ; (Semi-colon)" />
+         </children>
+      </AnchorPane>
+   </header>
 </DialogPane>

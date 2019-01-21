@@ -27,7 +27,7 @@ public class Main extends Application {
 
         // Set the primary stage
         stage.setTitle("Login");
-        stage.setScene(new Scene(root, 1200, 700));
+        stage.setScene(new Scene(root, 1280, 720));
         stage.show();
     }
     public void showSignUpPage () throws Exception{
@@ -84,16 +84,19 @@ public class Main extends Application {
     public void init() throws Exception {
         try{
             UserData.getUserData().loadUserData();
+            CourseData.getCourseData().loadCourseData();
+            System.out.println(CourseData.getCourseData().getCourseObservableList());
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
 
-        System.out.println(UserData.getUserData().getUsers());
+
     }
     @Override
     public void stop() throws Exception {
         try{
             UserData.getUserData().saveUserData();
+            CourseData.getCourseData().saveUserData();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }

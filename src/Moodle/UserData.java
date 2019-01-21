@@ -16,14 +16,6 @@ public class UserData {
 
     private User lastUser;
 
-    public User getLastUser() {
-        return lastUser;
-    }
-
-    public void setLastUser(User lastUser) {
-        this.lastUser = lastUser;
-    }
-
     private ObservableList<User> users = FXCollections.observableArrayList();
 
     public static UserData getUserData() {
@@ -80,5 +72,13 @@ public class UserData {
             System.out.println("Unable to save UserData" + " " + e.getMessage());
         }
     }
+    public User getLastUser() {
+        return lastUser;
+    }
+
+    public void setLastUser(User lastUser) {
+        this.lastUser = lastUser;
+    }
+
 
 }

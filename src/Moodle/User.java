@@ -6,8 +6,9 @@ import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
 
     private String userName;
     private String password;
@@ -72,6 +73,20 @@ public class User implements Serializable {
         this.eMail = eMail;
         this.userType = userType;
     }
+
+    @Override
+    public int compareTo(User user){
+      return user.getUserName().compareTo(this.userName);
+    }
+
+    public User (String userName){
+        this.userName = userName;
+        this.userType = "";
+        this.eMail="";
+        this.fullName="";
+        this.password="";
+    }
+
 
 
     @Override

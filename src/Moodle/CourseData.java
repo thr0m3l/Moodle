@@ -12,9 +12,9 @@ import java.nio.file.Path;
 
 public class CourseData{
 
-        private static Moodle.CourseData courseData = new Moodle.CourseData();
-        private static String fileName = new String("courseData.dat");
-        private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
+    private static Moodle.CourseData courseData = new Moodle.CourseData();
+    private static String fileName = new String("courseData.dat");
+    private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
 
     public static CourseData getCourseData() {
         return courseData;

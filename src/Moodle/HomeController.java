@@ -168,7 +168,7 @@ public class HomeController {
             addCourseButton.setVisible(true);
         }
     }
-
+    @FXML
     public void showNewCourseDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(homeAnchorPane.getScene().getWindow());
