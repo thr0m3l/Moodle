@@ -200,5 +200,15 @@ public class HomeController {
 
 
     }
+
+    @FXML
+    public void PostBtnAction()throws  Exception{
+        main.showPostingNotice(currentUser);
+    }
+    @FXML
+    public void SiteNewsAction()throws Exception{
+        main.showSiteNews(currentUser);
+
+    }
 }
 

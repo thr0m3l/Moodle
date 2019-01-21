@@ -81,6 +81,7 @@ public class LoginController {
     public void initialize(){
         userText.setText("abcd");
         passwordText.setText("12345678");
+
     }
 }
 
