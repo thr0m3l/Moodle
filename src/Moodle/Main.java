@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Client.Client;
+import Moodle.Client.ClientThread;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
 public class Main extends Application {
     Stage stage;
@@ -19,7 +24,7 @@ public class Main extends Application {
     }
     public void showLoginPage () throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Login.fxml"));
+        loader.setLocation(getClass().getResource("FXML/Login.fxml"));
         Parent root = loader.load();
 
         LoginController controller = loader.getController();
@@ -32,7 +37,7 @@ public class Main extends Application {
     }
     public void showSignUpPage () throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Registration.fxml"));
+        loader.setLocation(getClass().getResource("FXML/Registration.fxml"));
         Parent root = loader.load();
 
         RegistrationController controller = loader.getController();
@@ -51,7 +56,7 @@ public class Main extends Application {
 
     public void showHomePage (User user) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Home.fxml"));
+        loader.setLocation(getClass().getResource("FXML/Home.fxml"));
         Parent root = loader.load();
         // Loading the controller
         HomeController controller = loader.getController();
@@ -66,7 +71,7 @@ public class Main extends Application {
     }
     public void showCoursePage (User user, Course course) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("CoursePage.fxml"));
+        loader.setLocation(getClass().getResource("FXML/CoursePage.fxml"));
         Parent root = loader.load();
         // Loading the controller
         CourseController controller = loader.getController();
@@ -81,7 +86,7 @@ public class Main extends Application {
 
     public void showSiteNews(User user)throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SiteNews.fxml"));
+        loader.setLocation(getClass().getResource("FXML/SiteNews.fxml"));
         Parent root = loader.load();
         // Loading the controller
         SiteNewsController controller = loader.getController();
@@ -96,7 +101,7 @@ public class Main extends Application {
 
     public void showPostingNotice (User user) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("PostingNotice.fxml"));
+        loader.setLocation(getClass().getResource("FXML/PostingNotice.fxml"));
         Parent root = loader.load();
         // Loading the controller
         PostingNoticeController controller = loader.getController();
@@ -117,6 +122,11 @@ public class Main extends Application {
             UserData.getUserData().loadUserData();
             CourseData.getCourseData().loadCourseData();
             System.out.println(CourseData.getCourseData().getCourseObservableList());
+
+            Client dataClient = new Client();
+            Thread data_Client = new Thread(dataClient);
+            data_Client.start();
+
         }catch(IOException e){
             System.out.println(e.getMessage());
         }

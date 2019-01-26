@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+enum Status {
+    OFFLINE, ONLINE;
+}
+
 public class User implements Serializable, Comparable<User> {
 
     private String userName;
@@ -15,9 +19,15 @@ public class User implements Serializable, Comparable<User> {
     private String fullName;
     private String eMail;
     private String userType;
+    //Added for networking
+
+    private String profilePicture;
+    private Status status = Status.OFFLINE;
 
     //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private ArrayList<Course> courseArrayList = new ArrayList<>();
+
+    //must for saving the file as object
     private long serialVersionUID = 1L;
 
     public String getUserName() {
