@@ -1,7 +1,5 @@
 package Moodle;
 
-import Moodle.Client.Client;
-import Moodle.Client.ClientThread;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,12 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 
 public class Main extends Application {
     Stage stage;
+    private javafx.stage.Screen Screen;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,20 +20,38 @@ public class Main extends Application {
     }
     public void showLoginPage () throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/Login.fxml"));
+        loader.setLocation(getClass().getResource("Login.fxml"));
         Parent root = loader.load();
 
+        /*int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+
+        root.setStyle("-fx-background-color:rgb(186,153,122); -fx-background-radius:30;");
+        int sceneWidth = 0;
+        int sceneHeight = 0;
+        if (screenWidth <= 800 && screenHeight <= 600) {
+            sceneWidth = 600;
+            sceneHeight = 350;
+        } else if (screenWidth <= 1280 && screenHeight <= 768) {
+            sceneWidth = 800;
+            sceneHeight = 450;
+        } else if (screenWidth <= 1920 && screenHeight <= 1080) {
+            sceneWidth = 1000;
+            sceneHeight = 650;
+        }*/
+
+
+        Scene scene=new Scene(root,1200,700);
         LoginController controller = loader.getController();
         controller.setMain(this);
-
         // Set the primary stage
         stage.setTitle("Login");
-        stage.setScene(new Scene(root, 1280, 720));
+        stage.setScene(scene);
         stage.show();
     }
     public void showSignUpPage () throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/Registration.fxml"));
+        loader.setLocation(getClass().getResource("Registration.fxml"));
         Parent root = loader.load();
 
         RegistrationController controller = loader.getController();
@@ -56,7 +70,7 @@ public class Main extends Application {
 
     public void showHomePage (User user) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/Home.fxml"));
+        loader.setLocation(getClass().getResource("Home.fxml"));
         Parent root = loader.load();
         // Loading the controller
         HomeController controller = loader.getController();
@@ -71,7 +85,7 @@ public class Main extends Application {
     }
     public void showCoursePage (User user, Course course) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/CoursePage.fxml"));
+        loader.setLocation(getClass().getResource("CoursePage.fxml"));
         Parent root = loader.load();
         // Loading the controller
         CourseController controller = loader.getController();
@@ -86,7 +100,7 @@ public class Main extends Application {
 
     public void showSiteNews(User user)throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/SiteNews.fxml"));
+        loader.setLocation(getClass().getResource("SiteNews.fxml"));
         Parent root = loader.load();
         // Loading the controller
         SiteNewsController controller = loader.getController();
@@ -101,7 +115,7 @@ public class Main extends Application {
 
     public void showPostingNotice (User user) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/PostingNotice.fxml"));
+        loader.setLocation(getClass().getResource("PostingNotice.fxml"));
         Parent root = loader.load();
         // Loading the controller
         PostingNoticeController controller = loader.getController();
@@ -120,24 +134,16 @@ public class Main extends Application {
     public void init() throws Exception {
         try{
             UserData.getUserData().loadUserData();
-            CourseData.getCourseData().loadCourseData();
-            System.out.println(CourseData.getCourseData().getCourseObservableList());
-
-            Client dataClient = new Client();
-            Thread data_Client = new Thread(dataClient);
-            data_Client.start();
-
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
 
-
+        System.out.println(UserData.getUserData().getUsers());
     }
     @Override
     public void stop() throws Exception {
         try{
             UserData.getUserData().saveUserData();
-            CourseData.getCourseData().saveUserData();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }

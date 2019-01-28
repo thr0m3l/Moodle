@@ -2,14 +2,11 @@ package Moodle;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.Optional;
 
 public class LoginController {
     private Main main;
@@ -79,9 +76,8 @@ public class LoginController {
     }
     @FXML
     public void initialize(){
-        userText.setText("abcd");
-        passwordText.setText("12345678");
-
+        userText.setText("saadman");
+        passwordText.setText("11711109");
     }
 }
 

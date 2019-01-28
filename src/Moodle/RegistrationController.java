@@ -2,8 +2,6 @@ package Moodle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.io.IOException;
-
 public class RegistrationController {
     private Main main;
     @FXML

@@ -1,33 +1,23 @@
 package Moodle;
 
+import Moodle.Course;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
-enum Status {
-    OFFLINE, ONLINE;
-}
-
-public class User implements Serializable, Comparable<User> {
+public class User implements Serializable {
 
     private String userName;
     private String password;
     private String fullName;
     private String eMail;
     private String userType;
-    //Added for networking
-
-    private String profilePicture;
-    private Status status = Status.OFFLINE;
 
     //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private ArrayList<Course> courseArrayList = new ArrayList<>();
-
-    //must for saving the file as object
     private long serialVersionUID = 1L;
 
     public String getUserName() {
@@ -83,20 +73,6 @@ public class User implements Serializable, Comparable<User> {
         this.eMail = eMail;
         this.userType = userType;
     }
-
-    @Override
-    public int compareTo(User user){
-      return user.getUserName().compareTo(this.userName);
-    }
-
-    public User (String userName){
-        this.userName = userName;
-        this.userType = "";
-        this.eMail="";
-        this.fullName="";
-        this.password="";
-    }
-
 
 
     @Override

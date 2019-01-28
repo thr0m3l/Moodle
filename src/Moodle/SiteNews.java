@@ -9,11 +9,13 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
+import java.util.Vector;
 
 public class SiteNews implements Serializable {
     private String user;
     private String date;
     private String details;
+    private static Vector<String> vec=new Vector<String>();
 
     public void setUser(String user) {
         this.user = user;
@@ -48,5 +50,17 @@ public class SiteNews implements Serializable {
     @Override
     public String toString() {
         return details+"\n\n"+"Posted by: "+user+"\n"+"Last Modified at: "+date+"\n\n\n";
+    }
+
+    public static void setPosts(String s){
+        vec.add(s);
+    }
+
+    public static String showPosts(int idx){
+        return vec.elementAt(idx);
+    }
+
+    public static int getNumber(){
+        return vec.size();
     }
 }

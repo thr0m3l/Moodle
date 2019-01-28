@@ -16,8 +16,6 @@ public class Post {
         this.admin = admin;
         this.details = details;
     }
-
-
     public String getTitle() {
         return title;
     }

@@ -47,7 +47,10 @@ public class HomeController {
     private Label userNameLabel;
     @FXML
     private Button addCourseButton;
-
+    @FXML
+    private Button PostBtn;
+    @FXML
+    private Button SiteNews;
 
 
     public void initialize(){
@@ -168,7 +171,7 @@ public class HomeController {
             addCourseButton.setVisible(true);
         }
     }
-    @FXML
+
     public void showNewCourseDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(homeAnchorPane.getScene().getWindow());

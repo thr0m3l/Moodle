@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #A9A9A9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.PostingNoticeController">
+   <children>
+      <Button fx:id="Post_to_Forum" layoutX="515.0" layoutY="538.0" mnemonicParsing="false" onAction="#PostToForumAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #B0E0E6;" text="Post to forum" />
+      <Button fx:id="Back" layoutX="487.0" layoutY="582.0" mnemonicParsing="false" onAction="#Action" prefHeight="32.0" prefWidth="220.0" style="-fx-background-color: #B0E0E6;" text="Back to Home Page" />
+      <StackPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: #4B0082;">
+         <children>
+            <Label prefHeight="108.0" prefWidth="1283.0" style="-fx-background-color: #FFFFFF;" text="Post Here" />
+         </children>
+      </StackPane>
+      <TextArea fx:id="TakeDetail" layoutX="103.0" layoutY="124.0" prefHeight="394.0" prefWidth="1035.0" promptText="Write here...." style="-fx-background-color: #696969;" wrapText="true">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>

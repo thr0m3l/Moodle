@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Vector;
 
 public class SiteNewsData {
     private static SiteNewsData siteNewsData=new SiteNewsData();
@@ -22,6 +23,8 @@ public class SiteNewsData {
 
     public ObservableList<SiteNews> getSiteNews(){ return news; }
 
+
+
     public void saveSiteNewsData()throws IOException{
         //SiteNewsData.getSiteNewsData().getSiteNews().add(new SiteNews());
         Path locPath= FileSystems.getDefault().getPath(filename);
@@ -33,4 +36,6 @@ public class SiteNewsData {
             e.printStackTrace();
         }
     }
+
+
 }
