@@ -1,164 +1,105 @@
 package Moodle.Server;
+import Moodle.User;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
 
-public class Server implements Runnable
-{
-    public static int workerThreadCount = 0;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
-    private ArrayList<WorkerThread> workerThreads = new ArrayList<>();
+public class Server {
+    private static final int PORT = 8818;
+    private static final ArrayList<User> users = new ArrayList<>();
+    private static ServerSocket listener;
+    public static void main(String[] args) {
+        System.out.println("The chat server is running");
+        users.add(new User("r0m3l","1234","admin"));
+        users.add(new User("tanzim","1234","admin"));
 
-    @Override
-    public void run()
-    {
-        int id = 1;
+        try{
+            listener = new ServerSocket(PORT);
+        } catch (IOException e){
+            System.err.println("Unable to initiate server socket");
+            e.printStackTrace();
+        }
 
-        try
-        {
-            ServerSocket ss = new ServerSocket(5555);
-            System.out.println("Server has been started successfully.");
-
-            while(true)
-            {
-                Socket s = ss.accept();		//TCP Connection
-                WorkerThread wt = new WorkerThread(s, id,this);
-                workerThreads.add(wt);
-                Thread t = new Thread(wt);
-                t.start();
-                workerThreadCount++;
-                System.out.println("Client [" + id + "] is now connected. No. of worker threads = " + workerThreadCount);
-                id++;
+        try{
+            while (true){
+                Handler serverHandler = new Handler(listener.accept());
+                Thread serverThread = new Thread(serverHandler);
+                serverThread.start();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        } finally {
+            try{
+                listener.close();
+            } catch (IOException e1){
+                e1.printStackTrace();
             }
         }
-        catch(Exception e)
-        {
-            System.err.println("Problem in ServerSocket operation. Exiting main.");
-        }
     }
-}
+    private static class Handler implements Runnable {
+        private Socket socket;
+        private InputStream inputStream;
+        private OutputStream outputStream;
+        private ObjectInputStream objectInputStream;
+        private ObjectOutputStream objectOutputStream;
 
-class WorkerThread implements Runnable
-{
-    private Socket socket;
-    private InputStream is;
-    private OutputStream os;
-    private Server server;
-
-    private int id = 0;
-
-    public WorkerThread(Socket s, int id, Server server)
-    {
-        this.socket = s;
-        this.server = server;
-
-        try
-        {
-            this.is = this.socket.getInputStream();
-            this.os = this.socket.getOutputStream();
-        }
-        catch(Exception e)
-        {
-            System.err.println("Sorry. Cannot manage client [" + id + "] properly.");
+        public Handler(Socket socket) {
+            this.socket = socket;
         }
 
-        this.id = id;
-    }
+        @Override
+        public void run() {
+            System.out.println("Attempting to connect a user . . .");
+            try{
+                inputStream = socket.getInputStream();
+                outputStream = socket.getOutputStream();
+                objectOutputStream = new ObjectOutputStream(outputStream);
+                objectInputStream = new ObjectInputStream(inputStream);
 
-    public void run()
-    {
-        BufferedReader br = new BufferedReader(new InputStreamReader(this.is));
-        PrintWriter pr = new PrintWriter(this.os);
+                System.out.println("User connected!");
 
-        pr.println("Your id is: " + this.id);
-        pr.flush();
-
-        String str;
-
-        while(true)
-        {
-            try
-            {
-                if( (str = br.readLine()) != null )
-                {
-                    if(str.equals("BYE"))
-                    {
-                        System.out.println("[" + id + "] says: BYE. Worker thread will terminate now.");
-                        break; // terminate the loop; it will terminate the thread also
-                    }
-                    else if(str.equals("DL"))
-                    {
-                        try
-                        {
-                            File file = new File("capture.jpg");
-                            FileInputStream fis = new FileInputStream(file);
-                            BufferedInputStream bis = new BufferedInputStream(fis);
-                            OutputStream os = socket.getOutputStream();
-                            byte[] contents;
-                            long fileLength = file.length();
-                            pr.println(String.valueOf(fileLength));		//These two lines are used
-                            pr.flush();									//to send the file size in bytes.
-
-                            long current = 0;
-
-                            while(current!=fileLength){
-                                int size = 10000;
-                                if(fileLength - current >= size)
-                                    current += size;
-                                else{
-                                    size = (int)(fileLength - current);
-                                    current = fileLength;
-                                }
-                                contents = new byte[size];
-                                bis.read(contents, 0, size);
-                                os.write(contents);
-                                //System.out.println("Sending file ... "+(current*100)/fileLength+"% complete!");
+                while (socket.isConnected()){
+                    LMessage lMessage = null;
+                    lMessage = (LMessage) objectInputStream.readObject();
+                    if(lMessage!=null){
+                        boolean found = false;
+                        for(User user : users){
+                            if(lMessage.getUserName().equals(user.getUserName()) &&
+                                    lMessage.getPassword().equals(user.getPassword()) &&
+                                    lMessage.getUserType().equals(user.getUserType())){
+                                objectOutputStream.writeObject(new Message("Login done","server"));
+                                found = true;
                             }
-                            os.flush();
-                            System.out.println("File sent successfully!");
                         }
-                        catch(Exception e)
-                        {
-                            System.err.println("Could not transfer file.");
+                        if(!found){
+                            objectOutputStream.writeObject(new Message("Login failed","server"));
                         }
-                        pr.println("Downloaded.");
-                        pr.flush();
+                    }
 
+
+
+
+                    Message message = null;
+                    message = (Message) objectInputStream.readObject();
+
+                    if(message != null){
+                        System.out.println(message.getUser() + " : " + message.getMsg());
                     }
-                    else
-                    {
-                        System.out.println("[" + id + "] says: " + str);
-                        pr.println("Got it. You sent \"" + str + "\"");
-                        pr.flush();
-                    }
+
+
                 }
-                else
-                {
-                    System.out.println("[" + id + "] terminated connection. Worker thread will terminate now.");
-                    break;
-                }
-            }
-            catch(Exception e)
-            {
-                System.err.println("Problem in communicating with the client [" + id + "]. Terminating worker thread.");
-                break;
+            } catch (IOException e){
+                e.printStackTrace();
+            } catch (java.lang.ClassNotFoundException e1){
+                e1.printStackTrace();
             }
         }
-
-        try
-        {
-            this.is.close();
-            this.os.close();
-            this.socket.close();
-        }
-        catch(Exception e)
-        {
-
-        }
-
-        Server.workerThreadCount--;
-        System.out.println("Client [" + id + "] is now terminating. No. of worker threads = "
-                + Server.workerThreadCount);
     }
 }

@@ -6,137 +6,70 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Client implements Runnable
-{
-    private static Socket s = null;
-    private static BufferedReader br = null;
-    private static PrintWriter pr = null;
+public class Client implements Runnable{
+    private Socket socket;
+    private InputStream inputStream;
+    private OutputStream outputStream;
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
+    private String hostname;
+    private int PORT;
+
+    public Client(String hostname, int PORT) {
+        this.hostname = hostname;
+        this.PORT = PORT;
+    }
 
     @Override
-    public void run()
-    {
-        try
-        {
-            s = new Socket("localhost", 5555);
+    public void run() {
+        try{
+            socket = new Socket(hostname,PORT);
 
-            br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            pr = new PrintWriter(s.getOutputStream());
-        }
-        catch(Exception e)
-        {
-            System.err.println("Problem in connecting with the server. Exiting main.");
-            System.exit(1);
-        }
+            outputStream = socket.getOutputStream();
+            objectOutputStream = new ObjectOutputStream(outputStream);
 
-        Scanner input = new Scanner(System.in);
-        String strSend = null, strRecv = null;
+            inputStream = socket.getInputStream();
+            objectInputStream = new ObjectInputStream(inputStream);
 
-        try
-        {
-            strRecv = br.readLine();
-            if(strRecv != null)
-            {
-                System.out.println("Server says: " + strRecv);
-            }
-            else
-            {
-                System.err.println("Error in reading from the socket. Exiting main.");
-                cleanUp();
-                System.exit(0);
-            }
-        }
-        catch(Exception e)
-        {
-            System.err.println("Error in reading from the socket. Exiting main.");
-            cleanUp();
-            System.exit(0);
-        }
+//                Message msg = new Message("Hello", "r0m3l");
 
-        while(true)
-        {
-            System.out.print("Enter a string: ");
-            try
-            {
-                strSend = input.nextLine();
-            }
-            catch(Exception e)
-            {
-                continue;
-            }
+//                objectOutputStream.writeObject(msg);
+//                objectOutputStream.flush();
+            while (socket.isConnected()){
+                Message msg = null;
+                LMessage lmsg = null;
+                try{
+                    msg = (Message) objectInputStream.readObject();
 
-            pr.println(strSend);
-            pr.flush();
-            if(strSend.equals("BYE"))
-            {
-                System.out.println("Client wishes to terminate the connection. Exiting main.");
-                break;
-            }
-            if(strSend.equals("DL"))
-            {
-
-                try
-                {
-                    strRecv = br.readLine();					//These two lines are used to determine
-                    int filesize=Integer.parseInt(strRecv);		//the size of the receiving file
-                    byte[] contents = new byte[10000];
-
-                    FileOutputStream fos = new FileOutputStream("capture1.jpg");
-                    BufferedOutputStream bos = new BufferedOutputStream(fos);
-                    InputStream is = s.getInputStream();
-
-                    int bytesRead = 0;
-                    int total=0;			//how many bytes read
-
-                    while(total!=filesize)	//loop is continued until received byte=totalfilesize
-                    {
-                        bytesRead=is.read(contents);
-                        total+=bytesRead;
-                        bos.write(contents, 0, bytesRead);
+                    if(msg != null){
+                        if(msg.getUser().equals("server")){
+                            if(msg.getMsg().equals("Login done")){
+                                System.out.println("Login successful");
+                                Main.isLoggedIn = true;
+                            } else {
+                                System.err.println("Login Failed");
+                            }
+                        }
                     }
-                    bos.flush();
-                }
-                catch(Exception e)
-                {
-                    System.err.println("Could not transfer file.");
-                }
 
-            }
-            try
-            {
-                strRecv = br.readLine();
-                if(strRecv != null)
-                {
-                    System.out.println("Server says: " + strRecv);
-                }
-                else
-                {
-                    System.err.println("Error in reading from the socket. Exiting main.");
-                    break;
+                } catch (java.lang.ClassNotFoundException e){
+                    e.printStackTrace();
                 }
             }
-            catch(Exception e)
-            {
-                System.err.println("Error in reading from the socket. Exiting main.");
-                break;
-            }
 
-        }
-
-        cleanUp();
-    }
-
-    private static void cleanUp()
-    {
-        try
-        {
-            br.close();
-            pr.close();
-            s.close();
-        }
-        catch(Exception e)
-        {
-
+        } catch (IOException e){
+            System.err.println("Couldn't connect to the server");
+            e.printStackTrace();
         }
     }
-    
+
+    public  <T extends Message> void send(T message){
+        try{
+            objectOutputStream.writeObject(message);
+            objectOutputStream.flush();
+        } catch (IOException e){
+            System.err.println("Unable to send message");
+        }
+    }
 }
+
