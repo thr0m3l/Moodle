@@ -26,7 +26,7 @@ public class newCourseDialogController {
 
 
         Course newCourse = new Course(currentUser,courseNumber, courseTitle, courseDescription);
-        CourseData.getCourseData().getCourseObservableList().add(newCourse);
+        Main.getCourseData().getData().add(newCourse);
 
         return newCourse;
     }

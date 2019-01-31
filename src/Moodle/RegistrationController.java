@@ -44,7 +44,7 @@ public class RegistrationController {
         if(!password.getText().equals(password1.getText()) || password.getText().length() <8){
             success = false;
         }
-        for(User user : UserData.getUserData().getUsers()){
+        for(User user : Main.getUserData().getData()){
             if(userName.getText() == user.getUserName()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Username already exists");
@@ -63,9 +63,10 @@ public class RegistrationController {
         else {
             User user = new User(userName.getText(), password.getText(), fullName.getText(), eMail.getText(), toogleGroupValue);
             System.out.println(user);
-            UserData.getUserData().getUsers().add(user);
-            UserData.getUserData().saveUserData();
-            System.out.println("Successful");
+
+
+            Main.getUserData().getData().add(user);
+            Main.getUserData().saveData();
             main.showHomePage(user);
         }
 

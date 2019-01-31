@@ -1,24 +1,29 @@
 package Moodle.Server;
+
+
+
 import Moodle.User;
-
-import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
-
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Server {
     private static final int PORT = 8818;
     private static final ArrayList<User> users = new ArrayList<>();
+    private static final HashMap<User, ObjectOutputStream> oos = new HashMap<>();
     private static ServerSocket listener;
     public static void main(String[] args) {
         System.out.println("The chat server is running");
-        users.add(new User("r0m3l","1234","admin"));
-        users.add(new User("tanzim","1234","admin"));
+//        users.add(new User("r0m3l","1234","admin"));
+//        users.add(new User("tanzim","1234","admin"));
+//        users.add(new User("hossain","1234","user"));
+//        users.add(new User("itachi","uchiha","user"));
 
         try{
             listener = new ServerSocket(PORT);
@@ -49,6 +54,8 @@ public class Server {
         private OutputStream outputStream;
         private ObjectInputStream objectInputStream;
         private ObjectOutputStream objectOutputStream;
+        private User currentUser;
+        private User server ;
 
         public Handler(Socket socket) {
             this.socket = socket;
@@ -66,31 +73,53 @@ public class Server {
                 System.out.println("User connected!");
 
                 while (socket.isConnected()){
-                    LMessage lMessage = null;
-                    lMessage = (LMessage) objectInputStream.readObject();
-                    if(lMessage!=null){
-                        boolean found = false;
-                        for(User user : users){
-                            if(lMessage.getUserName().equals(user.getUserName()) &&
-                                    lMessage.getPassword().equals(user.getPassword()) &&
-                                    lMessage.getUserType().equals(user.getUserType())){
-                                objectOutputStream.writeObject(new Message("Login done","server"));
-                                found = true;
-                            }
-                        }
-                        if(!found){
-                            objectOutputStream.writeObject(new Message("Login failed","server"));
-                        }
-                    }
 
 
-
+                    //Message Processing
 
                     Message message = null;
-                    message = (Message) objectInputStream.readObject();
+                    try{
+                        message = (Message) objectInputStream.readObject();
+                    } catch (SocketException SE){
+                        System.err.println("User disconnected : " + currentUser.getUserName());
+                        break;
+                    }
 
                     if(message != null){
-                        System.out.println(message.getUser() + " : " + message.getMsg());
+                        String[] tokens = message.getMsg().split("#");
+                        if(tokens[0].equals("L")){
+                            LMessage lMessage = new LMessage(tokens[1],tokens[2],tokens[3]);
+                            currentUser = handleLogin(lMessage);
+                            Message msg = new Message();
+                            msg.setUser(new User("server"));
+
+                            if(currentUser != null){
+                                msg.setMsg("Login done");
+                            } else{
+                                msg.setMsg("Login failed");
+                            }
+                            objectOutputStream.writeObject(msg);
+                            objectOutputStream.writeObject(currentUser);
+                        } else if (tokens[0].equals("B")){
+                            handleBMessage(tokens[1]);
+                        } else if(tokens[0].equals("S")){
+                            handleSMessage(tokens[1]);
+                        } else if(tokens[0].equals("C")){
+
+                            CMessage cMessage = new CMessage();
+                            cMessage.setRecipient(tokens[1]);
+//                            cMessage.setFileName(tokens[3]);
+                            cMessage.setMsg(tokens[2]);
+                            cMessage.setUser(currentUser);
+//                            objectOutputStream.writeObject(cMessage);
+//                            handleCMessage();
+                            sendTo(cMessage);
+
+
+                            //Test code
+
+
+                        }
                     }
 
 
@@ -101,5 +130,102 @@ public class Server {
                 e1.printStackTrace();
             }
         }
+
+        public User handleLogin (LMessage lMessage){
+            User tempUser = null;
+            for(User user : users){
+                if(user.getUserName().equals(lMessage.getUserName()) &&
+                        user.getPassword().equals(lMessage.getPassword()) &&
+                        user.getUserType().equals(lMessage.getUserType())){
+                    System.out.println(lMessage.getUser().getUserName());
+                    oos.put(lMessage.getUser(),objectOutputStream);
+                    tempUser = user;
+                    break;
+                }
+            }
+            return tempUser;
+
+        }
+        public void handleCMessage() throws IOException{
+            System.out.println("sending CMessage to recipient");
+            CMessage cMessage = null;
+            try{
+                cMessage = (CMessage) objectInputStream.readObject();
+            } catch (ClassNotFoundException cnf){
+                cnf.printStackTrace();
+            }
+
+            for(User user : oos.keySet()){
+                if(user.getUserName().equals(cMessage.getRecipient())){
+                    oos.get(user).writeObject(cMessage);
+                }
+            }
+        }
+
+        public void sendTo(CMessage cMessage) throws IOException{
+            boolean found = false;
+
+            for(User user : oos.keySet()){
+                if(user.getUserName().equals(cMessage.getRecipient())){
+                    Message newMsg = new Message();
+                    newMsg.setUser(new User("server"));
+                    newMsg.setMsg("C Message");
+                    oos.get(user).writeObject(newMsg);
+                    oos.get(user).writeObject(cMessage);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                cMessage.setMsg("Recipient not online");
+            }
+
+
+        }
+        public void handleBMessage (String s) throws IOException{
+            Message msg = new Message();
+            msg.setMsg(currentUser.getUserName() + " : " + s );
+            msg.setUser(new User("server"));
+            if(currentUser.getUserType().equals("admin")){
+                Set<User> userSet = oos.keySet();
+                for(User user: userSet){
+                    if(!user.getUserName().equals(currentUser.getUserName())){
+                        oos.get(user).writeObject(msg);
+                    }
+                }
+
+            } else if(currentUser.getUserType().equals("user")){
+                msg.setUser(new User("server"));
+                msg.setMsg("Can't send BMessage, you must be an admin to send BMessage");
+                objectOutputStream.writeObject(msg);
+            }
+        }
+        public void handleSMessage(String s) throws IOException{
+            Message msg = new Message();
+            msg.setUser(new User("server"));
+            msg.setMsg("Active users: ");
+            if(s.equals("show")){
+                for(User user: oos.keySet()){
+                    msg.setMsg(user.getUserName());
+                    msg.setUser(new User("server"));
+                    objectOutputStream.writeObject(msg);
+                }
+            } else if(s.equals("logout")){
+                handleBMessage("Biday Prithibi");
+
+                users.remove(currentUser);
+                oos.remove(currentUser,oos.get(currentUser));
+//                currentUser = null;
+                socket.close();
+                objectOutputStream.close();
+                objectInputStream.close();
+                inputStream.close();
+                outputStream.close();
+
+            }
+        }
     }
+}
+
+
 }

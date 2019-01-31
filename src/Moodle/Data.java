@@ -10,9 +10,13 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class UserData {
-    private static UserData userData = new UserData();
-    private static String fileName = new String("userCredentials.dat");
+public class Data <T> {
+
+    private  String fileName = null;
+
+    public Data(String fileName) {
+        this.fileName = fileName;
+    }
 
     private User lastUser;
 
@@ -24,39 +28,25 @@ public class UserData {
         this.lastUser = lastUser;
     }
 
-    private ObservableList<User> users = FXCollections.observableArrayList();
+    private ObservableList<T> data = FXCollections.observableArrayList();
 
-    public static UserData getUserData() {
-        return userData;
+
+    public ObservableList<T> getData() {
+        return data;
     }
 
-    public static void setUserData(UserData userData) {
-        UserData.userData = userData;
+    public void setData(ObservableList<T> data) {
+        this.data = data;
     }
 
-    public static String getFileName() {
-        return fileName;
-    }
-
-    public static void setFileName(String fileName) {
-        UserData.fileName = fileName;
-    }
-
-    public ObservableList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ObservableList<User> users) {
-        this.users = users;
-    }
-    public void loadUserData() throws IOException {
+    public void loadData() throws IOException {
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(locPath)))) {
             boolean eof = false;
             while(!eof) {
                 try {
-                    User user = (User) locFile.readObject();
-                    users.add(user);
+                    T thing = (T) locFile.readObject();
+                    data.add(thing);
                 } catch(EOFException e) {
                     eof = true;
                 }
@@ -69,15 +59,15 @@ public class UserData {
             System.out.println("ClassNotFoundException " + e.getMessage());
         }
     }
-    public void saveUserData () throws IOException{
+    public void saveData () throws IOException{
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(locPath)))) {
-            for(User user : users) {
-                locFile.writeObject(user);
+            for(T datum : data) {
+                locFile.writeObject(datum);
             }
 
         } catch (IOException e){
-            System.out.println("Unable to save UserData" + " " + e.getMessage());
+            System.out.println("Unable to save Data" + " " + e.getMessage());
         }
     }
 

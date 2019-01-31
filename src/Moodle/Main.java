@@ -11,6 +11,24 @@ import java.io.IOException;
 public class Main extends Application {
     Stage stage;
     private javafx.stage.Screen Screen;
+    private static Data<User> userData = new Data<>("userCredentials.dat");
+    private static Data<Course> courseData = new Data<>("courseData.dat");
+
+    public static Data<User> getUserData() {
+        return userData;
+    }
+
+    public static void setUserData(Data<User> userData) {
+        Main.userData = userData;
+    }
+
+    public static Data<Course> getCourseData() {
+        return courseData;
+    }
+
+    public static void setCourseData(Data<Course> courseData) {
+        Main.courseData = courseData;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -133,17 +151,18 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         try{
-            UserData.getUserData().loadUserData();
+            userData.loadData();
+            courseData.loadData();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
 
-        System.out.println(UserData.getUserData().getUsers());
     }
     @Override
     public void stop() throws Exception {
         try{
-            UserData.getUserData().saveUserData();
+            userData.saveData();
+            courseData.saveData();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }

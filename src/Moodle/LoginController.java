@@ -32,7 +32,7 @@ public class LoginController {
 
     @FXML
     void loginAction() throws Exception{
-        ObservableList<User> userObservableList = UserData.getUserData().getUsers();
+        ObservableList<User> userObservableList = Main.getUserData().getData();
         Iterator<User> iter = userObservableList.iterator();
         boolean success = false;
         while(iter.hasNext()){
