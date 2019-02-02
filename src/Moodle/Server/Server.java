@@ -2,28 +2,56 @@ package Moodle.Server;
 
 
 
+import Moodle.Course;
+import Moodle.Data;
 import Moodle.User;
-
+import Moodle.Messages.*;
+import javafx.collections.ObservableList;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+
 
 public class Server {
     private static final int PORT = 8818;
-    private static final ArrayList<User> users = new ArrayList<>();
+    private static ObservableList<User> users;
     private static final HashMap<User, ObjectOutputStream> oos = new HashMap<>();
     private static ServerSocket listener;
+    private static Data<User> userData = new Data<>("userCredentials.dat");
+    private static Data<Course> courseData = new Data<>("courseData.dat");
+
+
+    public static Data<User> getUserData() {
+        return userData;
+    }
+
+    public static void setUserData(Data<User> userData) {
+        Server.userData = userData;
+    }
+
+    public static Data<Course> getCourseData() {
+        return courseData;
+    }
+
+    public static void setCourseData(Data<Course> courseData) {
+        Server.courseData = courseData;
+    }
+
     public static void main(String[] args) {
         System.out.println("The chat server is running");
 //        users.add(new User("r0m3l","1234","admin"));
 //        users.add(new User("tanzim","1234","admin"));
 //        users.add(new User("hossain","1234","user"));
 //        users.add(new User("itachi","uchiha","user"));
+        try {
+            userData.loadData();
+            courseData.loadData();
+            users = userData.getData();
+        } catch (IOException e){
+            System.err.println();
+        }
 
         try{
             listener = new ServerSocket(PORT);
@@ -85,40 +113,32 @@ public class Server {
                         break;
                     }
 
-                    if(message != null){
-                        String[] tokens = message.getMsg().split("#");
-                        if(tokens[0].equals("L")){
-                            LMessage lMessage = new LMessage(tokens[1],tokens[2],tokens[3]);
-                            currentUser = handleLogin(lMessage);
-                            Message msg = new Message();
-                            msg.setUser(new User("server"));
-
-                            if(currentUser != null){
-                                msg.setMsg("Login done");
-                            } else{
-                                msg.setMsg("Login failed");
-                            }
-                            objectOutputStream.writeObject(msg);
-                            objectOutputStream.writeObject(currentUser);
-                        } else if (tokens[0].equals("B")){
-                            handleBMessage(tokens[1]);
-                        } else if(tokens[0].equals("S")){
-                            handleSMessage(tokens[1]);
-                        } else if(tokens[0].equals("C")){
-
-                            CMessage cMessage = new CMessage();
-                            cMessage.setRecipient(tokens[1]);
-//                            cMessage.setFileName(tokens[3]);
-                            cMessage.setMsg(tokens[2]);
-                            cMessage.setUser(currentUser);
-//                            objectOutputStream.writeObject(cMessage);
-//                            handleCMessage();
-                            sendTo(cMessage);
-
-
-                            //Test code
-
-
+                    if(message != null) {
+                        switch (message.getMessageType()) {
+                            case LOGIN:
+                                Message newMsg = new Message();
+                                User tempUser = handleLogin(message);
+                                newMsg.setMessageType(MessageType.LOGIN);
+                                if(tempUser != null) {
+                                    System.out.println("Login successful");
+                                    currentUser = tempUser;
+                                    newMsg.setUser(currentUser);
+                                }
+                                objectOutputStream.writeObject(newMsg);
+                                break;
+                            case CLIENT:
+                                break;
+                            case SIGNUP:
+                                Message signUpMsg = new Message();
+                                signUpMsg.setMessageType(MessageType.SIGNUP);
+                                User user = handleSignUp(message);
+                                if(user != null){
+                                    currentUser = user;
+                                    userData.getData().add(currentUser);
+                                    signUpMsg.setUser(currentUser);
+                                    userData.saveData();
+                                }
+                                objectOutputStream.writeObject(signUpMsg);
                         }
                     }
 
@@ -131,101 +151,27 @@ public class Server {
             }
         }
 
-        public User handleLogin (LMessage lMessage){
+        public User handleLogin(Message message) throws IOException {
             User tempUser = null;
-            for(User user : users){
-                if(user.getUserName().equals(lMessage.getUserName()) &&
-                        user.getPassword().equals(lMessage.getPassword()) &&
-                        user.getUserType().equals(lMessage.getUserType())){
-                    System.out.println(lMessage.getUser().getUserName());
-                    oos.put(lMessage.getUser(),objectOutputStream);
+            System.out.println(message.getUser());
+            for (User user : users) {
+                if (user.getUserName().equals(message.getUser().getUserName()) &&
+                        user.getPassword().equals(message.getUser().getPassword()))
+                         {
                     tempUser = user;
-                    break;
                 }
             }
+
             return tempUser;
-
         }
-        public void handleCMessage() throws IOException{
-            System.out.println("sending CMessage to recipient");
-            CMessage cMessage = null;
-            try{
-                cMessage = (CMessage) objectInputStream.readObject();
-            } catch (ClassNotFoundException cnf){
-                cnf.printStackTrace();
-            }
-
-            for(User user : oos.keySet()){
-                if(user.getUserName().equals(cMessage.getRecipient())){
-                    oos.get(user).writeObject(cMessage);
+        public User handleSignUp(Message message) throws IOException{
+            for(User user : users){
+                if(message.getUser().getUserName().equals(user.getUserName())){
+                    return null;
                 }
             }
-        }
-
-        public void sendTo(CMessage cMessage) throws IOException{
-            boolean found = false;
-
-            for(User user : oos.keySet()){
-                if(user.getUserName().equals(cMessage.getRecipient())){
-                    Message newMsg = new Message();
-                    newMsg.setUser(new User("server"));
-                    newMsg.setMsg("C Message");
-                    oos.get(user).writeObject(newMsg);
-                    oos.get(user).writeObject(cMessage);
-                    found = true;
-                    break;
-                }
-            }
-            if(!found){
-                cMessage.setMsg("Recipient not online");
-            }
-
-
-        }
-        public void handleBMessage (String s) throws IOException{
-            Message msg = new Message();
-            msg.setMsg(currentUser.getUserName() + " : " + s );
-            msg.setUser(new User("server"));
-            if(currentUser.getUserType().equals("admin")){
-                Set<User> userSet = oos.keySet();
-                for(User user: userSet){
-                    if(!user.getUserName().equals(currentUser.getUserName())){
-                        oos.get(user).writeObject(msg);
-                    }
-                }
-
-            } else if(currentUser.getUserType().equals("user")){
-                msg.setUser(new User("server"));
-                msg.setMsg("Can't send BMessage, you must be an admin to send BMessage");
-                objectOutputStream.writeObject(msg);
-            }
-        }
-        public void handleSMessage(String s) throws IOException{
-            Message msg = new Message();
-            msg.setUser(new User("server"));
-            msg.setMsg("Active users: ");
-            if(s.equals("show")){
-                for(User user: oos.keySet()){
-                    msg.setMsg(user.getUserName());
-                    msg.setUser(new User("server"));
-                    objectOutputStream.writeObject(msg);
-                }
-            } else if(s.equals("logout")){
-                handleBMessage("Biday Prithibi");
-
-                users.remove(currentUser);
-                oos.remove(currentUser,oos.get(currentUser));
-//                currentUser = null;
-                socket.close();
-                objectOutputStream.close();
-                objectInputStream.close();
-                inputStream.close();
-                outputStream.close();
-
-            }
+            return message.getUser();
         }
     }
 }
 
-
-}

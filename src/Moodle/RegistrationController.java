@@ -1,4 +1,7 @@
 package Moodle;
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
+import Moodle.Server.Server;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -43,32 +46,18 @@ public class RegistrationController {
         String toogleGroupValue = selectedRadioButton.getText();
         if(!password.getText().equals(password1.getText()) || password.getText().length() <8){
             success = false;
-        }
-        for(User user : Main.getUserData().getData()){
-            if(userName.getText() == user.getUserName()){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Username already exists");
-                alert.setHeaderText("The username you is already registered");
-                alert.setContentText("Please try another username");
-                alert.showAndWait();
-            }
-        }
-        if(!success) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect Credentials");
-            alert.setHeaderText("Incorrect Credentials");
-            alert.setContentText("Please make sure that both passwords match and the password is at least 8 digits long");
+            alert.setTitle("Password mismatch");
+            alert.setHeaderText("Please try another password");
+            alert.setContentText("Please try a password of at least 8 characters and both of the passwords are to be same");
             alert.showAndWait();
         }
-        else {
-            User user = new User(userName.getText(), password.getText(), fullName.getText(), eMail.getText(), toogleGroupValue);
-            System.out.println(user);
+        Message message = new Message();
+        message.setMessageType(MessageType.SIGNUP);
+        message.setUser(new User(userName.getText(),password.getText(),fullName.getText(),
+                eMail.getText(),toogleGroupValue));
+        Main.getClient().send(message);
 
-
-            Main.getUserData().getData().add(user);
-            Main.getUserData().saveData();
-            main.showHomePage(user);
-        }
 
 
     }

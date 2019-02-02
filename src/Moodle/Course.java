@@ -11,7 +11,7 @@ public class Course implements Serializable{
     private String title;
     private String description;
 
-    private long serialVersionUID = 2L;
+    private long serialVersionUID = 3L;
 
     public String getDescription() {
         return description;

@@ -1,5 +1,10 @@
 package Moodle.Client;
 
+import Moodle.Main;
+import Moodle.Messages.Message;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -11,10 +16,19 @@ public class Client implements Runnable{
     private ObjectOutputStream objectOutputStream;
     private String hostname;
     private int PORT;
+    private Main main;
 
     public Client(String hostname, int PORT) {
         this.hostname = hostname;
         this.PORT = PORT;
+    }
+
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 
     @Override
@@ -34,7 +48,6 @@ public class Client implements Runnable{
 //                objectOutputStream.flush();
             while (socket.isConnected()){
                 Message msg = null;
-                LMessage lmsg = null;
                 try{
                     try{
                         msg = (Message) objectInputStream.readObject();
@@ -44,21 +57,46 @@ public class Client implements Runnable{
                     }
 
                     if(msg != null){
-                        if(msg.getUser().getUserType().equals("server")){
-                            if(msg.getMsg().equals("Login done")){
-                                System.out.println("Login successful");
-                                Main.isLoggedIn = true;
-                                Main.user = (User) objectInputStream.readObject();
-                                System.out.println(Main.user.getUserName());
-                            } else if(msg.getMsg().equals("C Message")){
-                                System.out.println("Receiving CMessage...");
-                                CMessage cMessage = (CMessage)objectInputStream.readObject();
-//                                    handleCMessage(cMessage);
-                                System.out.println(cMessage.getUser().getUserName() + " : " + cMessage.getMsg());
+                        switch (msg.getMessageType()){
+                            case LOGIN:
+                                final Message loginMsg = msg;
+                                Platform.runLater(() -> {
+                                    if(loginMsg.getUser() != null) {
+                                        Main.setCurrentUser(loginMsg.getUser());
+                                        try {
+                                            main.showHomePage(loginMsg.getUser());
+                                        } catch (java.lang.Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                       Alert alert = new Alert(Alert.AlertType.ERROR);
+                                       alert.setTitle("Incorrect Credentials");
+                                       alert.setHeaderText("Incorrect Credentials");
+                                       alert.setContentText("The username and password you provided is not correct.");
+                                       alert.showAndWait();
+                                   }});
+                                    break;
+                            case SIGNUP:
+                                {
+                                    final Message tempMsg = msg;
+                                    Platform.runLater(() ->{
+                                        if(tempMsg.getUser() == null){
+                                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                                            alert.setTitle("Sign-up failed");
+                                            alert.setHeaderText("Username already exists");
+                                            alert.setContentText("The username you tried already exits, please try another");
+                                            alert.showAndWait();
+                                        } else {
+                                            try{
+                                                main.showHomePage(tempMsg.getUser());
+                                            } catch (Exception e2){
+                                                e2.printStackTrace();
+                                            }
+                                        }
 
-                            } else{
-                                System.out.println(msg.getMsg());
-                            }
+                                    });
+
+                                }
 
                         }
                     }
@@ -74,33 +112,7 @@ public class Client implements Runnable{
         }
     }
 
-    private void handleCMessage(CMessage cMessage) {
-        File file = new File(cMessage.getFileName());
-        try{
-            FileInputStream fis = new FileInputStream(file);
-            byte[] bytes = new byte[(int)file.length()];
-            DataInputStream dis = new DataInputStream(fis);
 
-            try{
-                dis.readFully(bytes);
-                dis.close();
-            } catch (IOException e){
-                System.err.println("Unable to convert the file to byte array");
-            }
-
-            cMessage.setFile(bytes);
-
-            try{
-                objectOutputStream.writeObject(cMessage);
-            } catch (IOException e){
-                System.err.println("Unable to send CMessage");
-                e.printStackTrace();
-            }
-
-        } catch (FileNotFoundException fnf){
-            System.err.println("File not found");
-        }
-    }
 
     public  <T extends Message> void send(T message){
         try{
@@ -110,4 +122,5 @@ public class Client implements Runnable{
             System.err.println("Unable to send message");
         }
     }
+
 }

@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -32,24 +34,28 @@ public class LoginController {
 
     @FXML
     void loginAction() throws Exception{
-        ObservableList<User> userObservableList = Main.getUserData().getData();
-        Iterator<User> iter = userObservableList.iterator();
-        boolean success = false;
-        while(iter.hasNext()){
-            User temp = iter.next();
-            if(temp.getUserName().equals(userText.getText()) && temp.getPassword().equals(passwordText.getText())){
-                main.showHomePage(temp);
-                success = true;
-            }
-        }
-
-            if(!success) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Incorrect Credentials");
-                alert.setHeaderText("Incorrect Credentials");
-                alert.setContentText("The username and password you provided is not correct.");
-                alert.showAndWait();
-            }
+//        ObservableList<User> userObservableList = Main.getUserData().getData();
+//        Iterator<User> iter = userObservableList.iterator();
+//        boolean success = false;
+//        while(iter.hasNext()){
+//            User temp = iter.next();
+//            if(temp.getUserName().equals(userText.getText()) && temp.getPassword().equals(passwordText.getText())){
+//                main.showHomePage(temp);
+//                success = true;
+//            }
+//        }
+//
+//            if(!success) {
+//                Alert alert = new Alert(AlertType.ERROR);
+//                alert.setTitle("Incorrect Credentials");
+//                alert.setHeaderText("Incorrect Credentials");
+//                alert.setContentText("The username and password you provided is not correct.");
+//                alert.showAndWait();
+//            }
+        Message message = new Message();
+        message.setMessageType(MessageType.LOGIN);
+        message.setUser(new User(userText.getText(),passwordText.getText()));
+        Main.getClient().send(message);
     }
 
     @FXML

@@ -1,10 +1,10 @@
-package com.company;
+package Moodle.Messages;
+
+import Moodle.User;
 
 import java.io.Serializable;
 
-enum MessageType{
-    LMessage,BMessage,CMessage,SMessage;
-}
+
 
 public class Message implements Serializable {
     private static final long serialVersionUID = 2L;

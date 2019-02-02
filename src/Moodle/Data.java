@@ -1,7 +1,5 @@
 package Moodle;
 
-//This is a singleton class used to save user data on file
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -1,5 +1,6 @@
 package Moodle;
 
+import Moodle.Client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,25 +10,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static Client client = new Client("localhost",8818);
     Stage stage;
     private javafx.stage.Screen Screen;
-    private static Data<User> userData = new Data<>("userCredentials.dat");
-    private static Data<Course> courseData = new Data<>("courseData.dat");
 
-    public static Data<User> getUserData() {
-        return userData;
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
-    public static void setUserData(Data<User> userData) {
-        Main.userData = userData;
+    public static void setCurrentUser(User currentUser) {
+        Main.currentUser = currentUser;
     }
 
-    public static Data<Course> getCourseData() {
-        return courseData;
+
+
+    public static Client getClient() {
+        return client;
     }
 
-    public static void setCourseData(Data<Course> courseData) {
-        Main.courseData = courseData;
+    public static void setClient(Client cl) {
+        client = cl;
     }
 
     @Override
@@ -150,21 +154,21 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-        try{
-            userData.loadData();
-            courseData.loadData();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+            Thread thread = new Thread(client);
+            thread.start();
+            client.setMain(this);
+
+
+
 
     }
     @Override
     public void stop() throws Exception {
-        try{
-            userData.saveData();
-            courseData.saveData();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+//        try{
+//            cluserData.saveData();
+//            courseData.saveData();
+//        }catch(IOException e){
+//            System.out.println(e.getMessage());
+//        }
     }
 }

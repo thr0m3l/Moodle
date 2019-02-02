@@ -74,6 +74,10 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public String toString() {
