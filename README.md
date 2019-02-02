@@ -24,28 +24,22 @@ Project Title: Moodle
 
 
 
-Project Developers: 1. Tanzim Hossain Romel (Student ID: 1705069)
+Project Developers: 
 
 
 
-
-                    2. Saadman Ahmed (Student ID: 1705068)
+                   1. Tanzim Hossain Romel (Student ID: 1705069)
+                   2. Saadman Ahmed (Student ID: 1705068)
                     
 
 
 
 
-Project Supervisor : Md. Iftekharul Islam Sakib
+Project Supervisor : 
 
 
 
-
-                      Assistant Professor,
-                      
-                      
-                      
-                      
-                      
-                      
+                      Md. Iftekharul Islam Sakib
+                      Assistant Professor,                      
                       Department of Computer Science and Engineering,
                       BUET
