@@ -1,5 +1,6 @@
 package Moodle;
 
+import Moodle.Client.ChatController;
 import Moodle.Client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,16 @@ import java.io.IOException;
 
 public class Main extends Application {
     private static Client client = new Client("localhost",8818);
-    Stage stage;
+    private Stage stage;
     private javafx.stage.Screen Screen;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     private static User currentUser;
 
@@ -170,5 +179,25 @@ public class Main extends Application {
 //        }catch(IOException e){
 //            System.out.println(e.getMessage());
 //        }
+
     }
+    public void showChatScreen () throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXML/chatScreen.fxml"));
+        Parent root = loader.load();
+        // Loading the controller
+        ChatController controller = loader.getController();
+//        controller.setCurrentUser(user);
+        //controller.init(userName);
+        controller.setMain(this);
+
+        client.setChatController(controller);
+
+        // Set the primary stage
+        stage.setTitle("Chat Screen");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.setResizable(true);
+        stage.show();
+    }
+
 }

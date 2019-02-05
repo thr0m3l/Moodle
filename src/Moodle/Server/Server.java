@@ -2,10 +2,13 @@ package Moodle.Server;
 
 
 
+import Moodle.Client.Group;
 import Moodle.Course;
 import Moodle.Data;
+import Moodle.Main;
 import Moodle.User;
 import Moodle.Messages.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,11 +20,19 @@ import java.util.HashMap;
 public class Server {
     private static final int PORT = 8818;
     private static ObservableList<User> users;
-    private static final HashMap<User, ObjectOutputStream> oos = new HashMap<>();
+    private static ObservableList<Group> groups = FXCollections.observableArrayList();
+    private static HashMap<User, ObjectOutputStream> onlineUsers = new HashMap<>();
     private static ServerSocket listener;
     private static Data<User> userData = new Data<>("userCredentials.dat");
     private static Data<Course> courseData = new Data<>("courseData.dat");
 
+    public static HashMap<User, ObjectOutputStream> getOnlineUsers() {
+        return onlineUsers;
+    }
+
+    public static void setOnlineUsers(HashMap<User, ObjectOutputStream> onlineUsers) {
+        Server.onlineUsers = onlineUsers;
+    }
 
     public static Data<User> getUserData() {
         return userData;
@@ -40,11 +51,8 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        System.out.println("The chat server is running");
-//        users.add(new User("r0m3l","1234","admin"));
-//        users.add(new User("tanzim","1234","admin"));
-//        users.add(new User("hossain","1234","user"));
-//        users.add(new User("itachi","uchiha","user"));
+        System.out.println("The server is running");
+
         try {
             userData.loadData();
             courseData.loadData();
@@ -123,10 +131,27 @@ public class Server {
                                     System.out.println("Login successful");
                                     currentUser = tempUser;
                                     newMsg.setUser(currentUser);
+                                    onlineUsers.put(currentUser,objectOutputStream);
                                 }
                                 objectOutputStream.writeObject(newMsg);
                                 break;
                             case CLIENT:
+                                //debug code
+                                System.out.println(message.getMsg());
+
+                                message.getGroup().getMessages().add(message);
+                                for(String userName : message.getGroup().getUsers()){
+                                    for(User user : onlineUsers.keySet()){
+                                        if(user.getUserName().equals(userName)){
+                                            onlineUsers.get(user).writeObject(message);
+                                        }
+                                    }
+//                                    for(User user : users){
+//                                        if(user.getUserName().equals(userName)){
+//
+//                                        }
+//                                    }
+                                }
                                 break;
                             case SIGNUP:
                                 Message signUpMsg = new Message();
@@ -139,6 +164,25 @@ public class Server {
                                     userData.saveData();
                                 }
                                 objectOutputStream.writeObject(signUpMsg);
+                                break;
+                            case GROUP:
+                                System.out.println("Handling group : " + message.getGroup().getName());
+                                groups.add(message.getGroup());
+                                for(User user1 : users){
+                                    if(message.getGroup().getUsers().contains(user1.getUserName())){
+                                        user1.getGroups().add(message.getGroup());
+                                    }
+                                }
+//                                for(User user1 : onlineUsers.keySet()){
+//                                    if(message.getGroup().getUsers().contains(user1.getUserName())){
+//                                        user1.getGroups().add(message.getGroup());
+//                                        onlineUsers.get(user1).writeObject(message);
+//                                    }
+//                                }
+                                userData.saveData();
+
+                                break;
+
                         }
                     }
 

@@ -1,5 +1,6 @@
 package Moodle;
 
+import Moodle.Client.Group;
 import Moodle.Course;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,10 +16,36 @@ public class User implements Serializable {
     private String fullName;
     private String eMail;
     private String userType;
+    private String picture;
+    private ArrayList<Group> groups = new ArrayList<>();
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    public ArrayList<Course> getCourseArrayList() {
+        return courseArrayList;
+    }
+
+    public void setCourseArrayList(ArrayList<Course> courseArrayList) {
+        this.courseArrayList = courseArrayList;
+    }
 
     //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private ArrayList<Course> courseArrayList = new ArrayList<>();
     private long serialVersionUID = 1L;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getUserName() {
         return userName;

@@ -67,6 +67,15 @@ public class HomeController {
                         ,"101","CSE", "Structured Programming Language"));
         //
 
+        btnMessage.setOnAction(event -> {
+            try{
+                main.showChatScreen();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+                }
+        );
+
         courseListView.setItems(courseObservableList);
         courseListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         courseListView.getSelectionModel().selectFirst();
