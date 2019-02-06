@@ -173,6 +173,12 @@ public class Server {
                                         user1.getGroups().add(message.getGroup());
                                     }
                                 }
+                                for(User user1 : onlineUsers.keySet()){
+                                    if(message.getGroup().getUsers().contains(user1.getUserName())){
+                                        onlineUsers.get(user1).writeObject(message);
+                                    }
+
+                                }
 //                                for(User user1 : onlineUsers.keySet()){
 //                                    if(message.getGroup().getUsers().contains(user1.getUserName())){
 //                                        user1.getGroups().add(message.getGroup());
