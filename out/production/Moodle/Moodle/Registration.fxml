@@ -77,6 +77,5 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Label fx:id="inform" layoutX="426.0" layoutY="635.0" prefHeight="35.0" prefWidth="355.0" textFill="WHITE" />
    </children>
 </AnchorPane>

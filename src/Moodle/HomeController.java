@@ -13,15 +13,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 
-import java.io.BufferedReader;
-import java.io.*;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
 
 public class HomeController {
-    private static String fileName = new String("userCredentials.dat");
+
     private Main main;
 
     private User currentUser;
@@ -69,6 +66,15 @@ public class HomeController {
                 new Course(new User("abc","123","ABC","abc","Faculty")
                         ,"101","CSE", "Structured Programming Language"));
         //
+
+        btnMessage.setOnAction(event -> {
+            try{
+                main.showChatScreen();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+                }
+        );
 
         courseListView.setItems(courseObservableList);
         courseListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -174,9 +180,35 @@ public class HomeController {
             addCourseButton.setVisible(true);
         }
     }
-    @FXML
-    public void showNewCourseDialog()throws Exception {
-        main.showNewCourseDialog(currentUser);
+
+    public void showNewCourseDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(homeAnchorPane.getScene().getWindow());
+        dialog.setTitle("Add New Course");
+        dialog.setHeaderText("Use this dialog to create a new course");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("newCourseDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+
+        } catch(IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            newCourseDialogController controller = fxmlLoader.getController();
+            Course newCourse = controller.processResults(currentUser);
+            courseListView.getSelectionModel().select(newCourse);
+
+            //
+
+        }
 
 
     }
@@ -189,20 +221,6 @@ public class HomeController {
     public void SiteNewsAction()throws Exception{
         main.showSiteNews(currentUser);
 
-    }
-    @FXML
-    public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
-
-    }
-
-    @FXML
-    public void FriendAction(){
-        try {
-            main.showFriends(currentUser);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }
 
