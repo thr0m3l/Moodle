@@ -15,12 +15,12 @@
             <Font name="Calibri Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="signUpButton" accessibleRole="PARENT" layoutX="1122.0" layoutY="104.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #051a3d; " text="Sign Up" textFill="#e83535" textOverrun="CLIP" AnchorPane.rightAnchor="74.0">
+      <Button fx:id="signUpButton" accessibleRole="PARENT" layoutX="1122.0" layoutY="104.0" mnemonicParsing="false" onAction="#signUp" style="-fx-background-color: #051a3d; " text="Sign Up" textFill="#e83535" textOverrun="CLIP" AnchorPane.rightAnchor="55.0">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Label accessibleRole="PARENT" layoutX="976.0" layoutY="109.0" text="Not a Member?" textFill="#daced3">
+      <Label accessibleRole="LIST_ITEM" layoutX="917.0" layoutY="109.0" text="Not a Member?" textFill="#daced3">
          <font>
             <Font size="19.0" />
          </font>
