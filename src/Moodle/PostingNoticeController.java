@@ -1,5 +1,7 @@
 package Moodle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
@@ -11,6 +13,11 @@ import java.util.*;
 import java.io.IOException;
 import java.text.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javafx.collections.ObservableList;
+import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
 
 public class PostingNoticeController {
     public ArrayList<SiteNews>news=new ArrayList<>();
@@ -63,8 +70,6 @@ public class PostingNoticeController {
     void Action()throws Exception{
         main.showHomePage(currentUser);
     }
-
-
 
 
     public Main getMain() {

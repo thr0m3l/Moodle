@@ -1,5 +1,8 @@
 package Moodle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,7 +14,7 @@ public class Course implements Serializable{
     private String title;
     private String description;
 
-    private long serialVersionUID = 3L;
+    private long serialVersionUID = 2L;
 
     public String getDescription() {
         return description;
