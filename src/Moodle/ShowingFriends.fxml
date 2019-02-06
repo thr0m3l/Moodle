@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="732.0" style="-fx-background-color: orange;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.ShowingFriendsController">
+   <left>
+      <VBox prefHeight="587.0" prefWidth="160.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Hyperlink fx:id="home" onAction="#BackAction" prefHeight="88.0" prefWidth="160.0" text="Home Page">
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Home_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Hyperlink>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <Label contentDisplay="RIGHT" prefHeight="119.0" prefWidth="352.0" text="Users" BorderPane.alignment="CENTER_LEFT">
+         <graphic>
+            <ImageView fitHeight="68.0" fitWidth="226.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Forum-Logo.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <TableView fx:id="table" accessibleRole="PARENT" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="userName" prefWidth="190.0" text="Name" />
+          <TableColumn fx:id="userType" prefWidth="134.0" text="Account Type" />
+            <TableColumn fx:id="eMail" prefWidth="247.0" text="Email Address" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
