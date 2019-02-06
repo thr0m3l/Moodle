@@ -33,6 +33,38 @@ public class Client implements Runnable{
         this.PORT = PORT;
     }
 
+    public static InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public static void setInputStream(InputStream inputStream) {
+        Client.inputStream = inputStream;
+    }
+
+    public static OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public static void setOutputStream(OutputStream outputStream) {
+        Client.outputStream = outputStream;
+    }
+
+    public static ObjectInputStream getObjectInputStream() {
+        return objectInputStream;
+    }
+
+    public static void setObjectInputStream(ObjectInputStream objectInputStream) {
+        Client.objectInputStream = objectInputStream;
+    }
+
+    public static ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
+    }
+
+    public static void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
+        Client.objectOutputStream = objectOutputStream;
+    }
+
     public Main getMain() {
         return main;
     }
@@ -118,8 +150,8 @@ public class Client implements Runnable{
                             case GROUP:
                                 final Message groupMsg = msg;
                                 Platform.runLater(() ->{
-                                    chatController.addToGroupList(groupMsg.getGroup());
-
+                                    chatController.getGroupObservableList().add(groupMsg.getGroup());
+                                    chatController.getGroupList().getItems().add(groupMsg.getGroup());
                                 });
                                 if(groupMsg.getGroup().getUsers().contains(Main.getCurrentUser().getUserName())){
                                     Main.getCurrentUser().getGroups().add(groupMsg.getGroup());
@@ -150,6 +182,21 @@ public class Client implements Runnable{
         }
     }
 
+//    public static void send(String msg) throws IOException {
+//        Message createMessage = new Message();
+//        createMessage.setName(username);
+//        createMessage.setType(MessageType.USER);
+//        createMessage.setStatus(Status.AWAY);
+//        createMessage.setMsg(msg);
+//        createMessage.setPicture(picture);
+//
+//        oos.writeObject(createMessage);
+//        oos.flush();
+//    }
+
+    /* This method is used for sending a voice Message
+     * @param msg - The message which the user generates
+     */
     public static void sendVoiceMessage(byte[] audio) throws IOException {
         Message createMessage = new Message();
         createMessage.setUser(Main.getCurrentUser());
@@ -160,6 +207,27 @@ public class Client implements Runnable{
 
     }
 
+    /* This method is used for sending a normal Message
+     * @param msg - The message which the user generates
+     */
+//    public static void sendStatusUpdate(Status status) throws IOException {
+//        Message createMessage = new Message();
+//        createMessage.setName(username);
+//        createMessage.setType(MessageType.STATUS);
+//        createMessage.setStatus(status);
+//        createMessage.setPicture(picture);
+//        oos.writeObject(createMessage);
+//        oos.flush();
+//    }
 
+//    /* This method is used to send a connecting message */
+//    public static void connect() throws IOException {
+//        Message createMessage = new Message();
+//        createMessage.setName(username);
+//        createMessage.setType(CONNECTED);
+//        createMessage.setMsg(HASCONNECTED);
+//        createMessage.setPicture(picture);
+//        oos.writeObject(createMessage);
+//    }
 
 }

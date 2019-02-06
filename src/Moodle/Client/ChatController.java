@@ -48,6 +48,118 @@ public class ChatController implements Initializable {
     @FXML
     private Button addGroup;
 
+    public TextArea getMessageBox() {
+        return messageBox;
+    }
+
+    public void setMessageBox(TextArea messageBox) {
+        this.messageBox = messageBox;
+    }
+
+    public Label getUsernameLabel() {
+        return usernameLabel;
+    }
+
+    public void setUsernameLabel(Label usernameLabel) {
+        this.usernameLabel = usernameLabel;
+    }
+
+    public Label getOnlineCountLabel() {
+        return onlineCountLabel;
+    }
+
+    public void setOnlineCountLabel(Label onlineCountLabel) {
+        this.onlineCountLabel = onlineCountLabel;
+    }
+
+    public ListView<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(ListView<Group> groupList) {
+        this.groupList = groupList;
+    }
+
+    public ImageView getUserImageView() {
+        return userImageView;
+    }
+
+    public void setUserImageView(ImageView userImageView) {
+        this.userImageView = userImageView;
+    }
+
+    public Button getRecordBtn() {
+        return recordBtn;
+    }
+
+    public void setRecordBtn(Button recordBtn) {
+        this.recordBtn = recordBtn;
+    }
+
+    public ListView getChatPane() {
+        return chatPane;
+    }
+
+    public void setChatPane(ListView chatPane) {
+        this.chatPane = chatPane;
+    }
+
+    public ListView getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(ListView statusList) {
+        this.statusList = statusList;
+    }
+
+    public BorderPane getBorderPane() {
+        return borderPane;
+    }
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+
+    public ComboBox getStatusComboBox() {
+        return statusComboBox;
+    }
+
+    public void setStatusComboBox(ComboBox statusComboBox) {
+        this.statusComboBox = statusComboBox;
+    }
+
+    public ImageView getMicrophoneImageView() {
+        return microphoneImageView;
+    }
+
+    public void setMicrophoneImageView(ImageView microphoneImageView) {
+        this.microphoneImageView = microphoneImageView;
+    }
+
+    public Button getAddGroup() {
+        return addGroup;
+    }
+
+    public void setAddGroup(Button addGroup) {
+        this.addGroup = addGroup;
+    }
+
+    public double getxOffset() {
+        return xOffset;
+    }
+
+    public void setxOffset(double xOffset) {
+        this.xOffset = xOffset;
+    }
+
+    public double getyOffset() {
+        return yOffset;
+    }
+
+    public void setyOffset(double yOffset) {
+        this.yOffset = yOffset;
+    }
+
     private ObservableList<Group> groupObservableList = FXCollections.observableArrayList(Main.getCurrentUser().getGroups());
 
 //    Image microphoneActiveImage = new Image(getClass().getClassLoader().getResource("resources/images/microphone-active.png").toString());
@@ -117,12 +229,6 @@ public class ChatController implements Initializable {
         selectedGroup.getMessages().add(msg);
         chatPane.getItems().add(msg);
 
-    }
-
-    public synchronized void addToGroupList(Group group){
-        System.out.println("added group: " + group.getName());
-        groupList.getItems().add(group);
-        Main.getCurrentUser().getGroups().add(group);
     }
 
 
