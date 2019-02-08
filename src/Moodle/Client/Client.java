@@ -2,6 +2,7 @@ package Moodle.Client;
 
 import Moodle.Main;
 import Moodle.Messages.Message;
+import Moodle.StorageController;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import Moodle.Messages.*;
@@ -19,6 +20,15 @@ public class Client implements Runnable{
     private int PORT;
     private Main main;
     private ChatController chatController;
+    private StorageController storageController;
+
+    public StorageController getStorageController() {
+        return storageController;
+    }
+
+    public void setStorageController(StorageController storageController) {
+        this.storageController = storageController;
+    }
 
     public ChatController getChatController() {
         return chatController;
@@ -124,6 +134,13 @@ public class Client implements Runnable{
                                 if(groupMsg.getGroup().getUsers().contains(Main.getCurrentUser().getUserName())){
                                     Main.getCurrentUser().getGroups().add(groupMsg.getGroup());
                                 }
+                                break;
+                            case FILE:
+                                final Message fileMsg = msg;
+                                Main.getCurrentUser().getFiles().add(msg.getFile());
+                                Platform.runLater(()->{
+                                    storageController.addToFileList(fileMsg.getFile());
+                                });
 
                         }
                     }

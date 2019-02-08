@@ -76,6 +76,14 @@ public class HomeController {
                 }
         );
 
+        btnStorage.setOnAction(event -> {
+            try{
+                main.showStorage();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+        });
+
         courseListView.setItems(courseObservableList);
         courseListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         courseListView.getSelectionModel().selectFirst();

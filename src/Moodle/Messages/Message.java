@@ -1,6 +1,7 @@
 package Moodle.Messages;
 
 import Moodle.Client.Group;
+import Moodle.File;
 import Moodle.User;
 import java.io.Serializable;
 
@@ -9,18 +10,11 @@ public class Message implements Serializable {
     private String msg = null;
     private User user = null;
     private MessageType messageType = null;
-
     private String picture = null;
-
     private String recipient = null;
-
-    private byte[] file;
-    private String fileName;
-
     private byte[] voice;
-
     private Group group;
-
+    private File file;
     public Group getGroup() {
         return group;
     }
@@ -37,20 +31,12 @@ public class Message implements Serializable {
         this.recipient = recipient;
     }
 
-    public byte[] getFile() {
+    public File getFile() {
         return file;
     }
 
-    public void setFile(byte[] file) {
+    public void setFile(File file) {
         this.file = file;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     public byte[] getVoice() {

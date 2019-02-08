@@ -10,6 +10,7 @@ import Moodle.User;
 import Moodle.Messages.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -50,12 +51,23 @@ public class Server {
         Server.courseData = courseData;
     }
 
+    private static Data<Moodle.File> fileData = new Data<>("files.haha");
+
+    public static Data<Moodle.File> getFileData() {
+        return fileData;
+    }
+
+    public static void setFileData(Data<Moodle.File> fileData) {
+        fileData = fileData;
+    }
+
     public static void main(String[] args) {
         System.out.println("The server is running");
 
         try {
             userData.loadData();
             courseData.loadData();
+            fileData.loadData();
             users = userData.getData();
         } catch (IOException e){
             System.err.println();
@@ -130,10 +142,23 @@ public class Server {
                                 if(tempUser != null) {
                                     System.out.println("Login successful");
                                     currentUser = tempUser;
+
+                                    for(Moodle.File file : fileData.getData()){
+                                        if(file.getUsers().contains(currentUser.getUserName())){
+                                            currentUser.getFiles().add(file);
+                                        }
+                                        else if(file.getOwner().equals(currentUser.getUserName())){
+                                            currentUser.getFiles().add(file);
+                                        }
+                                    }
+
                                     newMsg.setUser(currentUser);
                                     onlineUsers.put(currentUser,objectOutputStream);
                                 }
                                 objectOutputStream.writeObject(newMsg);
+
+
+
                                 break;
                             case CLIENT:
                                 //debug code
@@ -162,13 +187,14 @@ public class Server {
                                     userData.getData().add(currentUser);
                                     signUpMsg.setUser(currentUser);
                                     userData.saveData();
+                                    onlineUsers.put(currentUser,objectOutputStream);
                                 }
                                 objectOutputStream.writeObject(signUpMsg);
                                 break;
                             case GROUP:
                                 System.out.println("Handling group : " + message.getGroup().getName());
                                 groups.add(message.getGroup());
-                                for(User user1 : users){
+                                for(User user1 : userData.getData()){
                                     if(message.getGroup().getUsers().contains(user1.getUserName())){
                                         user1.getGroups().add(message.getGroup());
                                     }
@@ -188,6 +214,35 @@ public class Server {
                                 userData.saveData();
 
                                 break;
+                            case FILE:
+                                System.out.println("Receiving file : " + message.getFile().getName() + " from: " +
+                                        message.getFile().getOwner());
+
+//                                message.getFile().byteToFile();
+                                fileData.getData().add(message.getFile());
+
+
+                                for(User user1 : userData.getData()){
+                                    if(message.getFile().getUsers().contains(user1.getUserName())){
+                                        user1.getFileNames().add(message.getFile().getName());
+                                        System.out.println("File saved successfully");
+                                    }
+                                    else if(message.getFile().getOwner().equals(user1.getUserName())){
+                                        user1.getFileNames().add(message.getFile().getName());
+                                        System.out.println("File saved successfully");
+                                    }
+                                }
+
+
+                                for(User user1 : onlineUsers.keySet()){
+                                    if(message.getFile().getUsers().contains(user1.getUserName())){
+                                        onlineUsers.get(user1).writeObject(message);
+                                    }
+                                }
+
+                                userData.saveData();
+                                fileData.saveData();
+                                objectOutputStream.writeObject(message);
 
                         }
                     }

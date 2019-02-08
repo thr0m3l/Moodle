@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -18,6 +19,24 @@ public class User implements Serializable {
     private String userType;
     private String picture;
     private ArrayList<Group> groups = new ArrayList<>();
+    private ArrayList<File> files = new ArrayList<>();
+    private ArrayList<String> fileNames = new ArrayList<>();
+
+    public ArrayList<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(ArrayList<File> files) {
+        this.files = files;
+    }
+
+    public ArrayList<String> getFileNames() {
+        return fileNames;
+    }
+
+    public void setFileNames(ArrayList<String> fileNames) {
+        this.fileNames = fileNames;
+    }
 
     public ArrayList<Group> getGroups() {
         return groups;
