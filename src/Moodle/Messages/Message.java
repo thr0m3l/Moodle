@@ -1,6 +1,7 @@
 package Moodle.Messages;
 
 import Moodle.Client.Group;
+import Moodle.Course;
 import Moodle.File;
 import Moodle.User;
 import java.io.Serializable;
@@ -15,6 +16,16 @@ public class Message implements Serializable {
     private byte[] voice;
     private Group group;
     private File file;
+    private Course course;
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public Group getGroup() {
         return group;
     }

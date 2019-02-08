@@ -72,31 +72,51 @@ public class HomeController {
     public void initialize(){
 
        //Loading the CSS
-        courseListView.getStylesheets().add(getClass().getResource("listViewStyle.css").toExternalForm());
-        try {
-            File file = new File(fileName2);
-            FileInputStream fin = new FileInputStream(file);
-            ObjectInputStream oin = new ObjectInputStream(fin);
-            boolean cond = true;
-            while (cond) {
-                Object obj = null;
-                try {
-                    obj = oin.readObject();
-                    Course course = (Course) obj;
-                    System.out.println(course);
-                    courseObservableList.add(course);
+        btnMessage.setOnAction(event -> {
+                    try{
+                        main.showChatScreen();
+                    } catch (java.lang.Exception e){
+                        e.printStackTrace();
+                    }
+                }
+        );
 
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (obj == null) {
-                    cond = false;
-                    fin.close();
-                }
+        btnStorage.setOnAction(event -> {
+            try{
+                main.showStorage();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
+
+
+
+
+        courseListView.getStylesheets().add(getClass().getResource("listViewStyle.css").toExternalForm());
+//        try {
+//            File file = new File(fileName2);
+//            FileInputStream fin = new FileInputStream(file);
+//            ObjectInputStream oin = new ObjectInputStream(fin);
+//            boolean cond = true;
+//            while (cond) {
+//                Object obj = null;
+//                try {
+//                    obj = oin.readObject();
+//                    Course course = (Course) obj;
+//                    System.out.println(course);
+//                    courseObservableList.add(course);
+//
+//                } catch (ClassNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                if (obj == null) {
+//                    cond = false;
+//                    fin.close();
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         /*Temporary Code, will be removed after adding courseData class
         courseObservableList.add(
                 new Course(new User("abc","123","ABC","abc","Faculty")

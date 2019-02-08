@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Client.ChatController;
+import Moodle.Client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -14,8 +16,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    Stage stage;
+    private Stage stage;
     private javafx.stage.Screen Screen;
+    private static Client client = new Client("localhost",8818);
+    private static User currentUser = null;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        Main.currentUser = currentUser;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -76,6 +96,25 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
 
+    }
+
+    public void showChatScreen () throws Exception{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXML/chatScreen.fxml"));
+        Parent root = loader.load();
+        // Loading the controller
+        ChatController controller = loader.getController();
+//        controller.setCurrentUser(user);
+        //controller.init(userName);
+        controller.setMain(this);
+
+        client.setChatController(controller);
+
+        // Set the primary stage
+        stage.setTitle("Chat Screen");
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.setResizable(true);
+        stage.show();
     }
     public void showSignUpPage () throws Exception{
         /*FXMLLoader loader = new FXMLLoader();
@@ -188,6 +227,45 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
+    public void showStorage() throws IOException {
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "FXML/Storage.fxml" ) );
+        Region contentRootRegion = loader.load();
+        double origW = 1280;
+        double origH = 720;
+
+
+        if ( contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefWidth( origW );
+        else
+            origW = contentRootRegion.getPrefWidth();
+        if ( contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefHeight( origH );
+        else
+            origH = contentRootRegion.getPrefHeight();
+        Group group = new Group( contentRootRegion );
+
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add(group);
+        stage.setTitle( "Moodle Storage" );
+        Scene scene = new Scene( rootPane, origW, origH );
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        //Set the scene to the window (stage) and show it
+        stage.setScene( scene );
+        stage.show();
+
+
+
+
+        // Loading the controller
+        StorageController controller = loader.getController();
+        controller.setCurrentUser(currentUser);
+        //controller.init(userName);
+        controller.setMain(this);
+        client.setStorageController(controller);
+
+    }
+
     public void showCoursePage (User user, Course course) throws Exception{
        /* FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("CoursePage.fxml"));
@@ -414,36 +492,49 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-        try{
-            UserData.getUserData().loadUserData();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }try{
-            SiteNewsData.getSiteNewsData().loadSiteNewsData();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        try{
-            CourseData.getCourseData().loadCourseData();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        try{
-            PostData.getPostData().loadPostData();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+//        try{
+//            UserData.getUserData().loadUserData();
+//        }catch(IOException e){
+//            System.out.println(e.getMessage());
+//        }try{
+//            SiteNewsData.getSiteNewsData().loadSiteNewsData();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//        try{
+//            CourseData.getCourseData().loadCourseData();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//        try{
+//            PostData.getPostData().loadPostData();
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(UserData.getUserData().getUsers());
+//        System.out.println(SiteNewsData.getSiteNewsData().getSiteNews());
 
-        System.out.println(UserData.getUserData().getUsers());
-        System.out.println(SiteNewsData.getSiteNewsData().getSiteNews());
+        Thread t = new Thread(client);
+        t.start();
+        client.setMain(this);
     }
+
+    public static Client getClient() {
+        return client;
+    }
+
+    public static void setClient(Client client) {
+        Main.client = client;
+    }
+
     @Override
     public void stop() throws Exception {
-        try{
-            UserData.getUserData().saveUserData();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }
+//            try{
+//                UserData.getUserData().saveUserData();
+//            }catch(IOException e){
+//                System.out.println(e.getMessage());
+//            }
     }
     public void showFriends (User user) throws Exception{
         /*FXMLLoader loader = new FXMLLoader();
@@ -486,9 +577,9 @@ public class Main extends Application {
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
         //Scene scene=new Scene(contentRootRegion,1200,700);
-        ShowingFriendsController controller = loader.getController();
-        controller.setCurrentUser(user);
-        controller.setMain(this);
+//        ShowingFriendsController controller = loader.getController();
+//        controller.setCurrentUser(user);
+//        controller.setMain(this);
         // Set the primary stage
         stage.setTitle("Login");
         stage.setScene(scene);
@@ -591,9 +682,9 @@ public class Main extends Application {
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
         //Scene scene=new Scene(contentRootRegion,1200,700);
-        UpdateProfileController controller = loader.getController();
-        controller.setMain(this);
-        controller.setCurrentUser(user);
+//        UpdateProfileController controller = loader.getController();
+//        controller.setMain(this);
+//        controller.setCurrentUser(user);
         // Set the primary stage
         stage.setTitle("Login");
         stage.setScene(scene);

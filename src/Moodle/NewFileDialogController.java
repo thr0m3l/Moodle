@@ -1,6 +1,6 @@
 package Moodle;
 
-import com.jfoenix.controls.JFXButton;
+//import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -20,8 +20,8 @@ public class NewFileDialogController {
     @FXML
     private Label userTextArea;
 
-    @FXML
-    private JFXButton selectFile;
+//    @FXML
+//    private JFXButton selectFile;
 
     private FileChooser fileChooser;
 
@@ -31,13 +31,13 @@ public class NewFileDialogController {
     private Dialog<ButtonType> dialog;
     @FXML
     public void initialize(){
-        selectFile.setOnAction(event -> {
-//            fileChooser = new FileChooser();
-//            fileChooser.setTitle("Choose a file");
-//            Window dialogWindow = dialog.getDialogPane().getScene().getWindow();
-//            File file = fileChooser.showOpenDialog(dialogWindow);
-//            System.out.println(file.getPath());
-        });
+//        selectFile.setOnAction(event -> {
+////            fileChooser = new FileChooser();
+////            fileChooser.setTitle("Choose a file");
+////            Window dialogWindow = dialog.getDialogPane().getScene().getWindow();
+////            File file = fileChooser.showOpenDialog(dialogWindow);
+////            System.out.println(file.getPath());
+//        });
 
 
 //        File file = fileChooser.showOpenDialog(dialogPane.getScene().getWindow());
