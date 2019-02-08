@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Moodle.CourseController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.CourseController">
+   <children>
+      <ImageView fitHeight="46.0" fitWidth="200.0" layoutX="290.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Forum-Logo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="coursecode" layoutX="43.0" layoutY="72.0" prefHeight="34.0" prefWidth="160.0" text="Label" textFill="ORANGE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="coursename" layoutX="43.0" layoutY="106.0" prefHeight="60.0" prefWidth="452.0" text="Label" textFill="ORANGE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Hyperlink fx:id="back" alignment="CENTER" layoutX="17.0" layoutY="15.0" onAction="#BackAction" prefHeight="38.0" prefWidth="176.0" text="Home" />
+      <ImageView fitHeight="29.0" fitWidth="19.0" layoutX="57.0" layoutY="26.0" onDragDetected="#BackAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/icons8_Home_32px.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="577.0" layoutY="15.0" prefHeight="38.0" prefWidth="144.0" text="You are logged in as" />
+      <Label fx:id="nameholder" layoutX="732.0" layoutY="19.0" prefHeight="33.0" prefWidth="144.0" text="Label" textFill="ORANGE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="193.0" prefHeight="33.0" prefWidth="144.0" text="Course Teachers" />
+      <ListView fx:id="listofFaculties" layoutX="23.0" layoutY="235.0" prefHeight="93.0" prefWidth="170.0">
+         <effect>
+            <Glow />
+         </effect>
+      </ListView>
+      <Hyperlink fx:id="post" layoutX="43.0" layoutY="47.0" onAction="#PostAction" prefHeight="29.0" prefWidth="108.0" text="Post to forum" />
+      <Label layoutX="33.0" layoutY="339.0" prefHeight="38.0" prefWidth="128.0" text="Detail Outline" />
+      <Label fx:id="outline" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="14.0" layoutY="396.0" prefHeight="133.0" prefWidth="189.0" text="l" textFill="BLUE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="187.0" layoutY="62.0" prefHeight="19.0" prefWidth="128.0" text="Site News" textFill="GREEN">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <VBox fx:id="box" layoutX="203.0" layoutY="92.0" prefHeight="459.0" prefWidth="679.0">
+         <children>
+            <ScrollPane prefHeight="461.0" prefWidth="679.0">
+               <content>
+                  <ListView fx:id="postListView" prefHeight="461.0" prefWidth="675.0" style="-fx-background-color: white;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

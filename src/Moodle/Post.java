@@ -3,19 +3,37 @@ package Moodle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
     String title;
     String date;
-    User admin;
+    String adminName;
     String details;
-    ObservableList<Post> replies = FXCollections.observableArrayList();
+    String courseName;
+    private static final long serialVersionUID = 117L;
 
-    public Post(String title, String date, User admin, String details) {
+    public Post(String title, String date, String admin, String details, String courseName) {
         this.title = title;
         this.date = date;
-        this.admin = admin;
+        this.adminName = admin;
         this.details = details;
+        this.courseName = courseName;
     }
+
+
+    ObservableList<Post> replies = FXCollections.observableArrayList();
+
+    private boolean hidden = true;
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -32,19 +50,23 @@ public class Post {
         this.date = date;
     }
 
-    public User getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(User admin) {
-        this.admin = admin;
-    }
-
     public String getDetails() {
         return details;
     }
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", adminName='" + adminName + '\'' +
+                ", details='" + details + '\'' +
+                ", courseName='" + courseName + '\'' +
+                '}';
     }
 }

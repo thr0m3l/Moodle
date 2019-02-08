@@ -13,12 +13,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 
+import java.io.BufferedReader;
+import java.io.*;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 
 public class HomeController {
-
+    private static String fileName = new String("userCredentials.dat");
+    private static String fileName2 = new String("courseData.dat");
     private Main main;
 
     private User currentUser;
@@ -51,39 +56,56 @@ public class HomeController {
     private Button PostBtn;
     @FXML
     private Button SiteNews;
+    @FXML
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+
+        userNameLabel.setText(currentUser.getFullName());
+        if (currentUser.getUserType().equals("Student")) {
+            addCourseButton.setVisible(false);
+        } else {
+            addCourseButton.setVisible(true);
+        }
+    }
 
 
     public void initialize(){
 
        //Loading the CSS
         courseListView.getStylesheets().add(getClass().getResource("listViewStyle.css").toExternalForm());
+        try {
+            File file = new File(fileName2);
+            FileInputStream fin = new FileInputStream(file);
+            ObjectInputStream oin = new ObjectInputStream(fin);
+            boolean cond = true;
+            while (cond) {
+                Object obj = null;
+                try {
+                    obj = oin.readObject();
+                    Course course = (Course) obj;
+                    System.out.println(course);
+                    courseObservableList.add(course);
 
-        //Temporary Code, will be removed after adding courseData class
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (obj == null) {
+                    cond = false;
+                    fin.close();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*Temporary Code, will be removed after adding courseData class
         courseObservableList.add(
                 new Course(new User("abc","123","ABC","abc","Faculty")
                         ,"101","EEE","Introduction to Electrical Engineering"));
         courseObservableList.add(
                 new Course(new User("abc","123","ABC","abc","Faculty")
                         ,"101","CSE", "Structured Programming Language"));
-        //
-
-        btnMessage.setOnAction(event -> {
-            try{
-                main.showChatScreen();
-            } catch (java.lang.Exception e){
-                e.printStackTrace();
-            }
-                }
-        );
-
-        btnStorage.setOnAction(event -> {
-            try{
-                main.showStorage();
-            } catch (java.lang.Exception e){
-                e.printStackTrace();
-            }
-        });
-
+        */
+        System.out.println("Course Observable list er size :"+courseObservableList.size());
         courseListView.setItems(courseObservableList);
         courseListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         courseListView.getSelectionModel().selectFirst();
@@ -101,7 +123,7 @@ public class HomeController {
                         setGraphic(vbox);
 
                         if (item != null && getIndex() > -1) {
-                            final Label labelHeader = new Label(item.getTitle() + " " + item.getNumber());
+                            final Label labelHeader = new Label(item.getNumber() + " " + item.getTitle());
                             labelHeader.setStyle("-fx-text-fill: #e7e5e5");
                             labelHeader.setGraphic(createArrowPath(height, false));
                             labelHeader.setGraphicTextGap(10);
@@ -121,11 +143,29 @@ public class HomeController {
                                     else {
                                         labelHeader.setGraphic(createArrowPath(height, true));
                                         vbox.getChildren().add(new Label(item.getDescription()));
+                                        //user jodi course e thake tahole enter button visible hobe
+                                        ArrayList<User>faculty=item.getFaculty();
+                                        System.out.println("HomeController e faculty of course: "+faculty);
+                                        ArrayList<User>student=item.getStudent();
+                                        System.out.println("HomeCOtroller e students of course: "+student);
                                         Button btn = new Button("Enter");
+                                        btn.setVisible(false);
+                                        for(User userF:faculty){
+                                            if(userF.getFullName().equals(currentUser.getFullName())){
+                                                btn.setVisible(true);break;
+                                            }
+                                        }
+                                        for(User userS:student){
+                                            if(userS.getFullName().equals(currentUser.getFullName())){
+                                                btn.setVisible(true);break;
+                                            }
+                                        }
+
                                         btn.setOnAction(new EventHandler<ActionEvent>() {
                                             @Override public void handle(ActionEvent e) {
                                                 try{
-                                                    main.showCoursePage(currentUser, item);
+                                                    //main.showCoursePage(currentUser, item);
+                                                    main.showCoursePage2(currentUser, item);
                                                 } catch (java.lang.Exception exception){
                                                     exception.printStackTrace();
                                                 }
@@ -135,7 +175,6 @@ public class HomeController {
                                     }
                                 }
                             });
-
                             vbox.getChildren().add(labelHeader);
                         }
                     }
@@ -177,7 +216,7 @@ public class HomeController {
         return currentUser;
     }
 
-    @FXML
+    /*@FXML
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
 
@@ -187,36 +226,10 @@ public class HomeController {
         } else {
             addCourseButton.setVisible(true);
         }
-    }
-
-    public void showNewCourseDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(homeAnchorPane.getScene().getWindow());
-        dialog.setTitle("Add New Course");
-        dialog.setHeaderText("Use this dialog to create a new course");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("newCourseDialog.fxml"));
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-
-        } catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-            return;
-        }
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        if(result.isPresent() && result.get() == ButtonType.OK) {
-            newCourseDialogController controller = fxmlLoader.getController();
-            Course newCourse = controller.processResults(currentUser);
-            courseListView.getSelectionModel().select(newCourse);
-
-            //
-
-        }
+    }*/
+    @FXML
+    public void showNewCourseDialog()throws Exception {
+        main.showNewCourseDialog(currentUser);
 
 
     }
@@ -229,6 +242,20 @@ public class HomeController {
     public void SiteNewsAction()throws Exception{
         main.showSiteNews(currentUser);
 
+    }
+    @FXML
+    public void MyProfileAction()throws Exception{
+        main.showMyProfile(currentUser);
+
+    }
+
+    @FXML
+    public void FriendAction(){
+        try {
+            main.showFriends(currentUser);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 
