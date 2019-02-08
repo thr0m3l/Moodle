@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #A9A9A9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.PostingNoticeController">
-   <children>
-      <Button fx:id="Post_to_Forum" layoutX="515.0" layoutY="538.0" mnemonicParsing="false" onAction="#PostToForumAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #B0E0E6;" text="Post to forum" />
-      <Button fx:id="Back" layoutX="487.0" layoutY="582.0" mnemonicParsing="false" onAction="#Action" prefHeight="32.0" prefWidth="220.0" style="-fx-background-color: #B0E0E6;" text="Back to Home Page" />
-      <StackPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: #4B0082;">
+<DialogPane fx:id="dialogPane" prefHeight="602.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.NewFileDialogController">
+   <content>
+      <AnchorPane prefHeight="612.0" prefWidth="980.0">
          <children>
-            <Label prefHeight="108.0" prefWidth="1283.0" style="-fx-background-color: #FFFFFF;" text="Post Here" />
+            <Label fx:id="fileName" layoutX="92.0" layoutY="115.0" text="File Name: " />
+            <Label fx:id="userTextArea" layoutX="65.0" layoutY="189.0" text="Give access to: " />
+            <JFXTextField editable="false" layoutX="203.0" layoutY="110.0" prefHeight="31.0" prefWidth="602.0" />
+            <JFXTextArea layoutX="200.0" layoutY="189.0" prefHeight="77.0" prefWidth="580.0" />
          </children>
-      </StackPane>
-      <TextArea fx:id="TakeDetail" layoutX="103.0" layoutY="124.0" prefHeight="394.0" prefWidth="1035.0" promptText="Write here...." style="-fx-background-color: #696969;" wrapText="true">
-         <font>
-            <Font name="System Bold" size="23.0" />
-         </font>
-      </TextArea>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </content>
+</DialogPane>

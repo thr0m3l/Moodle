@@ -2,11 +2,14 @@ package Moodle;
 
 
 import Moodle.Client.Client;
+import Moodle.Client.DialogController;
+import Moodle.Client.Group;
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+
+import java.io.IOException;
+import java.util.Optional;
 
 
 public class StorageController {
@@ -81,6 +87,8 @@ public class StorageController {
     public void initialize(){
 
         fileList.setItems(files);
+
+
         btnSignout.setOnAction(event -> {
             try{
                 main.showLoginPage();
@@ -127,6 +135,16 @@ public class StorageController {
             Main.getClient().send(fileMsg);
         });
 
+        Button btn2 = new Button("Share");
+        btn2.setOnAction( event -> {
+            try{
+                showShareDialog(event);
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+
+        });
+
         fileList.setCellFactory(new Callback<ListView<File>,  ListCell<File>>() {
             @Override
             public ListCell<File> call(final ListView<File> lv) {
@@ -151,15 +169,19 @@ public class StorageController {
                             btn.setOnAction(event -> {
                                 item.byteToFile();
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle(item.getName() + " is downloaded successfully");
+                                alert.setTitle("FILE DOWNLOAD SUCCESSFUL");
+                                alert.setHeaderText(item.getName() + " is downloaded successfully");
                                 alert.showAndWait();
                             });
+
                             Button btn1 = new Button("Properties");
                             btn1.setOnAction( event -> {
 
                             });
 
-                            labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+
+                                labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent me) {
 //                                        labelHeader.setGraphic(createArrowPath(height, false));
@@ -167,10 +189,10 @@ public class StorageController {
                                     hbox.setSpacing(25);
                                     item.setHidden(item.getHidden() ? false : true);
                                     if(item.getHidden()){
-                                        hbox.getChildren().removeAll(btn,btn1);
+                                        hbox.getChildren().removeAll(btn,btn1,btn2);
                                     }
                                     else {
-                                        hbox.getChildren().addAll(btn,btn1);
+                                        hbox.getChildren().addAll(btn,btn1,btn2);
                                     }
 
                                 }
@@ -187,9 +209,37 @@ public class StorageController {
 
 
 
+    }
 
+    public void showShareDialog (ActionEvent event) throws Exception{
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(homeAnchorPane.getScene().getWindow());
+        dialog.setTitle("Share File");
+        dialog.setHeaderText("To add multiple users, put ';' between users ");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("newFileDialog.fxml"));
+        NewFileDialogController controller = fxmlLoader.getController();
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
 
+        } catch(IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
 
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+
+//                                    Group newGroup = controller.processResults();
+//                                    newGroup.getUsers().add(Main.getCurrentUser().getUserName());
+////            groupObservableList.add(newGroup);
+//                                    groupList.getSelectionModel().select(newGroup);
+//                                    groupList.refresh();
+        }
     }
     public void addToFileList(File file){
         files.add(file);

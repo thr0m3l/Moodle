@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -61,8 +62,12 @@ public class Server {
         fileData = fileData;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("The server is running");
+
+        InetAddress localhost = InetAddress.getLocalHost();
+        System.out.println("System IP Address : " +
+                (localhost.getHostAddress()).trim());
 
         try {
             userData.loadData();
@@ -119,6 +124,8 @@ public class Server {
                 objectInputStream = new ObjectInputStream(inputStream);
 
                 System.out.println("User connected!");
+
+
 
                 while (socket.isConnected()){
 

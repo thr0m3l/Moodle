@@ -23,8 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import Moodle.Messages.bubble.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
