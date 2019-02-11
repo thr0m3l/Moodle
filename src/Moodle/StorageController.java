@@ -157,7 +157,7 @@ public class StorageController {
                         setGraphic(hbox);
                         if (item != null && getIndex() > -1) {
                             final Label labelHeader = new Label(item.getName());
-                            labelHeader.setStyle("-fx-text-fill: #161616");
+                            labelHeader.setStyle("-fx-text-fill: #f7f9fc");
 //                            labelHeader.setGraphic(createArrowPath(height, false));
                             labelHeader.setGraphicTextGap(20);
                             labelHeader.setId("tableview-columnheader-default-bg");

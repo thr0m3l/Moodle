@@ -31,18 +31,8 @@ public class NewFileDialogController {
     private Dialog<ButtonType> dialog;
     @FXML
     public void initialize(){
-//        selectFile.setOnAction(event -> {
-////            fileChooser = new FileChooser();
-////            fileChooser.setTitle("Choose a file");
-////            Window dialogWindow = dialog.getDialogPane().getScene().getWindow();
-////            File file = fileChooser.showOpenDialog(dialogWindow);
-////            System.out.println(file.getPath());
-//        });
 
-
-//        File file = fileChooser.showOpenDialog(dialogPane.getScene().getWindow());
-//        Path path = Paths.get(file.getPath());
-//        System.out.println(file.getPath());
+        
     }
 
     public void setDialog(Dialog<ButtonType> dialog) {

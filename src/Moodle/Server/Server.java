@@ -158,13 +158,6 @@ public class Server {
                                             currentUser.getFiles().add(file);
                                         }
                                     }
-//                                    for(Course course : courseData.getData()){
-//                                        if(course.getStudent().contains(currentUser.getUserName())){
-//                                            currentUser.getCourses().add(course);
-//                                        } else if(course.getFaculty().contains(currentUser.getUserName())){
-//                                            currentUser.getCourses().add(course);
-//                                        }
-//                                    }
 
                                     newMsg.setUser(currentUser);
 
@@ -172,18 +165,28 @@ public class Server {
                                 objectOutputStream.writeObject(newMsg);
                                 break;
                             case CLIENT:
-                                //debug code
-                                System.out.println(message.getMsg());
-
-                                message.getGroup().getMessages().add(message);
+//                                message.getGroup().getMessages().add(message);
                                 for(String userName : message.getGroup().getUsers()){
                                     for(User user : onlineUsers.keySet()){
-                                        if(user.getUserName().equals(userName)){
-                                            onlineUsers.get(user).writeObject(message);
+                                        if(user.getUserName().equals(userName) &&
+                                                !user.getUserName().equals(message.getUser())){
+                                            try{
+                                                onlineUsers.get(user).writeObject(message);
+                                            } catch (SocketException se){
+                                                System.err.println("Socket exception");
+                                            }
                                         }
                                     }
-
                                 }
+
+//                                for(User user1: userData.getData()){
+//                                    for(Group group : user1.getGroups()){
+//                                        if(group.getName().equals(message.getGroup().getName())){
+//                                            group.getMessages().add(message);
+//                                        }
+//                                    }
+//                                }
+//                                userData.saveData();
                                 break;
                             case SIGNUP:
                                 Message signUpMsg = new Message();
@@ -276,8 +279,11 @@ public class Server {
                                         if(course.getTitle().equals(message.getPost().getCourseName())){
                                             course.getPosts().add(message.getPost());
                                             System.out.println("Post added successfully");
+                                            done = true;
+                                            break;
                                         }
                                     }
+                                    if(done) break;
                                 }
                                 userData.saveData();
                                 objectOutputStream.writeObject(message);
@@ -292,7 +298,10 @@ public class Server {
                                     }
                                 }
                                 break;
-
+                            case LOGOUT:
+                                onlineUsers.remove(message.getUser(),onlineUsers.get(message.getUser()));
+                                System.err.println("User logged out: " + message.getUser());
+                                break;
                             }
                     }
 

@@ -1,14 +1,8 @@
 package Moodle;
 
 import Moodle.Client.Group;
-import Moodle.Course;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class User implements Serializable {
 
@@ -22,6 +16,15 @@ public class User implements Serializable {
     private ArrayList<File> files = new ArrayList<>();
     private ArrayList<String> fileNames = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<>();
+    private boolean approved = false;
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
 
     public ArrayList<Course> getCourses() {
         return courses;

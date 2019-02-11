@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,6 +97,7 @@ public class HomeController {
                 e.printStackTrace();
             }
         });
+
 
 
 
@@ -199,6 +202,12 @@ public class HomeController {
     }
     @FXML
     public void logOut() throws Exception{
+
+        Message message = new Message();
+        message.setMessageType(MessageType.LOGOUT);
+        message.setUser(getCurrentUser());
+
+        Main.getClient().send(message);
         main.showLoginPage();
     }
 

@@ -8,6 +8,7 @@ import Moodle.Messages.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Client implements Runnable{
     private Socket socket;
@@ -99,6 +100,15 @@ public class Client implements Runnable{
                         msg = (Message) objectInputStream.readObject();
                     } catch (EOFException eof){
                         System.err.println("Logged out");
+                        break;
+                    } catch (SocketException se){
+                        Platform.runLater( ()->{
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setHeaderText("Can't connect with the server");
+                            alert.setTitle("Disconnected");
+                            alert.showAndWait();
+                        });
+//                        Platform.exit();
                         break;
                     }
 

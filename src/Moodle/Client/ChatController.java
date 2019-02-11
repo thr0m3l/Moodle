@@ -4,20 +4,27 @@ import Moodle.*;
 import Moodle.Client.util.*;
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import Moodle.Messages.bubble.BubbleSpec;
+import Moodle.Messages.bubble.BubbledLabel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -103,7 +110,82 @@ public class ChatController implements Initializable {
 
         Group selectedGroup = groupList.getSelectionModel().getSelectedItem();
         selectedGroup.getMessages().add(msg);
-        chatPane.getItems().add(msg);
+//        chatPane.getItems().add(msg);
+
+
+        ///////EXPERIMENTAL CODE, IN CASE IT DOESN'T WORK,
+        ///IT WILL BE REMOVED
+
+
+        Task<HBox> othersMessages = new Task<HBox>() {
+            @Override
+            public HBox call() throws Exception {
+//                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture() + ".png").toString());
+//                ImageView profileImage = new ImageView(image);
+//                profileImage.setFitHeight(32);
+//                profileImage.setFitWidth(32);
+                BubbledLabel bl6 = new BubbledLabel();
+                if (msg.getMessageType() == MessageType.VOICE){
+//                    ImageView imageview = new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString()));
+//                    bl6.setGraphic(imageview);
+                    bl6.setText("Sent a voice message!");
+//                    VoicePlayback.playAudio(msg.getVoiceMsg());
+                }else {
+                    bl6.setText(msg.getUser().getUserName() + ": " + msg.getMsg());
+                }
+                bl6.setBackground(new Background(new BackgroundFill(Color.AQUA,null, null)));
+                HBox x = new HBox();
+                bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
+                x.getChildren().addAll(bl6);
+//                setOnlineLabel(Integer.toString(msg.getOnlineCount()));
+                return x;
+            }
+        };
+
+        othersMessages.setOnSucceeded(event -> {
+            chatPane.getItems().add(othersMessages.getValue());
+        });
+
+        Task<HBox> yourMessages = new Task<HBox>() {
+            @Override
+            public HBox call() throws Exception {
+                Image image = userImageView.getImage();
+                ImageView profileImage = new ImageView(image);
+                profileImage.setFitHeight(32);
+                profileImage.setFitWidth(32);
+
+                BubbledLabel bl6 = new BubbledLabel();
+                if (msg.getMessageType() == MessageType.VOICE){
+//                    bl6.setGraphic(new ImageView(new Image(getClass().getClassLoader().getResource("images/sound.png").toString())));
+                    bl6.setText("Sent a voice message!");
+//                    VoicePlayback.playAudio(msg.getVoiceMsg());
+                }else {
+                    bl6.setText(msg.getMsg());
+                }
+                bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN,
+                        null, null)));
+                HBox x = new HBox();
+                x.setMaxWidth(chatPane.getWidth() - 20);
+                x.setAlignment(Pos.TOP_RIGHT);
+                bl6.setBubbleSpec(BubbleSpec.FACE_RIGHT_CENTER);
+                x.getChildren().addAll(bl6, profileImage);
+
+//                setOnlineLabel(Integer.toString(msg.getOnlineCount()));
+                return x;
+            }
+        };
+        yourMessages.setOnSucceeded(event -> chatPane.getItems().add(yourMessages.getValue()));
+
+        if (msg.getUser().getUserName().equals(Main.getCurrentUser().getUserName())) {
+            Thread t2 = new Thread(yourMessages);
+            t2.setDaemon(true);
+            t2.start();
+        } else {
+            Thread t = new Thread(othersMessages);
+            t.setDaemon(true);
+            t.start();
+        }
+
 
     }
 

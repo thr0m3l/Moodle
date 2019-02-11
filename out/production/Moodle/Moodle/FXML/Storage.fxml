@@ -150,7 +150,7 @@
                   </HBox>
                   <ScrollPane layoutX="27.0" layoutY="127.0" prefHeight="580.0" prefWidth="980.0" style="-fx-background-color: #05071F;" stylesheets="@../style.css">
                      <content>
-                        <JFXListView fx:id="fileList" prefHeight="581.0" prefWidth="975.0" />
+                        <JFXListView fx:id="fileList" prefHeight="581.0" prefWidth="975.0" stylesheets="@../listViewStyle.css" />
                      </content>
                   </ScrollPane>
                   <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
