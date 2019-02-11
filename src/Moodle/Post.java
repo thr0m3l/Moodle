@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Post implements Serializable {
     String title;
@@ -12,14 +13,6 @@ public class Post implements Serializable {
     String details;
     String courseName;
     private static final long serialVersionUID = 117L;
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
 
     public Post(String title, String date, String admin, String details, String courseName) {
         this.title = title;
@@ -30,7 +23,7 @@ public class Post implements Serializable {
     }
 
 
-    ObservableList<Post> replies = FXCollections.observableArrayList();
+    ArrayList<Post> replies = new ArrayList<>();
 
     private boolean hidden = true;
 
@@ -66,10 +59,22 @@ public class Post implements Serializable {
         this.details = details;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     @Override
     public String toString() {
-        return "Posted by: "+adminName+"\n"+"Posted at: "+date+"\n"+details+"\n";
-
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", adminName='" + adminName + '\'' +
+                ", details='" + details + '\'' +
+                ", courseName='" + courseName + '\'' +
+                '}';
     }
 }

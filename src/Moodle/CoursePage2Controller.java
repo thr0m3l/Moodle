@@ -27,16 +27,18 @@ public class CoursePage2Controller implements Initializable {
 
 
     @FXML
+    private Course currentCourse;
     private ObservableList<Post> postObservableList = FXCollections.observableArrayList();
     private Main main;
     private User currentUser;
-    private Course currentCourse;
     public Main getMain() {
         return main;
     }
     public void setMain(Main main) {
         this.main = main;
     }
+
+
     @FXML
     public void setCurrentUser(User currentUser) {
         //userName.setText(currentUser.getFullName());
@@ -48,17 +50,15 @@ public class CoursePage2Controller implements Initializable {
         coursecodeholder.setText(currentCourse.getNumber());
         coursenameholder.setText(currentCourse.getTitle());
         this.currentCourse = currentCourse;
-        //coursecodeholder.setText(currentCourse.getNumber());
-        //coursenameholder.setText(currentCourse.getTitle());
-        ArrayList<Post>all=currentCourse.getPosts();
-        for(Post post:all){
-            postListView.getItems().add(post);
-        }
+        this.postObservableList = FXCollections.observableArrayList(this.currentCourse.getPosts());
+        postListView.getItems().addAll(this.postObservableList);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+//        postObservableList = FXCollections.observableArrayList(currentCourse.getPosts());
         postListView.getStylesheets().add(getClass().getResource("listViewStyle.css").toExternalForm());
 
 
@@ -99,6 +99,7 @@ public class CoursePage2Controller implements Initializable {
                                     else {
                                         labelHeader.setGraphic(createArrowPath(height, true));
                                         vbox.getChildren().add(new Label(item.getDetails()));
+
                                         Button btn = new Button("Enter");
                                         btn.setVisible(true);
 
@@ -106,7 +107,6 @@ public class CoursePage2Controller implements Initializable {
                                             @Override public void handle(ActionEvent e) {
                                                 try{
                                                     //main.showCoursePage(currentUser,item);
-                                                    main.showConversation(currentUser,currentCourse,item);
                                                 } catch (java.lang.Exception exception){
                                                     exception.printStackTrace();
                                                 }
@@ -171,5 +171,10 @@ public class CoursePage2Controller implements Initializable {
     @FXML
     public void logOut() throws Exception{
         main.showLoginPage();
+    }
+
+    public void addPost (Post post) throws Exception{
+        postListView.getItems().add(post);
+
     }
 }

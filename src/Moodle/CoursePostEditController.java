@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -68,37 +70,14 @@ public class CoursePostEditController implements Initializable {
         System.out.println("CoursePost Edit controller e post object: "+post);
 
         //post ta k course er post list e add kortesi
-        currentCourse.setaPost(post);
+        Message postMsg = new Message();
+        postMsg.setMessageType(MessageType.POST);
+        postMsg.setPost(post);
 
-        PostData.getPostData().getPosts().add(post);
-        PostData.getPostData().savePostData();
-
-        /*try {
-            File file = new File("postData.dat");
-            FileInputStream fin = new FileInputStream(file);
-            ObjectInputStream oin = new ObjectInputStream(fin);
-            boolean cond = true;
-            while (cond) {
-                Object obj = null;
-                try {
-                    obj = oin.readObject();
-                    Post post2 = (Post) obj;
-                    System.out.println("File theke ana post:"+post2);
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (obj == null) {
-                    cond = false;
-                    fin.close();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        Main.getClient().send(postMsg);
 
 
-        main.showCoursePage2(currentUser,currentCourse);
+        main.showCoursePage2(Main.getCurrentUser(),currentCourse);
         /*UserData.getUserData().getUsers().add(user);
         UserData.getUserData().saveUserData();*/
     }

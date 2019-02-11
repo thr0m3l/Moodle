@@ -135,7 +135,7 @@
             <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
             <Pane fx:id="pnlOverview" prefHeight="720.0" prefWidth="1280.0">
                <children>
-                  <TextField layoutX="596.0" layoutY="61.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
                   <Label layoutX="57.0" layoutY="25.0" text="Moodle Homepage" textFill="#e7e5e5">
                      <font>
                         <Font size="24.0" />
@@ -164,12 +164,7 @@
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="addCourseButton" layoutX="1051.0" layoutY="65.0" mnemonicParsing="false" onAction="#showNewCourseDialog" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: #05071F #05071F;" text="Add a Course" textFill="#f5e8e8" />
-      <Label fx:id="timeLabel" layoutX="1016.0" layoutY="16.0" prefHeight="31.0" prefWidth="183.0" textFill="WHITE">
-         <font>
-            <Font name="Consolas Bold Italic" size="17.0" />
-         </font>
-      </Label>
+      <Button fx:id="addCourseButton" layoutX="1067.0" layoutY="49.0" mnemonicParsing="false" onAction="#showNewCourseDialog" prefHeight="31.0" prefWidth="166.0" style="-fx-background-color: #05071F #05071F;" text="Add a Course" textFill="#f5e8e8" />
    </children>
    <effect>
       <DropShadow color="#1b1eeb" />
