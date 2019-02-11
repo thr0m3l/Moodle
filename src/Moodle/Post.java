@@ -77,4 +77,11 @@ public class Post implements Serializable {
                 ", courseName='" + courseName + '\'' +
                 '}';
     }
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
 }

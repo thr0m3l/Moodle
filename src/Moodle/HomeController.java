@@ -2,6 +2,9 @@ package Moodle;
 
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,12 +17,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 
 
@@ -57,6 +63,8 @@ public class HomeController {
     private Button PostBtn;
     @FXML
     private Button SiteNews;
+    @FXML
+    private Label timeLabel;
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -181,6 +189,18 @@ public class HomeController {
             }
         });
 
+        //showing the server time in home
+        //final Label clock = new Label();
+        final DateFormat format = DateFormat.getInstance();
+        final Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
+                (event -> {
+                    final Calendar cal = Calendar.getInstance();
+                    timeLabel.setText(format.format(cal.getTime()));
+                })));
+
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
 
     //Used in showing arrows on listView, will be modified later
@@ -260,5 +280,7 @@ public class HomeController {
             e.printStackTrace();
         }
     }
+
+
 }
 
