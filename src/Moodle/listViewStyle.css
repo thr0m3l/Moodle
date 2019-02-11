@@ -1,24 +1,11 @@
-.list-view {
-    -fx-background-color: #232323;
+.list-view .list-cell:even {
+    -fx-background-color:  #05071F;
+    -fx-text-fill: #e7e5e5;
 }
-
-.list-view .list-cell:hover {
-    -fx-background-color: #434343;
+.list-view .list-cell:odd {
+    -fx-background-color:  #05071F;
+    -fx-text-fill: #e7e5e5;
 }
-
-.list-view .list-cell:selected {
-    -fx-background-color: #434343;
-}
-
-.list-view .list-cell {
-    -fx-background-color: #232323;
-    -fx-text-fill: white;
-}
-
-.list-view .label {
-    -fx-text-fill: white;
-}
-
-.jfx-rippler {
-    -jfx-rippler-fill: red;
+.list-view.label{
+    -fx-text-fill: #e7e5e5;
 }

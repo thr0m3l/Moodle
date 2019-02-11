@@ -23,12 +23,12 @@ public class NewWaitingUser implements Serializable {
     public void SetState(){
         UserState.put(fullname,1);
         User newUser=new User(username,password,fullname,email,userType);
-//        try {
-//            UserData.getUserData().getUsers().add(newUser);
-//            UserData.getUserData().saveUserData();
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
+        try {
+            UserData.getUserData().getUsers().add(newUser);
+            UserData.getUserData().saveUserData();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

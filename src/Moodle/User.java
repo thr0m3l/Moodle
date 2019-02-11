@@ -1,8 +1,12 @@
 package Moodle;
 
-import Moodle.Client.Group;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User implements Serializable {
 
@@ -11,62 +15,24 @@ public class User implements Serializable {
     private String fullName;
     private String eMail;
     private String userType;
-    private String picture;
-    private ArrayList<Group> groups = new ArrayList<>();
-    private ArrayList<File> files = new ArrayList<>();
-    private ArrayList<String> fileNames = new ArrayList<>();
-    private ArrayList<Course> courses = new ArrayList<>();
-    private boolean approved = false;
+    //private Course course;
 
-    public boolean isApproved() {
-        return approved;
+
+    private ArrayList<Course> courseArrayList = new ArrayList<>();
+    public ArrayList<Course> getCourseArrayList() {
+        return courseArrayList;
     }
 
-    public void setApproved(boolean approved) {
-        this.approved = approved;
+    public void setCourseArrayList(ArrayList<Course> courseArrayList) {
+        this.courseArrayList = courseArrayList;
+    }
+    public void setCourse(Course course) {
+        courseArrayList.add(course);
     }
 
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(ArrayList<Course> courses) {
-        this.courses = courses;
-    }
-
-    public ArrayList<File> getFiles() {
-        return files;
-    }
-
-    public void setFiles(ArrayList<File> files) {
-        this.files = files;
-    }
-
-    public ArrayList<String> getFileNames() {
-        return fileNames;
-    }
-
-    public void setFileNames(ArrayList<String> fileNames) {
-        this.fileNames = fileNames;
-    }
-
-    public ArrayList<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(ArrayList<Group> groups) {
-        this.groups = groups;
-    }
-
+    //private CheckBox Select;
+    //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
     private long serialVersionUID = 1L;
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public String getUserName() {
         return userName;
@@ -114,18 +80,17 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+
+
     public User(String userName, String password, String fullName, String eMail, String userType) {
         this.userName = userName;
         this.password = password;
         this.fullName = fullName;
         this.eMail = eMail;
         this.userType = userType;
+        //this.Select=new CheckBox();
     }
 
-    public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
 
     @Override
     public String toString() {

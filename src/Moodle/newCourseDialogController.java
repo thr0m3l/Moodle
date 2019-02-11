@@ -1,17 +1,21 @@
 package Moodle;
 
-import Moodle.Messages.Message;
-import Moodle.Messages.MessageType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 
 public class newCourseDialogController implements Initializable {
@@ -51,9 +55,38 @@ public class newCourseDialogController implements Initializable {
     @FXML private TableColumn<User,CheckBox>Action;
     public ObservableList<User> list= FXCollections.observableArrayList();
 
+
+
+    /*public Course processResults(User currentUser) {
+
+        return null;
+    }*/
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            File file = new File(fileName);
+            FileInputStream fin = new FileInputStream(file);
+            ObjectInputStream oin = new ObjectInputStream(fin);
+            boolean cond = true;
+            while (cond) {
+                Object obj = null;
+                try {
+                    obj = oin.readObject();
+                    User user = (User) obj;
+                    list.add(user);
 
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (obj == null) {
+                    cond = false;
+                    fin.close();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         userName.setCellValueFactory(new PropertyValueFactory<User,String>("userName"));
         userType.setCellValueFactory(new PropertyValueFactory<User,String>("userType"));
         table.setItems(list);
@@ -70,34 +103,93 @@ public class newCourseDialogController implements Initializable {
         takeStudents.setWrapText(true);
         String allFaculty=takeFaculty.getText();
         String allStudents=takeStudents.getText();
-        String[] faculties = allFaculty.split(";");
-        String[] students = allStudents.split(";");
+        StringTokenizer stf=new StringTokenizer(allFaculty,";");
+        StringTokenizer sts=new StringTokenizer(allStudents,";");
 
 
+        while (stf.hasMoreTokens()){
+            String name=stf.nextToken();
+            try {
+                File file = new File(fileName);
+                FileInputStream fin = new FileInputStream(file);
+                ObjectInputStream oin = new ObjectInputStream(fin);
+                boolean cond = true;
+                while (cond) {
+                    Object obj = null;
+                    try {
+                        obj = oin.readObject();
+                        User user = (User) obj;
+                        // if matched, add them to the list
+                        if(user.getUserName().equals(name) ){
+                                faculty.add(user);
+                        }
+                        //System.out.println("from file "+user.getUserName()+","+user.getUserType());
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    if (obj == null) {
+                        cond = false;
+                        fin.close();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        while (sts.hasMoreTokens()){
+            String name=sts.nextToken();
+            try {
+                File file = new File(fileName);
+                FileInputStream fin = new FileInputStream(file);
+                ObjectInputStream oin = new ObjectInputStream(fin);
+                boolean cond = true;
+                while (cond) {
+                    Object obj = null;
+                    try {
+                        obj = oin.readObject();
+                        User user = (User) obj;
+                        // if matched, add them to the list
+                        if(user.getUserName().equals(name) ){
+                            student.add(user);
+                        }
+                        //System.out.println("from file "+user.getUserName()+","+user.getUserType());
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    if (obj == null) {
+                        cond = false;
+                        fin.close();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+        System.out.println("Now here,the size of faculty list is: "+faculty.size());
+        System.out.println("Now here,the size of student list is: "+student.size());
         //now getting the course relevant materials and make a course object
         String number=CourseCode.getText();
         String courseName=CourseName.getText();
         String outline=courseOutline.getText();
         //now create an object and save it to file
-
         System.out.println(faculty);
         System.out.println(student);
-
-        Course course = new Course();
-        course.getStudent().addAll(Arrays.asList(students));
-        course.getFaculty().addAll(Arrays.asList(faculties));
-        course.setNumber(number);
-        course.setDescription(outline);
-        course.setTitle(courseName);
+        Course course=new Course(faculty,student,number,courseName,outline);
+        CourseData.getCourseData().getCourseObservableList().add(course);
+        CourseData.getCourseData().saveCourseData();
+        System.out.println(course);
 
 
-        Message courseMsg = new Message();
-        courseMsg.setUser(Main.getCurrentUser());
-        courseMsg.setMessageType(MessageType.COURSE);
-        courseMsg.setCourse(course);
+        //ekhon loop chalaye course er sob user der vitor ei course add korte hobe
+        ArrayList<User>courseFaculty=course.getFaculty();
+        ArrayList<User>courseStudents=course.getStudent();
+        //now add the course to the user's data
 
-        Main.getClient().send(courseMsg);
 
-        main.showHomePage(Main.getCurrentUser());
     }
 }
