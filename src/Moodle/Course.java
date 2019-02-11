@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Course implements Serializable{
-    private ArrayList<User> faculty = new ArrayList<>();
-    private ArrayList<User> student = new ArrayList<>();
+    private ArrayList<String> faculty = new ArrayList<>();
+    private ArrayList<String> student = new ArrayList<>();
     private ArrayList<Post> posts = new ArrayList<>();
     private String number;
     private String title;
@@ -20,19 +20,19 @@ public class Course implements Serializable{
         return description;
     }
 
-    public ArrayList<User> getFaculty() {
+    public ArrayList<String> getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(ArrayList<User> faculty) {
+    public void setFaculty(ArrayList<String> faculty) {
         this.faculty = faculty;
     }
 
-    public ArrayList<User> getStudent() {
+    public ArrayList<String> getStudent() {
         return student;
     }
 
-    public void setStudent(ArrayList<User> student) {
+    public void setStudent(ArrayList<String> student) {
         this.student = student;
     }
 
@@ -62,13 +62,6 @@ public class Course implements Serializable{
         this.hidden = hidden;
     }
 
-    public Course(ArrayList<User> faculty, ArrayList<User> student, String number, String title, String description) {
-        this.faculty = faculty;
-        this.student = student;
-        this.number = number;
-        this.title = title;
-        this.description = description;
-    }
 
     public String getNumber() {
         return number;
@@ -86,17 +79,17 @@ public class Course implements Serializable{
         this.title = title;
     }
 
-    public Course(User faculty, String number, String title) {
-        this.faculty.add(faculty);
-        this.number = number;
-        this.title = title;
-    }
-    public Course(User faculty, String number, String title, String description) {
-        this.faculty.add(faculty);
-        this.number = number;
-        this.title = title;
-        this.description = description;
-    }
+//    public Course(User faculty, String number, String title) {
+//        this.faculty.add(faculty);
+//        this.number = number;
+//        this.title = title;
+//    }
+//    public Course(User faculty, String number, String title, String description) {
+//        this.faculty.add(faculty);
+//        this.number = number;
+//        this.title = title;
+//        this.description = description;
+//    }
 
     @Override
     public String toString() {

@@ -21,6 +21,15 @@ public class User implements Serializable {
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<File> files = new ArrayList<>();
     private ArrayList<String> fileNames = new ArrayList<>();
+    private ArrayList<Course> courses = new ArrayList<>();
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
+    }
 
     public ArrayList<File> getFiles() {
         return files;
@@ -46,16 +55,6 @@ public class User implements Serializable {
         this.groups = groups;
     }
 
-    public ArrayList<Course> getCourseArrayList() {
-        return courseArrayList;
-    }
-
-    public void setCourseArrayList(ArrayList<Course> courseArrayList) {
-        this.courseArrayList = courseArrayList;
-    }
-
-    //private ObservableList<Course> courseObservableList = FXCollections.observableArrayList();
-    private ArrayList<Course> courseArrayList = new ArrayList<>();
     private long serialVersionUID = 1L;
 
     public String getPicture() {

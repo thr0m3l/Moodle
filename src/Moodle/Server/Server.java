@@ -73,7 +73,7 @@ public class Server {
             userData.loadData();
             courseData.loadData();
             fileData.loadData();
-            users = userData.getData();
+//            users = userData.getData();
         } catch (IOException e){
             System.err.println();
         }
@@ -149,7 +149,7 @@ public class Server {
                                 if(tempUser != null) {
                                     System.out.println("Login successful");
                                     currentUser = tempUser;
-
+                                    onlineUsers.put(currentUser,objectOutputStream);
                                     for(Moodle.File file : fileData.getData()){
                                         if(file.getUsers().contains(currentUser.getUserName())){
                                             currentUser.getFiles().add(file);
@@ -158,14 +158,18 @@ public class Server {
                                             currentUser.getFiles().add(file);
                                         }
                                     }
+//                                    for(Course course : courseData.getData()){
+//                                        if(course.getStudent().contains(currentUser.getUserName())){
+//                                            currentUser.getCourses().add(course);
+//                                        } else if(course.getFaculty().contains(currentUser.getUserName())){
+//                                            currentUser.getCourses().add(course);
+//                                        }
+//                                    }
 
                                     newMsg.setUser(currentUser);
-                                    onlineUsers.put(currentUser,objectOutputStream);
+
                                 }
                                 objectOutputStream.writeObject(newMsg);
-
-
-
                                 break;
                             case CLIENT:
                                 //debug code
@@ -178,11 +182,7 @@ public class Server {
                                             onlineUsers.get(user).writeObject(message);
                                         }
                                     }
-//                                    for(User user : users){
-//                                        if(user.getUserName().equals(userName)){
-//
-//                                        }
-//                                    }
+
                                 }
                                 break;
                             case SIGNUP:
@@ -210,14 +210,8 @@ public class Server {
                                     if(message.getGroup().getUsers().contains(user1.getUserName())){
                                         onlineUsers.get(user1).writeObject(message);
                                     }
-
                                 }
-//                                for(User user1 : onlineUsers.keySet()){
-//                                    if(message.getGroup().getUsers().contains(user1.getUserName())){
-//                                        user1.getGroups().add(message.getGroup());
-//                                        onlineUsers.get(user1).writeObject(message);
-//                                    }
-//                                }
+
                                 userData.saveData();
 
                                 break;
@@ -229,16 +223,16 @@ public class Server {
                                 fileData.getData().add(message.getFile());
 
 
-                                for(User user1 : userData.getData()){
-                                    if(message.getFile().getUsers().contains(user1.getUserName())){
-                                        user1.getFileNames().add(message.getFile().getName());
-                                        System.out.println("File saved successfully");
-                                    }
-                                    else if(message.getFile().getOwner().equals(user1.getUserName())){
-                                        user1.getFileNames().add(message.getFile().getName());
-                                        System.out.println("File saved successfully");
-                                    }
-                                }
+//                                for(User user1 : userData.getData()){
+//                                    if(message.getFile().getUsers().contains(user1.getUserName())){
+//                                        user1.getFileNames().add(message.getFile().getName());
+//                                        System.out.println("File saved successfully");
+//                                    }
+//                                    else if(message.getFile().getOwner().equals(user1.getUserName())){
+//                                        user1.getFileNames().add(message.getFile().getName());
+//                                        System.out.println("File saved successfully");
+//                                    }
+//                                }
 
 
                                 for(User user1 : onlineUsers.keySet()){
@@ -247,11 +241,59 @@ public class Server {
                                     }
                                 }
 
-                                userData.saveData();
+//                                userData.saveData();
                                 fileData.saveData();
                                 objectOutputStream.writeObject(message);
+                                break;
+                            case COURSE:
+                                System.out.println(message.getCourse().getTitle());
 
-                        }
+                                courseData.getData().add(message.getCourse());
+
+                                for(User user1 : userData.getData()){
+                                    if(message.getCourse().getStudent().contains(user1.getUserName())){
+                                        user1.getCourses().add(message.getCourse());
+                                    } else if(message.getCourse().getFaculty().contains(user1.getUserName())){
+                                        user1.getCourses().add(message.getCourse());
+                                    }
+                                }
+
+                                for(User user1 : onlineUsers.keySet()){
+                                    if(message.getCourse().getStudent().contains(user1.getUserName())){
+                                        onlineUsers.get(user1).writeObject(message);
+                                    } else if(message.getCourse().getFaculty().contains(user1.getUserName())){
+                                        onlineUsers.get(user1).writeObject(message);
+                                    }
+                                }
+//                                objectOutputStream.writeObject(message);
+                                courseData.saveData();
+                                userData.saveData();
+                                break;
+                            case POST:
+                                boolean done = false;
+                                for(User user1 : userData.getData()){
+                                    for(Course course : user1.getCourses()){
+                                        if(course.getTitle().equals(message.getPost().getCourseName())){
+                                            course.getPosts().add(message.getPost());
+                                            System.out.println("Post added successfully");
+                                        }
+                                    }
+                                }
+                                userData.saveData();
+                                objectOutputStream.writeObject(message);
+                                break;
+                            case GETUPDATE:
+                                userData.loadData();
+                                for(User user1 : userData.getData()){
+                                    if(user1.getUserName().equals(message.getUser().getUserName())){
+                                        message.setUser(user1);
+                                        objectOutputStream.writeObject(message);
+                                        break;
+                                    }
+                                }
+                                break;
+
+                            }
                     }
 
 
@@ -266,7 +308,7 @@ public class Server {
         public User handleLogin(Message message) throws IOException {
             User tempUser = null;
             System.out.println(message.getUser());
-            for (User user : users) {
+            for (User user : userData.getData()) {
                 if (user.getUserName().equals(message.getUser().getUserName()) &&
                         user.getPassword().equals(message.getUser().getPassword()))
                          {
@@ -277,7 +319,7 @@ public class Server {
             return tempUser;
         }
         public User handleSignUp(Message message) throws IOException{
-            for(User user : users){
+            for(User user : userData.getData()){
                 if(message.getUser().getUserName().equals(user.getUserName())){
                     return null;
                 }

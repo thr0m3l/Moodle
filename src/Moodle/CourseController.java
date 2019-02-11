@@ -57,11 +57,11 @@ public class CourseController implements Initializable {
         coursecode.setText(currentCourse.getNumber());
         coursename.setText(currentCourse.getTitle());
         //adding the teachers in the listview
-        ArrayList<User>faculties=currentCourse.getFaculty();
+//        ArrayList<User>faculties=currentCourse.getFaculty();
         listofFaculties.setStyle("-fx-background-color:#000000");
-        for(User user:faculties){
-            listofFaculties.getItems().add(user.getFullName());
-        }
+//        for(User user:faculties){
+//            listofFaculties.getItems().add(user.getFullName());
+//        }
         outline.setWrapText(true);
         outline.setText(currentCourse.getDescription());
         ArrayList<Post>all=currentCourse.getPosts();

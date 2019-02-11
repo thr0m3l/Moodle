@@ -1,8 +1,7 @@
 package Moodle.Client;
 
-import Moodle.Main;
+import Moodle.*;
 import Moodle.Messages.Message;
-import Moodle.StorageController;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import Moodle.Messages.*;
@@ -21,6 +20,33 @@ public class Client implements Runnable{
     private Main main;
     private ChatController chatController;
     private StorageController storageController;
+    private newCourseDialogController newCourseDialogController;
+    private HomeController homeController;
+    private CoursePage2Controller coursePage2Controller;
+
+    public CoursePage2Controller getCoursePage2Controller() {
+        return coursePage2Controller;
+    }
+
+    public void setCoursePage2Controller(CoursePage2Controller coursePage2Controller) {
+        this.coursePage2Controller = coursePage2Controller;
+    }
+
+    public HomeController getHomeController() {
+        return homeController;
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
+
+    public Moodle.newCourseDialogController getNewCourseDialogController() {
+        return newCourseDialogController;
+    }
+
+    public void setNewCourseDialogController(Moodle.newCourseDialogController newCourseDialogController) {
+        this.newCourseDialogController = newCourseDialogController;
+    }
 
     public StorageController getStorageController() {
         return storageController;
@@ -141,6 +167,28 @@ public class Client implements Runnable{
                                 Platform.runLater(()->{
                                     storageController.addToFileList(fileMsg.getFile());
                                 });
+                                break;
+                            case COURSE:
+                                final Message courseMsg = msg;
+                                Main.getCurrentUser().getCourses().add(msg.getCourse());
+                                Platform.runLater(() -> {
+                                    homeController.getCourseListView().getItems().add(courseMsg.getCourse());
+                                });
+                                break;
+                            case POST:
+                                final Message postMsg = msg;
+                                Platform.runLater( () -> {
+                                    try{
+                                        coursePage2Controller.addPost(postMsg.getPost());
+                                    } catch (java.lang.Exception e){
+                                        e.printStackTrace();
+                                    }
+                                });
+                                break;
+                            case GETUPDATE:
+                                Main.setCurrentUser(msg.getUser());
+                                System.err.println("Main.currentUser updated!");
+                                break;
 
                         }
                     }

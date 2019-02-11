@@ -3,6 +3,7 @@ package Moodle.Messages;
 import Moodle.Client.Group;
 import Moodle.Course;
 import Moodle.File;
+import Moodle.Post;
 import Moodle.User;
 import java.io.Serializable;
 
@@ -17,6 +18,15 @@ public class Message implements Serializable {
     private Group group;
     private File file;
     private Course course;
+    private Post post;
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 
     public Course getCourse() {
         return course;

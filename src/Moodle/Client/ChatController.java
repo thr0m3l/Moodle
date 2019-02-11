@@ -1,9 +1,7 @@
 package Moodle.Client;
 
-
 import Moodle.*;
 import Moodle.Client.util.*;
-
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
 import javafx.application.Platform;
@@ -11,21 +9,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -47,10 +41,6 @@ public class ChatController implements Initializable {
     private Button addGroup;
 
     private ObservableList<Group> groupObservableList = FXCollections.observableArrayList(Main.getCurrentUser().getGroups());
-
-//    Image microphoneActiveImage = new Image(getClass().getClassLoader().getResource("resources/images/microphone-active.png").toString());
-//    Image microphoneInactiveImage = new Image(getClass().getClassLoader().getResource("resources/images/microphone.png").toString());
-
 
     public ObservableList<Group> getGroupObservableList() {
         return groupObservableList;
@@ -139,11 +129,6 @@ public class ChatController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        try {
-//            setImageLabel();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         groupList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Group>() {
             @Override
@@ -185,15 +170,6 @@ public class ChatController implements Initializable {
 //                setOnlineLabel(String.valueOf(msg.getUserlist().size()));
         });
 
-//        statusComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                try {
-//                    Listener.sendStatusUpdate(Status.valueOf(newValue.toUpperCase()));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
 
         /* Added to prevent the enter from adding a new line to inputMessageBox */
         messageBox.addEventFilter(KeyEvent.KEY_PRESSED, ke -> {
@@ -208,9 +184,6 @@ public class ChatController implements Initializable {
         });
 
     }
-
-
-
 
     public void showHomePage() throws Exception{
         main.showHomePage(Main.getCurrentUser());
@@ -249,14 +222,7 @@ public class ChatController implements Initializable {
             msg.setGroup(newGroup);
             Main.getClient().send(msg);
 
-
-
         }
-
-
-
-
-
     }
 }
 
