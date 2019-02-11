@@ -286,10 +286,16 @@ public class Server {
                                     if(done) break;
                                 }
                                 userData.saveData();
-                                objectOutputStream.writeObject(message);
+                                for(User user1 : onlineUsers.keySet()){
+                                    for(Course course : user1.getCourses()){
+                                        if(course.getTitle().equals(message.getPost().getCourseName())){
+                                            onlineUsers.get(user1).writeObject(message);
+                                        }
+                                    }
+                                }
                                 break;
                             case GETUPDATE:
-                                userData.loadData();
+//                                userData.loadData();
                                 for(User user1 : userData.getData()){
                                     if(user1.getUserName().equals(message.getUser().getUserName())){
                                         message.setUser(user1);

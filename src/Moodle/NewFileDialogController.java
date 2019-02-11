@@ -32,7 +32,7 @@ public class NewFileDialogController {
     @FXML
     public void initialize(){
 
-        
+
     }
 
     public void setDialog(Dialog<ButtonType> dialog) {

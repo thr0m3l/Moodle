@@ -99,11 +99,7 @@ public class CoursePage2Controller implements Initializable {
                                     else {
                                         labelHeader.setGraphic(createArrowPath(height, true));
                                         vbox.getChildren().add(new Label(item.getDetails()));
-                                        //user jodi course e thake tahole enter button visible hobe
-                                        //ArrayList<User>faculty=item.getFaculty();
-                                        //System.out.println("HomeCOtroller e faculty of course: "+faculty);
-                                        //ArrayList<User>student=item.getStudent();
-                                        //System.out.println("HomeCOtroller e students of course: "+student);
+
                                         Button btn = new Button("Enter");
                                         btn.setVisible(true);
 
