@@ -360,7 +360,7 @@ public class Main extends Application {
 
     public void showPostingNotice (User user) throws Exception{
 
-        FXMLLoader loader = new FXMLLoader( getClass().getResource( "PostingNotice.fxml" ) );
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "PostingNotice2.fxml" ) );
         Region contentRootRegion = loader.load();
         //Set a default "standard" or "100%" resolution
         double origW = 600;
@@ -454,9 +454,9 @@ public class Main extends Application {
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
         //Scene scene=new Scene(contentRootRegion,1200,700);
-//        ShowingFriendsController controller = loader.getController();
-//        controller.setCurrentUser(user);
-//        controller.setMain(this);
+        ShowingFriendsController controller = loader.getController();
+       controller.setCurrentUser(user);
+       controller.setMain(this);
         // Set the primary stage
         stage.setTitle("Login");
         stage.setScene(scene);
@@ -533,7 +533,11 @@ public class Main extends Application {
         //Bind the scene's width and height to the scaling parameters on the group
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
-
+        //Scene scene=new Scene(contentRootRegion,1200,700);
+        UpdateProfileController controller = loader.getController();
+        controller.setMain(this);
+        controller.setCurrentUser(user);
+        // Set the primary stage
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();

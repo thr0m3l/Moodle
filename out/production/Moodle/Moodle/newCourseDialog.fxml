@@ -10,8 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="968.0" style="-fx-background-color: khaki;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.newCourseDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="968.0" style="-fx-background-color: #FFFACD;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.newCourseDialogController">
    <children>
       <ImageView fitHeight="88.0" fitWidth="195.0" layoutX="343.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,15 +22,15 @@
       <Label layoutX="17.0" layoutY="204.0" prefHeight="39.0" prefWidth="81.0" text="Deadline" />
       <Label layoutX="17.0" layoutY="256.0" prefHeight="39.0" prefWidth="55.0" text="Outline" />
       <TextArea fx:id="courseOutline" layoutX="112.0" layoutY="256.0" prefHeight="99.0" prefWidth="519.0" />
-      <TextArea fx:id="takeFaculty" layoutX="57.0" layoutY="403.0" prefHeight="227.0" prefWidth="217.0" />
-      <TextArea fx:id="takeStudents" layoutX="332.0" layoutY="398.0" prefHeight="237.0" prefWidth="217.0" />
+      <TextArea fx:id="takeFaculty" layoutX="57.0" layoutY="403.0" prefHeight="85.0" prefWidth="560.0" promptText="Separate name swith a semicolon(;)" />
+      <TextArea fx:id="takeStudents" layoutX="57.0" layoutY="521.0" prefHeight="99.0" prefWidth="560.0" promptText="Seperate names with a semicolon(:)" />
       <Label layoutX="62.0" layoutY="365.0" prefHeight="28.0" prefWidth="98.0" text="Add faculties" />
-      <Label layoutX="328.0" layoutY="365.0" prefHeight="28.0" prefWidth="110.0" text="Add Students" />
+      <Label layoutX="57.0" layoutY="490.0" prefHeight="28.0" prefWidth="110.0" text="Add Students" />
       <TableView fx:id="table" layoutX="663.0" layoutY="161.0" prefHeight="436.0" prefWidth="280.0">
-        <columns>
-          <TableColumn fx:id="userName" prefWidth="145.0" text="Name" />
-          <TableColumn fx:id="userType" prefWidth="134.0" text="Type" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="userName" prefWidth="145.0" text="Name" />
+            <TableColumn fx:id="userType" prefWidth="134.0" text="Type" />
+         </columns>
       </TableView>
       <Hyperlink fx:id="confirm" alignment="CENTER_RIGHT" layoutX="732.0" layoutY="22.0" onAction="#ConfirmAction" prefHeight="39.0" prefWidth="166.0" text="Confirm Course" />
       <Hyperlink fx:id="home" alignment="CENTER" layoutX="779.0" layoutY="61.0" onAction="#BackAction" prefHeight="39.0" prefWidth="134.0" text="Back to Home" />
@@ -40,3 +39,4 @@
       <DatePicker fx:id="datePicker" layoutX="111.0" layoutY="208.0" prefHeight="39.0" prefWidth="327.0" />
    </children>
 </AnchorPane>
+
