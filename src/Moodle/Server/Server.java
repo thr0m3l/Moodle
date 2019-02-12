@@ -5,6 +5,7 @@ package Moodle.Server;
 import Moodle.Client.Group;
 import Moodle.Course;
 import Moodle.Data;
+import Moodle.Main;
 import Moodle.User;
 import Moodle.Messages.*;
 import javafx.collections.FXCollections;
@@ -20,12 +21,46 @@ import java.util.HashMap;
 
 public class Server {
     private static final int PORT = 8818;
+    private static ObservableList<User> users;
     private static ObservableList<Group> groups = FXCollections.observableArrayList();
     private static HashMap<User, ObjectOutputStream> onlineUsers = new HashMap<>();
     private static ServerSocket listener;
     private static Data<User> userData = new Data<>("userCredentials.dat");
     private static Data<Course> courseData = new Data<>("courseData.dat");
+
+    public static HashMap<User, ObjectOutputStream> getOnlineUsers() {
+        return onlineUsers;
+    }
+
+    public static void setOnlineUsers(HashMap<User, ObjectOutputStream> onlineUsers) {
+        Server.onlineUsers = onlineUsers;
+    }
+
+    public static Data<User> getUserData() {
+        return userData;
+    }
+
+    public static void setUserData(Data<User> userData) {
+        Server.userData = userData;
+    }
+
+    public static Data<Course> getCourseData() {
+        return courseData;
+    }
+
+    public static void setCourseData(Data<Course> courseData) {
+        Server.courseData = courseData;
+    }
+
     private static Data<Moodle.File> fileData = new Data<>("files.haha");
+
+    public static Data<Moodle.File> getFileData() {
+        return fileData;
+    }
+
+    public static void setFileData(Data<Moodle.File> fileData) {
+        fileData = fileData;
+    }
 
     public static void main(String[] args) throws Exception {
         System.out.println("The server is running");
@@ -34,11 +69,14 @@ public class Server {
         System.out.println("System IP Address : " +
                 (localhost.getHostAddress()).trim());
 
-        userData.loadData();
-        courseData.loadData();
-        fileData.loadData();
+        try {
+            userData.loadData();
+            courseData.loadData();
+            fileData.loadData();
 //            users = userData.getData();
-
+        } catch (IOException e){
+            System.err.println();
+        }
 
         try{
             listener = new ServerSocket(PORT);
@@ -141,6 +179,14 @@ public class Server {
                                     }
                                 }
 
+//                                for(User user1: userData.getData()){
+//                                    for(Group group : user1.getGroups()){
+//                                        if(group.getName().equals(message.getGroup().getName())){
+//                                            group.getMessages().add(message);
+//                                        }
+//                                    }
+//                                }
+//                                userData.saveData();
                                 break;
                             case SIGNUP:
                                 Message signUpMsg = new Message();
@@ -261,20 +307,6 @@ public class Server {
                             case LOGOUT:
                                 onlineUsers.remove(message.getUser(),onlineUsers.get(message.getUser()));
                                 System.err.println("User logged out: " + message.getUser());
-                                break;
-                            case PROFILEUPDATE:
-                                for(User user1 : userData.getData()){
-                                    if(user1.getUserName().equals(message.getUser().getUserName())){
-//                                        user1 = message.getUser();
-                                        userData.getData().remove(user1);
-                                        userData.getData().add(message.getUser());
-                                        System.err.println("Profile Updated!" + message.getUser());
-                                        break;
-                                    }
-                                }
-                                message.setMessageType(MessageType.GETUPDATE);
-                                objectOutputStream.writeObject(message);
-                                userData.saveData();
                                 break;
                             }
                     }

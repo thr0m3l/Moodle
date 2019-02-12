@@ -12,14 +12,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import javafx.util.Duration;
+
 import java.io.BufferedReader;
 import java.io.*;
 import java.io.FileOutputStream;
@@ -67,8 +66,6 @@ public class HomeController {
     @FXML
     private Label timeLabel;
 
-    @FXML private ImageView profilePicture;
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
 
@@ -79,7 +76,6 @@ public class HomeController {
             addCourseButton.setVisible(true);
         }
     }
-
 
     public ListView<Course> getCourseListView() {
         return courseListView;
@@ -92,27 +88,7 @@ public class HomeController {
     @FXML
     public void initialize(){
 
-       //Loading the ProfilePicture
-
-//        Main.getCurrentUser().setProfilePicture(new File(new java.io.File("image.jpg")));
-
-        if(Main.getCurrentUser().getProfilePicture() != null){
-            Image image = new Image(Main.getCurrentUser().getProfilePicture().byteToTempFile().toURI().toString());
-            profilePicture.setImage(image);
-        }
-
-        //
-
-        profilePicture.setOnMouseClicked( event -> {
-            try{
-                main.showMyProfile();
-            } catch (java.lang.Exception e){
-                e.printStackTrace();
-            }
-
-        });
-
-
+       //Loading the CSS
         btnMessage.setOnAction(event -> {
                     try{
                         main.showChatScreen();
@@ -288,6 +264,11 @@ public class HomeController {
     @FXML
     public void SiteNewsAction()throws Exception{
         main.showSiteNews(currentUser);
+
+    }
+    @FXML
+    public void MyProfileAction()throws Exception{
+        main.showMyProfile(currentUser);
 
     }
 
