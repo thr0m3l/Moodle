@@ -92,6 +92,11 @@ public class StorageController {
         btnSignout.setOnAction(event -> {
             try{
                 main.showLoginPage();
+
+                Message signOutMsg= new Message();
+                signOutMsg.setUser(Main.getCurrentUser());
+                signOutMsg.setMessageType(MessageType.LOGOUT);
+                Main.getClient().send(signOutMsg);
                 Main.setCurrentUser(null);
             } catch (java.lang.Exception e){
                 e.printStackTrace();

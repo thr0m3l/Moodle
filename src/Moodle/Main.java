@@ -505,9 +505,9 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
-    public void showMyProfile(User user)throws Exception{
+    public void showMyProfile()throws Exception{
 
-        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UpdateProfile.fxml" ) );
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UserProfile.fxml" ) );
         Region contentRootRegion = loader.load();
         //Set a default "standard" or "100%" resolution
         double origW = 600;
@@ -533,6 +533,9 @@ public class Main extends Application {
         //Bind the scene's width and height to the scaling parameters on the group
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+
+        ProfileController controller = loader.getController();
+        controller.setMain(this);
 
         stage.setTitle("Login");
         stage.setScene(scene);
@@ -625,6 +628,44 @@ public class Main extends Application {
         controller.setPost(post);
         // Set the primary stage
         stage.setTitle("Conversation");
+        stage.setScene(scene);
+        stage.show();
+        //Set the scene to the window (stage) and show it
+        stage.setScene( scene );
+        stage.show();
+    }
+
+    public void showSubmissionLink () throws IOException{
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "Submission.fxml" ) );
+        Region contentRootRegion = loader.load();
+
+        double origW = 600;
+        double origH = 400;
+
+
+        if ( contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefWidth( origW );
+        else
+            origW = contentRootRegion.getPrefWidth();
+        if ( contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefHeight( origH );
+        else
+            origH = contentRootRegion.getPrefHeight();
+        Group group = new Group( contentRootRegion );
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add(group);
+
+        Scene scene = new Scene( rootPane, origW, origH );
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+
+
+
+        SubmissionLinkController controller = loader.getController();
+        controller.setMain(this);
+//        controller.setCurrentCourse(course);
+        // Set the primary stage
+        stage.setTitle("Submission Link");
         stage.setScene(scene);
         stage.show();
         //Set the scene to the window (stage) and show it

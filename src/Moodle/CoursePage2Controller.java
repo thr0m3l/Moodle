@@ -23,7 +23,7 @@ public class CoursePage2Controller implements Initializable {
 
     //private ListView postlistview;
     @FXML private Hyperlink myprofile;
-    @FXML private ListView<Post>postListView;
+    @FXML private ListView postListView;
 
 
     @FXML
@@ -124,6 +124,7 @@ public class CoursePage2Controller implements Initializable {
                 return cell;
             }
         });
+
     }
 
     private SVGPath createArrowPath(int height, boolean up) {
@@ -142,11 +143,7 @@ public class CoursePage2Controller implements Initializable {
     public void BackAction(ActionEvent actionEvent) throws Exception {
         main.showHomePage(currentUser);
     }
-    @FXML
-    public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
 
-    }
     @FXML
     public void PostAction(ActionEvent ae)throws Exception{
         try {
