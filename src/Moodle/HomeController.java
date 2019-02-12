@@ -11,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -23,13 +26,15 @@ import java.io.BufferedReader;
 import java.io.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class HomeController {
+public class HomeController implements Initializable {
 
     private Main main;
 
@@ -66,6 +71,9 @@ public class HomeController {
     @FXML
     private Label timeLabel;
 
+    @FXML
+    private ImageView profilePicture;
+
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
 
@@ -86,7 +94,7 @@ public class HomeController {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
        //Loading the CSS
         btnMessage.setOnAction(event -> {
@@ -106,6 +114,14 @@ public class HomeController {
             }
         });
 
+        profilePicture.setImage(new Image(getClass().getResource("resources/images/Dominic.png").toExternalForm()));
+        profilePicture.setOnMouseClicked( event -> {
+            try{
+                main.showMyProfile();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+        });
 
 
 
@@ -268,7 +284,7 @@ public class HomeController {
     }
     @FXML
     public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
+        main.showMyProfile();
 
     }
 

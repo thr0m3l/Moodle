@@ -132,7 +132,7 @@ public class ConversationController implements Initializable {
     }
     @FXML
     public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
+        main.showMyProfile();
 
     }
     @FXML
