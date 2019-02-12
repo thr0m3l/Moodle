@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static javafx.scene.paint.Color.ORANGE;
-import static javafx.scene.paint.Color.ORANGERED;
+import static javafx.scene.paint.Color.*;
 
 public class ConversationController implements Initializable {
 
@@ -65,7 +64,7 @@ public class ConversationController implements Initializable {
 
 
     public void setPost(Post post) {
-        this.post = post;
+        /*this.post = post;
 //        postListView.getItems().add("Posted at: "+post.getDate());
         //      postListView.getItems().add("Posted by: "+post.getAdminName());
         //    postListView.getItems().add(post.getTitle());
@@ -119,6 +118,63 @@ public class ConversationController implements Initializable {
                 });
 
                 box.getChildren().addAll(taR,button);
+            }
+        });*/
+
+        this.post = post;
+
+        VBox box=new VBox();
+        //scrollpane e box add
+        sp.setContent(box);
+        VBox.setVgrow(sp, Priority.ALWAYS);
+        //while(true){
+        TextArea ta=new TextArea();
+        ta.setWrapText(true);
+        Text name=new Text("Started by: "+post.getAdminName());
+        name.setFont(new Font("Italic",20));
+        name.setFill(ORANGERED);
+        Text dateP=new Text("Started at :"+post.getDate());
+        dateP.setFill(ORANGERED);
+
+        ta.setMaxSize(1000,200);
+        ta.setFont(new Font("Arial",25));
+        ta.setText(post.getDetails());
+
+        Button btn=new Button("Reply");
+        box.getChildren().addAll(name,dateP,ta,btn);
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //CREATE A NEW TEXTAREA FOR TAKING REPLY
+                TextArea taR=new TextArea();
+                Label userName=new Label();
+                Text nameUser=new Text("Replied: "+currentUser.getUserName());
+                nameUser.setFont(new Font("Bold",20));
+                nameUser.setFill(RED);
+                taR.setPromptText("Enter your replies here");
+                taR.setWrapText(true);
+
+                taR.setMaxSize(1000,200);
+                //NOW GET THE TEXT FROM TEXTAREA AND MAKING A REPLY OBJECT
+                taR.setFont(new Font("Arial",25));
+                DateFormat dtf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date=new Date();
+                String time=dtf.format(date);
+                Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
+                //MAKING A DUMMY TEXTAREA AND SHOW THE REPLY
+                //making a submit button
+                Button button=new Button("Submit");
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        button.setVisible(false);
+                        Label lb=new Label("Your reply has been submitted");
+                        box.getChildren().add(lb);
+                    }
+                });
+
+                box.getChildren().addAll(nameUser,taR,button);
             }
         });
 

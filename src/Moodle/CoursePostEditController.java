@@ -54,7 +54,7 @@ public class CoursePostEditController implements Initializable {
     }
     @FXML
     public void BackAction()throws Exception{
-        main.showCoursePage(currentUser,currentCourse);
+        main.showCoursePage2(currentUser,currentCourse);
     }
 
     @FXML

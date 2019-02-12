@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 public class LoginController {
     private Main main;
-
+    // ager Welcome to moodle lekhar color #457824
     @FXML
     private TextField userText;
 
@@ -82,7 +82,7 @@ public class LoginController {
     }
     @FXML
     public void initialize(){
-        userText.setText("r0m3l");
-        passwordText.setText("12345678");
+        userText.setText("Saadman");
+        passwordText.setText("11711109");
     }
 }

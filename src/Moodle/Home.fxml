@@ -155,7 +155,7 @@
                         <ListView fx:id="courseListView" prefHeight="580.0" prefWidth="980.0" style="-fx-background-color: #05071F;" />
                      </content>
                   </ScrollPane>
-                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="743.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icons8_Search_52px.png" />
                      </image>
