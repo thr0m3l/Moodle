@@ -37,7 +37,7 @@ public class Data <T> {
         this.data = data;
     }
 
-    public void loadData() {
+    public void loadData() throws IOException {
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectInputStream locFile = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(locPath)))) {
             boolean eof = false;
@@ -57,7 +57,7 @@ public class Data <T> {
             System.out.println("ClassNotFoundException " + e.getMessage());
         }
     }
-    public void saveData (){
+    public void saveData () throws IOException{
         Path locPath = FileSystems.getDefault().getPath(fileName);
         try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(locPath)))) {
             for(T datum : data) {
@@ -67,7 +67,6 @@ public class Data <T> {
         } catch (IOException e){
             System.out.println("Unable to save Data" + " " + e.getMessage());
         }
-        System.out.println("Data saved!");
     }
 
 }

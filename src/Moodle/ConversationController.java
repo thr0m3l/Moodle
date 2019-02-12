@@ -130,7 +130,11 @@ public class ConversationController implements Initializable {
     public void BackAction(ActionEvent actionEvent) throws Exception {
         main.showHomePage(currentUser);
     }
+    @FXML
+    public void MyProfileAction()throws Exception{
+        main.showMyProfile(currentUser);
 
+    }
     @FXML
     public void PostAction(ActionEvent ae)throws Exception{
         try {
@@ -158,7 +162,16 @@ public class ConversationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        /*VBox box=new VBox();
+        //scrollpane e box add
+        sp.setContent(box);
+        VBox.setVgrow(sp, Priority.ALWAYS);
+         //while(true){
+            TextArea ta=new TextArea();
+            ta.setText(post.toString());
+            Button btn=new Button("Reply");
+            box.getChildren().addAll(ta,btn);
+*/
 
     }
 

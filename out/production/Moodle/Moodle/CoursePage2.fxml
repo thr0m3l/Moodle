@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -20,7 +20,7 @@
    <children>
       <VBox fx:id="vbox" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="profilePicture" fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
 
                </image>
@@ -50,6 +50,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
+            <Hyperlink fx:id="myprofile" onAction="#MyProfileAction" prefHeight="29.0" prefWidth="170.0" text="My Profile" />
             <Button fx:id="message" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Messages">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -110,6 +111,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
+            <Button fx:id="posttoforum" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#PostAction" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: #05071F;" text="Post to Forum" textFill="WHITE" />
             <Button fx:id="sitenews" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#SiteNewsAction" prefHeight="31.0" prefWidth="148.0" style="-fx-background-color: #05071F;" text="Site News" textFill="WHITE" />
             <Button fx:id="signout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#logOut" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Sign Out">
                <graphic>
@@ -132,14 +134,14 @@
             <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
             <Pane fx:id="pnlOverview" prefHeight="720.0" prefWidth="1280.0">
                <children>
-                  <Label fx:id="coursecodeholder" layoutX="57.0" layoutY="25.0" prefHeight="35.0" prefWidth="67.0" text="###" textFill="#e7e5e5">
+                  <Label fx:id="coursecodeholder" layoutX="57.0" layoutY="25.0" prefHeight="35.0" prefWidth="177.0" text="Moodle Homepage" textFill="#e7e5e5">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER_LEFT" layoutX="45.0" layoutY="72.0" prefHeight="92.0" prefWidth="661.0" spacing="50.0">
                      <children>
-                        <Label prefHeight="35.0" prefWidth="139.0" text="Course Page" textFill="#e7e5e5">
+                        <Label prefHeight="35.0" prefWidth="139.0" text="SIte News" textFill="#e7e5e5">
                            <font>
                               <Font size="19.0" />
                            </font>
@@ -151,7 +153,7 @@
                         <ListView fx:id="postListView" prefHeight="580.0" prefWidth="980.0" style="-fx-background-color: #05071F;" />
                      </content>
                   </ScrollPane>
-                  <Label fx:id="coursenameholder" layoutX="134.0" layoutY="25.0" prefHeight="35.0" prefWidth="626.0" text="Label" textFill="WHITE">
+                  <Label fx:id="coursenameholder" layoutX="269.0" layoutY="25.0" prefHeight="35.0" prefWidth="256.0" text="Label" textFill="WHITE">
                      <font>
                         <Font size="23.0" />
                      </font></Label>
@@ -159,9 +161,6 @@
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="posttoforum" alignment="TOP_LEFT" layoutX="1075.0" layoutY="14.0" mnemonicParsing="false" onAction="#PostAction" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: #05071F;" text="Add a Post" textFill="WHITE" />
-      <JFXButton fx:id="addAssignment" layoutX="1053.0" layoutY="45.0" text="Add an Assignment" textFill="WHITE" />
-      <JFXButton fx:id="addFile" layoutX="1087.0" layoutY="76.0" text="Add a file" textFill="WHITE" />
    </children>
    <effect>
       <DropShadow color="#1b1eeb" />
