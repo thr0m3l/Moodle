@@ -144,7 +144,7 @@ public class CoursePage2Controller implements Initializable {
     }
     @FXML
     public void MyProfileAction()throws Exception{
-        main.showMyProfile();
+        main.showMyProfile(currentUser);
 
     }
     @FXML

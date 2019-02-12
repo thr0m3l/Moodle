@@ -12,9 +12,6 @@ public class Post implements Serializable {
     String adminName;
     String details;
     String courseName;
-    private ArrayList<Reply> replies = new ArrayList<>();
-    
-
     private static final long serialVersionUID = 117L;
 
     public Post(String title, String date, String admin, String details, String courseName) {
@@ -26,6 +23,7 @@ public class Post implements Serializable {
     }
 
 
+    ArrayList<Post> replies = new ArrayList<>();
 
     private boolean hidden = true;
 

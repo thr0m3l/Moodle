@@ -505,9 +505,9 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
-    public void showMyProfile()throws Exception{
+    public void showMyProfile(User user)throws Exception{
 
-        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UserProfile.fxml" ) );
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UpdateProfile.fxml" ) );
         Region contentRootRegion = loader.load();
         //Set a default "standard" or "100%" resolution
         double origW = 600;
@@ -527,18 +527,14 @@ public class Main extends Application {
         //Place the Group in a StackPane, which will keep it centered
         StackPane rootPane = new StackPane();
         rootPane.getChildren().add(group);
+        stage.setTitle( "My Slide" );
         //Create the scene initally at the "100%" size
         Scene scene = new Scene( rootPane, origW, origH );
         //Bind the scene's width and height to the scaling parameters on the group
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
 
-
-
-        ProfileController profileController = loader.getController();
-        profileController.setMain(this);
-
-        stage.setTitle("UserProfile");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
         //Set the scene to the window (stage) and show it
