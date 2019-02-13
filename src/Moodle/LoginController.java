@@ -94,7 +94,7 @@ public class LoginController {
     }
     @FXML
     public void initialize(){
-        userText.setText("Saadman");
+        userText.setText("saadman");
         passwordText.setText("11711109");
     }
 }
