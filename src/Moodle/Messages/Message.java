@@ -20,7 +20,7 @@ public class Message implements Serializable {
     private File file;
     private Course course;
     private Post post;
-    private ArrayList<User> users = null;
+    private ArrayList<User> users = new ArrayList<>();
 
     public ArrayList<User> getUsers() {
         return users;

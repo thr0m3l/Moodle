@@ -3,14 +3,23 @@ package Moodle;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -58,16 +67,80 @@ public class AdminController implements Initializable {
 
     public void setUsers(ObservableList<User> users) {
         this.users = users;
+        userList.setItems(users);
     }
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
 
-        userList.setItems(users);
 
         saveButton.setOnAction( event -> {
 
 
         });
+
+        userList.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+            @Override
+            public ListCell<User> call(final ListView<User> lv) {
+                ListCell<User> cell = new ListCell<User>(){
+                    int height = 80;
+                    @Override
+                    protected void updateItem(final User item, boolean empty) {
+                        super.updateItem(item, empty);
+                        final VBox vbox = new VBox();
+                        setGraphic(vbox);
+
+                        if (item != null && getIndex() > -1) {
+                            final Label labelHeader = new Label(item.getUserName());
+                            labelHeader.setStyle("-fx-text-fill: #e7e5e5");
+                            labelHeader.setGraphic(createArrowPath(height, false));
+                            labelHeader.setGraphicTextGap(10);
+                            labelHeader.setId("tableview-columnheader-default-bg");
+                            labelHeader.setPrefWidth(userList.getWidth() - 10);
+                            labelHeader.setPrefHeight(height);
+                            Label userType = new Label(item.getUserType());
+
+                            Button btn = new Button("Approve");
+                            btn.setVisible(false);
+                            btn.setOnAction( event -> {
+                                item.setApproved(true);
+                            });
+                            labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                @Override
+                                public void handle(MouseEvent me) {
+                                    item.setHidden(item.isHidden() ? false : true);
+                                    if (item.isHidden()) {
+                                        labelHeader.setGraphic(createArrowPath(height, false));
+                                        vbox.getChildren().removeAll(btn,userType);
+                                    }
+                                    else {
+                                        labelHeader.setGraphic(createArrowPath(height, true));
+                                        vbox.getChildren().addAll(btn,userType);
+                                        btn.setVisible(true);
+                                    }
+                                }
+                            });
+                            vbox.getChildren().add(labelHeader);
+                        }
+                    }
+
+                };
+                return cell;
+            }
+        });
+
+
+    }
+
+    private SVGPath createArrowPath(int height, boolean up) {
+        SVGPath svg = new SVGPath();
+        int width = height / 4;
+
+        if (up)
+            svg.setContent("M" + width + " 0 L" + (width * 2) + " " + width + " L0 " + width + " Z");
+        else
+            svg.setContent("M0 0 L" + (width * 2) + " 0 L" + width + " " + width + " Z");
+
+        return svg;
     }
 }

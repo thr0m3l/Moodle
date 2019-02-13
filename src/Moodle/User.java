@@ -19,6 +19,15 @@ public class User implements Serializable {
     private boolean approved = false;
     private File profilePicture = null;
     private String studentID;
+    private boolean hidden;
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
 
     public String getStudentID() {
         return studentID;

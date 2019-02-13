@@ -2,6 +2,9 @@ package Moodle;
 
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,18 +17,18 @@ public class LoginController {
     private Main main;
     // ager Welcome to moodle lekhar color #457824
     @FXML
-    private TextField userText;
+    private JFXTextField userText;
 
     @FXML
-    private PasswordField passwordText;
+    private JFXPasswordField passwordText;
 
     @FXML
     private Button resetButton;
 
     @FXML
-    private Button loginButton;
+    private JFXButton loginButton;
     @FXML
-    private Button signUpButton;
+    private JFXButton signUpButton;
 
     @FXML
     private AnchorPane loginAnchorPane;
@@ -52,10 +55,19 @@ public class LoginController {
 //                alert.setContentText("The username and password you provided is not correct.");
 //                alert.showAndWait();
 //            }
-        Message message = new Message();
-        message.setMessageType(MessageType.LOGIN);
-        message.setUser(new User(userText.getText(),passwordText.getText()));
-        Main.getClient().send(message);
+        if(userText.getText().equals("admin") && passwordText.getText().equals("admin")){
+            Message message = new Message();
+            message.setMessageType(MessageType.ADMINLOGIN);
+            Main.getClient().send(message);
+        }
+        else {
+            Message message = new Message();
+            message.setMessageType(MessageType.LOGIN);
+            message.setUser(new User(userText.getText(),passwordText.getText()));
+            Main.getClient().send(message);
+        }
+
+
     }
 
     @FXML
