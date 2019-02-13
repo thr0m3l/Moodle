@@ -465,6 +465,48 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
+
+    public void showAdminPage () throws Exception  {
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "AdminPage.fxml" ) );
+        Region contentRootRegion = loader.load();
+        //Set a default "standard" or "100%" resolution
+        double origW = 600;
+        double origH = 400;
+        //If the Region containing the GUI does not already have a preferred width and height, set it.
+        //But, if it does, we can use that setting as the "standard" resolution.
+        if ( contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefWidth( origW );
+        else
+            origW = contentRootRegion.getPrefWidth();
+        if ( contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefHeight( origH );
+        else
+            origH = contentRootRegion.getPrefHeight();
+        //Wrap the resizable content in a non-resizable container (Group)
+        Group group = new Group( contentRootRegion );
+        //Place the Group in a StackPane, which will keep it centered
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add(group);
+        stage.setTitle( "Admin Login" );
+        //Create the scene initally at the "100%" size
+        Scene scene = new Scene( rootPane, origW, origH );
+        //Bind the scene's width and height to the scaling parameters on the group
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        //Scene scene=new Scene(contentRootRegion,1200,700);
+        AdminController controller = loader.getController();
+        controller.setMain(this);
+//        controller.setCurrentUser(user);
+        // Set the primary stage
+        stage.setTitle("Profile");
+        stage.setScene(scene);
+        stage.show();
+        //Set the scene to the window (stage) and show it
+        stage.setScene( scene );
+        stage.show();
+    }
+
+
     public void showNewCourseDialog(User user)throws Exception{
 
         FXMLLoader loader = new FXMLLoader( getClass().getResource( "newCourseDialog.fxml" ) );

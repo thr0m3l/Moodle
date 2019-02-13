@@ -6,6 +6,7 @@ import Moodle.File;
 import Moodle.Post;
 import Moodle.User;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Message implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -19,6 +20,15 @@ public class Message implements Serializable {
     private File file;
     private Course course;
     private Post post;
+    private ArrayList<User> users = null;
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
 
     public Post getPost() {
         return post;

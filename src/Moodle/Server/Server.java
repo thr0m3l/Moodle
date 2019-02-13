@@ -322,6 +322,17 @@ public class Server {
                                 objectOutputStream.writeObject(message);
                                 userData.saveData();
                                 break;
+                            case ADMINLOGIN:
+                                Message adminMsg = new Message();
+                                for(User user1 : userData.getData()){
+                                    adminMsg.getUsers().add(user1);
+                                }
+                                adminMsg.setUser(new User("admin","admin",null,
+                                        null,null));
+                                adminMsg.setMessageType(MessageType.ADMINLOGIN);
+                                objectOutputStream.writeObject(adminMsg);
+                                break;
+
                             }
                     }
 

@@ -24,6 +24,15 @@ public class Client implements Runnable{
     private newCourseDialogController newCourseDialogController;
     private HomeController homeController;
     private CoursePage2Controller coursePage2Controller;
+    private AdminController adminController;
+
+    public AdminController getAdminController() {
+        return adminController;
+    }
+
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+    }
 
     public CoursePage2Controller getCoursePage2Controller() {
         return coursePage2Controller;
@@ -198,6 +207,24 @@ public class Client implements Runnable{
                             case GETUPDATE:
                                 Main.setCurrentUser(msg.getUser());
                                 System.err.println("Main.currentUser updated!");
+                                break;
+                            case ADMINLOGIN:
+                                final Message adminLoginMsg = msg;
+                                Platform.runLater(() -> {
+                                    if(adminLoginMsg.getUser() != null) {
+                                        Main.setCurrentUser(adminLoginMsg.getUser());
+                                        try {
+                                            main.showAdminPage();
+                                        } catch (java.lang.Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                                        alert.setTitle("Incorrect Credentials");
+                                        alert.setHeaderText("Incorrect Credentials");
+                                        alert.setContentText("The username and password you provided is not correct.");
+                                        alert.showAndWait();
+                                    }});
                                 break;
 
                         }
