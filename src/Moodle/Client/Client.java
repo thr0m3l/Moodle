@@ -3,6 +3,7 @@ package Moodle.Client;
 import Moodle.*;
 import Moodle.Messages.Message;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Alert;
 import Moodle.Messages.*;
 
@@ -214,7 +215,11 @@ public class Client implements Runnable{
                                     if(adminLoginMsg.getUser() != null) {
                                         Main.setCurrentUser(adminLoginMsg.getUser());
                                         try {
+                                            System.out.println(adminLoginMsg.getUsers());
                                             main.showAdminPage();
+                                            adminController.setUsers(FXCollections.
+                                                    observableArrayList(adminLoginMsg.getUsers()));
+
                                         } catch (java.lang.Exception e) {
                                             e.printStackTrace();
                                         }

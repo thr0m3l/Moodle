@@ -496,6 +496,7 @@ public class Main extends Application {
         //Scene scene=new Scene(contentRootRegion,1200,700);
         AdminController controller = loader.getController();
         controller.setMain(this);
+        client.setAdminController(controller);
 //        controller.setCurrentUser(user);
         // Set the primary stage
         stage.setTitle("Profile");

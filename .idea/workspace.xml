@@ -2,42 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Completed login and signup">
-      <change afterPath="$PROJECT_DIR$/src/Moodle/PostingNotice2.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Moodle/ShowingFriends.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Moodle/ShowingFriendsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Moodle/UpdateProfile.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Moodle/UpdateProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/files.haha" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminController$1$1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminController$1$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminController$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Submission.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/images/moodle-logo-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Moodle/Submission.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Moodle/images/moodle-logo-white.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/courseData.dat" beforeDir="false" afterPath="$PROJECT_DIR$/courseData.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/ConversationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePage2Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePostEditController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/CoursePostEditController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Client/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Client/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Client/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/SiteNews.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/SiteNews.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/SiteNewsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/SiteNewsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/newCourseDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/newCourseDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/newCourseDialogController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/newCourseDialogController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/ConversationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/ConversationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/CoursePage2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/CoursePage2Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/CoursePostEditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/CoursePostEditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/Home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/Home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/Messages/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/Messages/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Moodle/Moodle/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Moodle/Moodle/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moodle/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moodle/AdminPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/AdminPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moodle/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/Client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moodle/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/Login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moodle/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Moodle/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/SiteNews.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/SiteNewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/SiteNewsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/newCourseDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/newCourseDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Moodle/newCourseDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/newCourseDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moodle/Messages/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/Messages/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Moodle/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Moodle/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/userCredentials.dat" beforeDir="false" afterPath="$PROJECT_DIR$/userCredentials.dat" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -95,11 +85,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Moodle/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
-              <caret line="506" column="5" lean-forward="true" selection-start-line="506" selection-start-column="5" selection-end-line="506" selection-end-column="5" />
+            <state relative-caret-position="813">
+              <caret line="273" column="52" selection-start-line="273" selection-start-column="52" selection-end-line="273" selection-end-column="52" />
               <folding>
                 <element signature="method#start#0;class#Main#0" />
                 <element signature="method#showLoginPage#0;class#Main#0" />
@@ -113,7 +103,9 @@
                 <element signature="method#showPostingNotice#0;class#Main#0" />
                 <element signature="method#stop#0;class#Main#0" />
                 <element signature="method#showFriends#0;class#Main#0" />
+                <element signature="method#showAdminPage#0;class#Main#0" />
                 <element signature="method#showNewCourseDialog#0;class#Main#0" />
+                <element signature="method#showMyProfile#0;class#Main#0" />
                 <element signature="method#showCoursePostEdit#0;class#Main#0" />
                 <element signature="method#getUpdate#0;class#Main#0" />
                 <element signature="method#showConversation#0;class#Main#0" />
@@ -123,35 +115,17 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/UpdateProfile.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
+        <entry file="file://$PROJECT_DIR$/src/Moodle/Post.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1300">
-              <caret line="55" column="13" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/UpdateProfileController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1500">
-              <caret line="62" column="1" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
+            <state relative-caret-position="225">
+              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#448#449#0" expanded="true" />
+                <element signature="e#1475#1476#0" expanded="true" />
+                <element signature="e#1502#1503#0" expanded="true" />
+                <element signature="e#1544#1545#0" expanded="true" />
+                <element signature="e#1576#1577#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/newCourseDialog.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
         </entry>
@@ -159,52 +133,84 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Moodle/PostingNoticeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-800">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="1025">
+              <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/ShowingFriends.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
+        <entry file="file://$PROJECT_DIR$/src/Moodle/CoursePostEditController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/ShowingFriendsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+            <state relative-caret-position="3888">
+              <caret line="207" column="13" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="13" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#964#965#0" expanded="true" />
-                <element signature="e#991#992#0" expanded="true" />
-                <element signature="e#1028#1029#0" expanded="true" />
-                <element signature="e#1060#1061#0" expanded="true" />
-                <element signature="e#1121#1122#0" expanded="true" />
-                <element signature="e#1167#1168#0" expanded="true" />
+                <element signature="e#3693#3694#0" expanded="true" />
+                <element signature="e#3776#3777#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/SiteNews.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/src/Moodle/SubmissionsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1275">
+              <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/out/production/Moodle/Moodle/AdminPage.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-725">
+              <caret line="14" column="314" selection-start-line="14" selection-start-column="314" selection-end-line="14" selection-end-column="314" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Moodle/Conversation.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="162" column="13" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
+        <entry file="file://$PROJECT_DIR$/src/Moodle/StorageController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="151" column="8" selection-start-line="151" selection-start-column="8" selection-end-line="211" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#8222#8223#0" expanded="true" />
+                <element signature="e#8256#8257#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Moodle/newCourseDialogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="35" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Moodle/CoursePage2Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="33" />
+              <folding>
+                <element signature="e#1045#1046#0" expanded="true" />
+                <element signature="e#1072#1073#0" expanded="true" />
+                <element signature="e#1109#1110#0" expanded="true" />
+                <element signature="e#1141#1142#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -212,8 +218,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Moodle/HomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
-              <caret line="263" column="9" lean-forward="true" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+            <state relative-caret-position="2563">
+              <caret line="231" column="4" selection-start-line="231" selection-start-column="4" selection-end-line="241" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -248,7 +254,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Moodle/CourseData.java" />
         <option value="$PROJECT_DIR$/src/Moodle/Server/ServerMain.java" />
         <option value="$PROJECT_DIR$/src/Moodle/Client/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/Moodle/Course.java" />
@@ -299,6 +304,7 @@
         <option value="$PROJECT_DIR$/src/Moodle/UpdateProfile.fxml" />
         <option value="$PROJECT_DIR$/src/Moodle/UpdateProfileController.java" />
         <option value="$PROJECT_DIR$/src/Moodle/Main.java" />
+        <option value="$PROJECT_DIR$/out/production/Moodle/Moodle/AdminPage.fxml" />
       </list>
     </option>
   </component>
@@ -319,7 +325,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -338,18 +344,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Moodle" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Moodle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Moodle" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Moodle" type="462c0819:PsiDirectoryNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -552,13 +551,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="227483000" />
+    <option name="totallyTimeSpent" value="227635000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18791947" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.19597316" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -646,8 +645,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://F:/Drive/1-2/CSE 107/Lecture/Rifat Sir Slides and Codes/Topic 7/JavaThread/src/lecture6/SynchronizedBlock.java" />
-    <entry file="file://F:/Drive/1-2/CSE 107/Lecture/Rifat Sir Slides and Codes/Topic 7/JavaThread/src/lecture6/SynchronizedMethod.java" />
     <entry file="file://F:/Drive/1-2/CSE 107/Lecture/Rifat Sir Slides and Codes/Topic 7/JavaThread/src/lecture6/SynchronizationLock.java" />
     <entry file="file://$PROJECT_DIR$/src/Moodle/Client/Group.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -745,14 +742,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/Messages/Message.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="100">
           <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#795#796#0" expanded="true" />
-            <element signature="e#822#823#0" expanded="true" />
-            <element signature="e#860#861#0" expanded="true" />
-            <element signature="e#892#893#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -770,33 +763,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/Post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        <state relative-caret-position="225">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding>
-            <element signature="e#733#734#0" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-            <element signature="e#843#844#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#903#904#0" expanded="true" />
-            <element signature="e#945#946#0" expanded="true" />
-            <element signature="e#979#980#0" expanded="true" />
-            <element signature="e#1010#1011#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1109#1110#0" expanded="true" />
-            <element signature="e#1143#1144#0" expanded="true" />
-            <element signature="e#1173#1174#0" expanded="true" />
-            <element signature="e#1219#1220#0" expanded="true" />
-            <element signature="e#1257#1258#0" expanded="true" />
-            <element signature="e#1294#1295#0" expanded="true" />
-            <element signature="e#1327#1328#0" expanded="true" />
-            <element signature="e#1379#1380#0" expanded="true" />
-            <element signature="e#1423#1424#0" expanded="true" />
-            <element signature="e#1799#1800#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
-            <element signature="e#1881#1882#0" expanded="true" />
-            <element signature="e#1923#1924#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1475#1476#0" expanded="true" />
+            <element signature="e#1502#1503#0" expanded="true" />
+            <element signature="e#1544#1545#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -848,17 +822,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/StorageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+        <state relative-caret-position="125">
+          <caret line="151" column="8" selection-start-line="151" selection-start-column="8" selection-end-line="211" selection-end-column="11" />
           <folding>
-            <element signature="e#8030#8031#0" expanded="true" />
-            <element signature="e#8064#8065#0" expanded="true" />
-            <element signature="e#8116#8117#0" expanded="true" />
-            <element signature="e#8162#8163#0" expanded="true" />
-            <element signature="e#8191#8192#0" expanded="true" />
-            <element signature="e#8218#8219#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#8222#8223#0" expanded="true" />
             <element signature="e#8256#8257#0" expanded="true" />
-            <element signature="e#8288#8289#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -958,8 +927,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/CoursePage2Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="190" column="11" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="11" />
+        <state relative-caret-position="375">
+          <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="33" />
           <folding>
             <element signature="e#1045#1046#0" expanded="true" />
             <element signature="e#1072#1073#0" expanded="true" />
@@ -971,8 +940,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/CoursePostEditController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="56" column="28" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
+        <state relative-caret-position="3888">
+          <caret line="207" column="13" selection-start-line="207" selection-start-column="13" selection-end-line="207" selection-end-column="13" />
+          <folding>
+            <element signature="e#3693#3694#0" expanded="true" />
+            <element signature="e#3776#3777#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -986,10 +959,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Moodle/Site.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Moodle/Site.fxml" />
     <entry file="file://$PROJECT_DIR$/src/Moodle/PostingNotice.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
       <provider editor-type-id="text-editor" />
@@ -1004,8 +974,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/newCourseDialogController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1330">
-          <caret line="85" column="29" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+        <state relative-caret-position="286">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="35" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1110,8 +1080,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/HomeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="263" column="9" lean-forward="true" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+        <state relative-caret-position="2563">
+          <caret line="231" column="4" selection-start-line="231" selection-start-column="4" selection-end-line="241" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1125,8 +1095,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/PostingNoticeController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-800">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="1025">
+          <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -1180,8 +1150,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Moodle/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="506" column="5" lean-forward="true" selection-start-line="506" selection-start-column="5" selection-end-line="506" selection-end-column="5" />
+        <state relative-caret-position="813">
+          <caret line="273" column="52" selection-start-line="273" selection-start-column="52" selection-end-line="273" selection-end-column="52" />
           <folding>
             <element signature="method#start#0;class#Main#0" />
             <element signature="method#showLoginPage#0;class#Main#0" />
@@ -1195,11 +1165,31 @@
             <element signature="method#showPostingNotice#0;class#Main#0" />
             <element signature="method#stop#0;class#Main#0" />
             <element signature="method#showFriends#0;class#Main#0" />
+            <element signature="method#showAdminPage#0;class#Main#0" />
             <element signature="method#showNewCourseDialog#0;class#Main#0" />
+            <element signature="method#showMyProfile#0;class#Main#0" />
             <element signature="method#showCoursePostEdit#0;class#Main#0" />
             <element signature="method#getUpdate#0;class#Main#0" />
             <element signature="method#showConversation#0;class#Main#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Moodle/SubmissionsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1275">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/Moodle/Moodle/AdminPage.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-725">
+          <caret line="14" column="314" selection-start-line="14" selection-start-column="314" selection-end-line="14" selection-end-column="314" />
         </state>
       </provider>
     </entry>
