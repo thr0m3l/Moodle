@@ -2,11 +2,14 @@ package Moodle;
 
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +38,13 @@ public class CoursePostEditController implements Initializable {
     @FXML private Button Post_to_Forum;
     @FXML private Button Back;
     @FXML private TextArea taketitle;
+    @FXML private CheckBox forumpost;
+    @FXML private CheckBox uploadfile;
+    @FXML private CheckBox submissionlink;
+    @FXML private VBox box;
+    @FXML private Button btn;
+    @FXML private Button filebtn;
+    @FXML private DatePicker datePicker;
 
     @FXML
     public void setCurrentUser(User currentUser) {
@@ -46,10 +56,55 @@ public class CoursePostEditController implements Initializable {
         this.currentCourse = currentCourse;
         coursecode.setText(currentCourse.getNumber());
         coursename.setText(currentCourse.getTitle());
+        btn.setVisible(false);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btn.setVisible(false);
+        filebtn.setVisible(false);
+        datePicker.setVisible(false);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent e)
+            {
+                if (submissionlink.isSelected())
+                {
+                    btn.setVisible(true);
+                    btn.setText("Add Deadline");
+                    System.out.println("click hoiseeeeeeeeeeeeeeeeeeeeeeeeeee");
+                    btn.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            datePicker.setVisible(true);
+                        }
+                    });
+                }
+            }
+        };
+        submissionlink.setOnAction(event);
+
+
+        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                if (uploadfile.isSelected())
+                {
+                    filebtn.setVisible(true);
+                    //btn.setText("Add Deadline");
+                    System.out.println("click hoiseeeeeeeeeeeeeeeeeeeeeeeeeee");
+                    filebtn.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            FileChooser filechoser=new FileChooser();
+                            File file=filechoser.showOpenDialog(null);
+                        }
+                    });
+                }
+            }
+
+        };
+        uploadfile.setOnAction(event2);
 
     }
     @FXML
@@ -59,6 +114,7 @@ public class CoursePostEditController implements Initializable {
 
     @FXML
     public void PostSiteAction()throws  Exception{
+
         TakeDetail.setWrapText(true);
         taketitle.setWrapText(true);
         String title=taketitle.getText();
@@ -78,6 +134,13 @@ public class CoursePostEditController implements Initializable {
 
 
         main.showCoursePage2(Main.getCurrentUser(),currentCourse);
+
+
+
+
+
+
+
         /*UserData.getUserData().getUsers().add(user);
         UserData.getUserData().saveUserData();*/
     }
