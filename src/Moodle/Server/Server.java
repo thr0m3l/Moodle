@@ -308,6 +308,20 @@ public class Server {
                                 onlineUsers.remove(message.getUser(),onlineUsers.get(message.getUser()));
                                 System.err.println("User logged out: " + message.getUser());
                                 break;
+                            case PROFILEUPDATE:
+                                for(User user1 : userData.getData()){
+                                    if(user1.getUserName().equals(message.getUser().getUserName())){
+//                                        user1 = message.getUser();
+                                        userData.getData().remove(user1);
+                                        userData.getData().add(message.getUser());
+                                        System.err.println("Profile Updated!" + message.getUser());
+                                        break;
+                                    }
+                                }
+                                message.setMessageType(MessageType.GETUPDATE);
+                                objectOutputStream.writeObject(message);
+                                userData.saveData();
+                                break;
                             }
                     }
 

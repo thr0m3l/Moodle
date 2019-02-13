@@ -88,6 +88,10 @@ public class StorageController {
 
         fileList.setItems(files);
 
+        Message signOutMsg= new Message();
+        signOutMsg.setUser(Main.getCurrentUser());
+        signOutMsg.setMessageType(MessageType.LOGOUT);
+        Main.getClient().send(signOutMsg);
 
         btnSignout.setOnAction(event -> {
             try{

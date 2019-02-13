@@ -505,9 +505,9 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
-    public void showMyProfile(User user)throws Exception{
+    public void showMyProfile()throws Exception{
 
-        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UpdateProfile.fxml" ) );
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "UserProfile.fxml" ) );
         Region contentRootRegion = loader.load();
         //Set a default "standard" or "100%" resolution
         double origW = 600;
@@ -534,11 +534,11 @@ public class Main extends Application {
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
         //Scene scene=new Scene(contentRootRegion,1200,700);
-        UpdateProfileController controller = loader.getController();
+        ProfileController controller = loader.getController();
         controller.setMain(this);
-        controller.setCurrentUser(user);
+//        controller.setCurrentUser(user);
         // Set the primary stage
-        stage.setTitle("Login");
+        stage.setTitle("Profile");
         stage.setScene(scene);
         stage.show();
         //Set the scene to the window (stage) and show it

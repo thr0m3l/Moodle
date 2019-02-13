@@ -17,6 +17,20 @@ public class User implements Serializable {
     private ArrayList<String> fileNames = new ArrayList<>();
     private ArrayList<Course> courses = new ArrayList<>();
     private boolean approved = false;
+    private File profilePicture = null;
+    private String studentID;
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public File getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(File profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public boolean isApproved() {
         return approved;

@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -65,6 +67,7 @@ public class HomeController {
     private Button SiteNews;
     @FXML
     private Label timeLabel;
+    @FXML private ImageView profilePicture;
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -88,7 +91,29 @@ public class HomeController {
     @FXML
     public void initialize(){
 
-       //Loading the CSS
+        //Loading the ProfilePicture
+
+        //        Main.getCurrentUser().setProfilePicture(new File(new java.io.File("image.jpg")));
+
+        if(Main.getCurrentUser().getProfilePicture() != null){
+            Image image = new Image(Main.getCurrentUser().getProfilePicture().byteToTempFile().toURI().toString());
+            profilePicture.setImage(image);
+        }
+
+        //
+
+        profilePicture.setOnMouseClicked( event -> {
+            try{
+                main.showMyProfile();
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+        //Loading the CSS
         btnMessage.setOnAction(event -> {
                     try{
                         main.showChatScreen();
@@ -252,30 +277,26 @@ public class HomeController {
     }*/
     @FXML
     public void showNewCourseDialog()throws Exception {
-        main.showNewCourseDialog(currentUser);
+        main.showNewCourseDialog(Main.getCurrentUser());
 
 
     }
 
     @FXML
     public void PostBtnAction()throws  Exception{
-        main.showPostingNotice(currentUser);
+        main.showPostingNotice(Main.getCurrentUser());
     }
     @FXML
     public void SiteNewsAction()throws Exception{
-        main.showSiteNews(currentUser);
+        main.showSiteNews(Main.getCurrentUser());
 
     }
-    @FXML
-    public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
 
-    }
 
     @FXML
     public void FriendAction(){
         try {
-            main.showFriends(currentUser);
+            main.showFriends(Main.getCurrentUser());
         }catch (Exception e){
             e.printStackTrace();
         }

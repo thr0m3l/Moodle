@@ -186,11 +186,7 @@ public class ConversationController implements Initializable {
     public void BackAction(ActionEvent actionEvent) throws Exception {
         main.showHomePage(currentUser);
     }
-    @FXML
-    public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
 
-    }
     @FXML
     public void PostAction(ActionEvent ae)throws Exception{
         try {

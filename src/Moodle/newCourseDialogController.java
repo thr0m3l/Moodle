@@ -58,29 +58,7 @@ public class newCourseDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            java.io.File file = new File(fileName);
-            FileInputStream fin = new FileInputStream(file);
-            ObjectInputStream oin = new ObjectInputStream(fin);
-            boolean cond = true;
-            while (cond) {
-                Object obj = null;
-                try {
-                    obj = oin.readObject();
-                    User user = (User) obj;
-                    list.add(user);
 
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                if (obj == null) {
-                    cond = false;
-                    fin.close();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         userName.setCellValueFactory(new PropertyValueFactory<User,String>("userName"));
         userType.setCellValueFactory(new PropertyValueFactory<User,String>("userType"));
         table.setItems(list);

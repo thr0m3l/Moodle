@@ -208,11 +208,6 @@ public class CoursePage2Controller implements Initializable {
         main.showHomePage(currentUser);
     }
     @FXML
-    public void MyProfileAction()throws Exception{
-        main.showMyProfile(currentUser);
-
-    }
-    @FXML
     public void PostAction(ActionEvent ae)throws Exception{
         try {
             main.showCoursePostEdit(currentUser, currentCourse);

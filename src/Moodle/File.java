@@ -76,6 +76,19 @@ public class File implements Serializable {
         }
     }
 
+    public java.io.File byteToTempFile(){
+        try{
+            java.io.File tempFile = java.io.File.createTempFile("pic", "jpg", null);
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            fos.write(file);
+            return tempFile;
+        } catch (java.io.IOException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     public String getOwner() {
         return owner;
     }
