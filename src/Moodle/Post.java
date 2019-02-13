@@ -12,6 +12,7 @@ public class Post implements Serializable {
     String adminName;
     String details;
     String courseName;
+    PostType type;
     private static final long serialVersionUID = 117L;
 
     public Post(String title, String date, String admin, String details, String courseName) {
@@ -24,6 +25,7 @@ public class Post implements Serializable {
 
 
     ArrayList<Post> replies = new ArrayList<>();
+    ArrayList<File>files=new ArrayList<>();
 
     private boolean hidden = true;
 
@@ -65,6 +67,14 @@ public class Post implements Serializable {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public PostType getType() {
+        return type;
+    }
+
+    public void setType(PostType type) {
+        this.type = type;
     }
 
     @Override

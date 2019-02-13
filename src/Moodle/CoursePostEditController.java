@@ -2,6 +2,10 @@ package Moodle;
 
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,7 +49,13 @@ public class CoursePostEditController implements Initializable {
     @FXML private Button btn;
     @FXML private Button filebtn;
     @FXML private DatePicker datePicker;
+    private String posttype=null;
+    private ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
+    private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
 
+    private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
+
+    private final int maxNumSelected =  1;
     @FXML
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -64,15 +74,32 @@ public class CoursePostEditController implements Initializable {
         btn.setVisible(false);
         filebtn.setVisible(false);
         datePicker.setVisible(false);
+
+        configureCheckBox(forumpost);
+        configureCheckBox(submissionlink);
+        configureCheckBox(uploadfile);
+        //only 1 ta jate selected thake tar code
+        numCheckBoxesSelected.addListener((obs, oldSelectedCount, newSelectedCount) -> {
+            if (newSelectedCount.intValue() >= maxNumSelected) {
+                unselectedCheckBoxes.forEach(cb -> cb.setDisable(true));
+            } else {
+                unselectedCheckBoxes.forEach(cb -> cb.setDisable(false));
+            }
+        });
+
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent e)
             {
                 if (submissionlink.isSelected())
                 {
+                    forumpost.setSelected(false);
+                    uploadfile.setSelected(false);
+                    filebtn.setVisible(false);
                     btn.setVisible(true);
                     btn.setText("Add Deadline");
                     System.out.println("click hoiseeeeeeeeeeeeeeeeeeeeeeeeeee");
+                    posttype="Submission";
                     btn.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
@@ -85,13 +112,19 @@ public class CoursePostEditController implements Initializable {
         submissionlink.setOnAction(event);
 
 
+
+
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
                 if (uploadfile.isSelected())
                 {
+                    submissionlink.setSelected(false);
+                    btn.setVisible(false);
+                    forumpost.setSelected(false);
                     filebtn.setVisible(true);
-                    //btn.setText("Add Deadline");
+                    posttype="File";
+                    btn.setText("Add Deadline");
                     System.out.println("click hoiseeeeeeeeeeeeeeeeeeeeeeeeeee");
                     filebtn.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
@@ -102,9 +135,21 @@ public class CoursePostEditController implements Initializable {
                     });
                 }
             }
-
         };
         uploadfile.setOnAction(event2);
+
+        EventHandler<ActionEvent> event3 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                if (forumpost.isSelected())
+                {
+                    submissionlink.setSelected(false);
+                    btn.setVisible(false);
+                    filebtn.setVisible(false);
+                }
+            }
+        };
+        forumpost.setOnAction(event3);
 
     }
     @FXML
@@ -122,8 +167,18 @@ public class CoursePostEditController implements Initializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         String time=date.toString();
+
+
+        //postttype ekhane ui theke type zanar ekta dummy variable
         Post post=new Post(title,time,currentUser.getFullName(),detail,currentCourse.getTitle());
         System.out.println("CoursePost Edit controller e post object: "+post);
+        if(posttype.equals("File")){
+            post.setType(PostType.FILE);
+        }else if(posttype.equals("Submission")){
+            post.setType(PostType.SUBMISSION);
+        }else {
+            post.setType(PostType.NORMAL);
+        }
 
         //post ta k course er post list e add kortesi
         Message postMsg = new Message();
@@ -131,17 +186,27 @@ public class CoursePostEditController implements Initializable {
         postMsg.setPost(post);
 
         Main.getClient().send(postMsg);
-
-
         main.showCoursePage2(Main.getCurrentUser(),currentCourse);
 
+    }
 
+    private void configureCheckBox(CheckBox checkBox) {
 
+        if (checkBox.isSelected()) {
+            selectedCheckBoxes.add(checkBox);
+        } else {
+            unselectedCheckBoxes.add(checkBox);
+        }
 
+        checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+                unselectedCheckBoxes.remove(checkBox);
+                selectedCheckBoxes.add(checkBox);
+            } else {
+                selectedCheckBoxes.remove(checkBox);
+                unselectedCheckBoxes.add(checkBox);
+            }
+        });
 
-
-
-        /*UserData.getUserData().getUsers().add(user);
-        UserData.getUserData().saveUserData();*/
     }
 }
