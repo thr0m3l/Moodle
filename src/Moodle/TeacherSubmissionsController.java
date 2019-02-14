@@ -176,6 +176,7 @@ public class TeacherSubmissionsController {
                                 alert.showAndWait();
                             });
 
+                            Label studentName = new Label("Submitted by: " + item.getOwner());
 
 
                             labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -186,10 +187,10 @@ public class TeacherSubmissionsController {
                                     hbox.setSpacing(25);
                                     item.setHidden(item.getHidden() ? false : true);
                                     if(item.getHidden()){
-                                        hbox.getChildren().removeAll(btn);
+                                        hbox.getChildren().removeAll(btn, studentName);
                                     }
                                     else {
-                                        hbox.getChildren().addAll(btn);
+                                        hbox.getChildren().addAll(btn, studentName);
                                     }
 
                                 }

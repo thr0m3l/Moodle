@@ -112,11 +112,6 @@ public class ChatController implements Initializable {
         selectedGroup.getMessages().add(msg);
 //        chatPane.getItems().add(msg);
 
-
-        ///////EXPERIMENTAL CODE, IN CASE IT DOESN'T WORK,
-        ///IT WILL BE REMOVED
-
-
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
@@ -211,6 +206,12 @@ public class ChatController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(Main.getCurrentUser().getProfilePicture() != null){
+            Image image = new Image(Main.getCurrentUser().getProfilePicture().byteToTempFile().toURI().toString());
+            userImageView.setImage(image);
+        }
+
 
         groupList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Group>() {
             @Override

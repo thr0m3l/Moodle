@@ -3,6 +3,7 @@ package Moodle;
 import javafx.application.Platform;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class File implements Serializable {
@@ -13,6 +14,15 @@ public class File implements Serializable {
     private ArrayList<String> users = new ArrayList<>();
     private long serialVersionUID = 3L;
     private boolean hidden = true;
+    private LocalDateTime localDateTime = null;
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
 
     public boolean getHidden() {
         return hidden;

@@ -111,6 +111,9 @@ public class SubmissionsController {
 
             if(file!=null){
                 submissionFile = new File(file);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                String formattedDateTime = LocalDateTime.now().format(formatter);
+                submissionTime.setText(formattedDateTime);
             }
         });
 

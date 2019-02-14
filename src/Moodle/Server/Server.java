@@ -344,6 +344,7 @@ public class Server {
                                                 message.getFile().setOwner(message.getUser().getUserName());
                                                 post.getFiles().add(message.getFile());
                                                 System.err.println("Submission added : " + message.getFile().getName());
+                                                done1 = true;
                                                 break;
                                             }
                                         }

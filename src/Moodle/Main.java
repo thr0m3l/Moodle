@@ -84,6 +84,7 @@ public class Main extends Application {
     }
 
     public void showChatScreen () throws Exception{
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXML/chatScreen.fxml"));
         Parent root = loader.load();
