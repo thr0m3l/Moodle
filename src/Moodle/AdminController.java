@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,7 +77,11 @@ public class AdminController implements Initializable {
 
 
         saveButton.setOnAction( event -> {
-
+            try {
+                main.showLoginPage();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         });
 
@@ -88,6 +94,7 @@ public class AdminController implements Initializable {
                     protected void updateItem(final User item, boolean empty) {
                         super.updateItem(item, empty);
                         final VBox vbox = new VBox();
+                        vbox.setSpacing(10);
                         setGraphic(vbox);
 
                         if (item != null && getIndex() > -1) {
@@ -99,11 +106,15 @@ public class AdminController implements Initializable {
                             labelHeader.setPrefWidth(userList.getWidth() - 10);
                             labelHeader.setPrefHeight(height);
                             Label userType = new Label(item.getUserType());
-
+                            Label status = new Label("Approved : " + (item.isApproved() ? "true" : "false"));
                             Button btn = new Button("Approve");
                             btn.setVisible(false);
                             btn.setOnAction( event -> {
                                 item.setApproved(true);
+                                Message message = new Message();
+                                message.setMessageType(MessageType.PROFILEUPDATE);
+                                message.setUser(item);
+                                Main.getClient().send(message);
                             });
                             labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
@@ -111,11 +122,11 @@ public class AdminController implements Initializable {
                                     item.setHidden(item.isHidden() ? false : true);
                                     if (item.isHidden()) {
                                         labelHeader.setGraphic(createArrowPath(height, false));
-                                        vbox.getChildren().removeAll(btn,userType);
+                                        vbox.getChildren().removeAll(btn,userType,status);
                                     }
                                     else {
                                         labelHeader.setGraphic(createArrowPath(height, true));
-                                        vbox.getChildren().addAll(btn,userType);
+                                        vbox.getChildren().addAll(btn,userType,status);
                                         btn.setVisible(true);
                                     }
                                 }
@@ -128,6 +139,7 @@ public class AdminController implements Initializable {
                 return cell;
             }
         });
+
 
 
     }

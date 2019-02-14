@@ -70,7 +70,7 @@ public class ConversationController implements Initializable {
 
     public void setPost(Post post) {
         this.post = post;
-        replies.addAll(post.getReplies());
+
         //scrollpane e box add
         sp.setContent(box);
         VBox.setVgrow(sp, Priority.ALWAYS);
@@ -92,7 +92,9 @@ public class ConversationController implements Initializable {
         Button btn=new Button("Reply");
         box.getChildren().addAll(name,dateP,ta,btn);
 
-
+        for(Reply reply : post.getReplies()){
+            addReply(reply);
+        }
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override

@@ -137,12 +137,22 @@ public class Client implements Runnable{
                                 final Message loginMsg = msg;
                                 Platform.runLater(() -> {
                                     if(loginMsg.getUser() != null) {
-                                        Main.setCurrentUser(loginMsg.getUser());
-                                        try {
-                                            main.showHomePage(loginMsg.getUser());
-                                        } catch (java.lang.Exception e) {
-                                            e.printStackTrace();
+
+                                        if(loginMsg.getUser().isApproved()){
+                                            Main.setCurrentUser(loginMsg.getUser());
+                                            try {
+                                                main.showHomePage(loginMsg.getUser());
+                                            } catch (java.lang.Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                                            alert.setTitle("Login failed");
+                                            alert.setHeaderText("Your ID has not been approved by administrator yet." +
+                                                    "Please contact admin.");
+                                            alert.showAndWait();
                                         }
+
                                     } else {
                                        Alert alert = new Alert(Alert.AlertType.ERROR);
                                        alert.setTitle("Incorrect Credentials");
@@ -163,7 +173,14 @@ public class Client implements Runnable{
                                         } else {
                                             Main.setCurrentUser(tempMsg.getUser());
                                             try{
-                                                main.showHomePage(tempMsg.getUser());
+//                                                main.showHomePage(tempMsg.getUser());
+                                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                                alert.setTitle("Successfully signed up");
+                                                alert.setHeaderText("Your ID : " + tempMsg.getUser().getUserName() +
+                                                        " has been created and is sent to admin for approval. Please " +
+                                                        "wait for the approval, Thank you!");
+                                                alert.showAndWait();
+                                                main.showLoginPage();
                                             } catch (Exception e2){
                                                 e2.printStackTrace();
                                             }

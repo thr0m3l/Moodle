@@ -155,11 +155,12 @@ public class Server {
                                             currentUser.getFiles().add(file);
                                         }
                                     }
-                                    System.err.println(currentUser);
+//                                    System.err.println(currentUser);
                                     newMsg.setUser(currentUser);
 
                                 }
                                 objectOutputStream.writeObject(newMsg);
+
                                 break;
                             case CLIENT:
 //                                message.getGroup().getMessages().add(message);
