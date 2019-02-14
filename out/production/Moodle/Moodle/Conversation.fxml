@@ -146,7 +146,7 @@
                             </children>
                         </HBox>
                         <ScrollPane fx:id="sp" layoutX="27.0" layoutY="127.0" prefHeight="580.0" prefWidth="980.0" style="-fx-background-color: #05071F;" stylesheets="@style.css" />
-                        <Label fx:id="coursenameholder" layoutX="269.0" layoutY="25.0" prefHeight="35.0" prefWidth="256.0" text="Label" textFill="WHITE">
+                        <Label fx:id="coursenameholder" layoutX="269.0" layoutY="25.0" prefHeight="35.0" prefWidth="518.0" text="Label" textFill="WHITE">
                             <font>
                                 <Font size="23.0" />
                             </font></Label>

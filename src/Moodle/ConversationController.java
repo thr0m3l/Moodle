@@ -69,12 +69,13 @@ public class ConversationController implements Initializable {
 
 
     public void setPost(Post post) {
+
         this.post = post;
 
         //scrollpane e box add
         sp.setContent(box);
         VBox.setVgrow(sp, Priority.ALWAYS);
-        //while(true){
+        box.setStyle("-fx-border-color:khaki; -fx-background-color:  #05071F;");
         TextArea ta=new TextArea();
         ta.setWrapText(true);
         Text name=new Text("Started by: "+post.getAdminName());
@@ -86,7 +87,7 @@ public class ConversationController implements Initializable {
         ta.setMaxSize(1000,200);
         ta.setFont(new Font("Arial",25));
         ta.setText(post.getDetails());
-
+        //ta.setStyle("-fx-border-color:khaki; -fx-background-color:  #05071F;");
 
 
         Button btn=new Button("Reply");
@@ -124,6 +125,7 @@ public class ConversationController implements Initializable {
                         Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
                         button.setVisible(false);
                         Label lb=new Label("Your reply has been submitted");
+
                         box.getChildren().add(lb);
                         replies.add(reply);
                         taR.setDisable(true);
@@ -211,8 +213,18 @@ public class ConversationController implements Initializable {
 
     public void addReply(Reply reply){
         TextArea textArea=new TextArea();
-        textArea.setText(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
-        box.getChildren().add(textArea);
+        //textArea.setText(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
+        textArea.setWrapText(true);
+        Text name=new Text("Replied by : "+reply.getUsername());
+        name.setFont(new Font("Italic",20));
+        name.setFill(WHITE);
+        Text time=new Text(reply.getTime());
+        time.setFont(new Font("Replied at : "+"Italic",20));
+        time.setFill(WHITE);
+        textArea.setFont(new Font("Italic",18));
+        textArea.setText(reply.getDetail());
+        //textArea.setStyle("-fx-border-color:khaki; -fx-background-color:  #05071F;");
+        box.getChildren().addAll(name,time,textArea);
         System.out.println(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
     }
 }
