@@ -140,15 +140,7 @@ public class StorageController {
             Main.getClient().send(fileMsg);
         });
 
-        Button btn2 = new Button("Share");
-        btn2.setOnAction( event -> {
-            try{
-                showShareDialog(event);
-            } catch (java.lang.Exception e){
-                e.printStackTrace();
-            }
 
-        });
 
         fileList.setCellFactory(new Callback<ListView<File>,  ListCell<File>>() {
             @Override
@@ -178,11 +170,16 @@ public class StorageController {
                                 alert.setHeaderText(item.getName() + " is downloaded successfully");
                                 alert.showAndWait();
                             });
-
-                            Button btn1 = new Button("Properties");
-                            btn1.setOnAction( event -> {
+                            Button btn2 = new Button("Share");
+                            btn2.setOnAction( event -> {
+                                try{
+                                    showShareDialog(event, item);
+                                } catch (java.lang.Exception e){
+                                    e.printStackTrace();
+                                }
 
                             });
+
 
 
 
@@ -194,10 +191,10 @@ public class StorageController {
                                     hbox.setSpacing(25);
                                     item.setHidden(item.getHidden() ? false : true);
                                     if(item.getHidden()){
-                                        hbox.getChildren().removeAll(btn,btn1,btn2);
+                                        hbox.getChildren().removeAll(btn,btn2);
                                     }
                                     else {
-                                        hbox.getChildren().addAll(btn,btn1,btn2);
+                                        hbox.getChildren().addAll(btn,btn2);
                                     }
 
                                 }
@@ -216,7 +213,7 @@ public class StorageController {
 
     }
 
-    public void showShareDialog (ActionEvent event) throws Exception{
+    public void showShareDialog (ActionEvent event, File file) throws Exception{
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(homeAnchorPane.getScene().getWindow());
         dialog.setTitle("Share File");
@@ -224,6 +221,7 @@ public class StorageController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("newFileDialog.fxml"));
         NewFileDialogController controller = fxmlLoader.getController();
+        controller.setFile(file);
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 

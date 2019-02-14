@@ -2,6 +2,7 @@ package Moodle;
 
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

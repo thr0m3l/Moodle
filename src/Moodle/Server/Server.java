@@ -4,6 +4,7 @@ package Moodle.Server;
 
 import Moodle.*;
 import Moodle.Client.Group;
+import Moodle.File;
 import Moodle.Messages.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -385,6 +386,13 @@ public class Server {
                                 }
                                 userData.saveData();
                                 break;
+                            case FILEUPDATE:
+                                for(File file : fileData.getData()){
+                                    if(message.getFile().getName().equals(file.getName())){
+                                        fileData.getData().remove(file);
+                                        fileData.getData().add(message.getFile());
+                                    }
+                                }
                             }
 
                     }
