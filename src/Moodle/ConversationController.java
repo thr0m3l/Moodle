@@ -115,6 +115,7 @@ public class ConversationController implements Initializable {
                 DateFormat dtf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date date=new Date();
                 String time=dtf.format(date);
+                //box.getChildren().add(taR);
                 //replies.add(reply);
                 //MAKING A DUMMY TEXTAREA AND SHOW THE REPLY
                 //making a submit button
@@ -221,9 +222,9 @@ public class ConversationController implements Initializable {
         Text time=new Text(reply.getTime());
         time.setFont(new Font("Replied at : "+"Italic",20));
         time.setFill(WHITE);
-        textArea.setFont(new Font("Italic",18));
+        textArea.setFont(new Font("Bold",18));
         textArea.setText(reply.getDetail());
-        //textArea.setStyle("-fx-border-color:khaki; -fx-background-color:  #05071F;");
+
         box.getChildren().addAll(name,time,textArea);
         System.out.println(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
     }
