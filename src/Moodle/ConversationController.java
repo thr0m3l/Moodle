@@ -112,7 +112,6 @@ public class ConversationController implements Initializable {
                 DateFormat dtf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date date=new Date();
                 String time=dtf.format(date);
-                Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
                 //replies.add(reply);
                 //MAKING A DUMMY TEXTAREA AND SHOW THE REPLY
                 //making a submit button
@@ -120,6 +119,7 @@ public class ConversationController implements Initializable {
                 button.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
                         button.setVisible(false);
                         Label lb=new Label("Your reply has been submitted");
                         box.getChildren().add(lb);
@@ -211,5 +211,6 @@ public class ConversationController implements Initializable {
         TextArea textArea=new TextArea();
         textArea.setText(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
         box.getChildren().add(textArea);
+        System.out.println(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
     }
 }
