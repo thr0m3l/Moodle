@@ -26,6 +26,15 @@ public class Client implements Runnable{
     private HomeController homeController;
     private CoursePage2Controller coursePage2Controller;
     private AdminController adminController;
+    private ConversationController conversationController;
+
+    public ConversationController getConversationController() {
+        return conversationController;
+    }
+
+    public void setConversationController(ConversationController conversationController) {
+        this.conversationController = conversationController;
+    }
 
     public AdminController getAdminController() {
         return adminController;
@@ -231,6 +240,11 @@ public class Client implements Runnable{
                                         alert.showAndWait();
                                     }});
                                 break;
+                            case REPLY:
+                                final Message replyMsg = msg;
+                                Platform.runLater( () -> {
+                                    conversationController.addReply(replyMsg.getReply());
+                                });
 
                         }
                     }

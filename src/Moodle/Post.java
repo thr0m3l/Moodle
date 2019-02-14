@@ -26,11 +26,11 @@ public class Post implements Serializable {
         this.files = files;
     }
 
-    public ArrayList<Post> getReplies() {
+    public ArrayList<Reply> getReplies() {
         return replies;
     }
 
-    public void setReplies(ArrayList<Post> replies) {
+    public void setReplies(ArrayList<Reply> replies) {
         this.replies = replies;
     }
 
@@ -61,7 +61,7 @@ public class Post implements Serializable {
     }
 
 
-    ArrayList<Post> replies = new ArrayList<>();
+    ArrayList<Reply> replies = new ArrayList<>();
     ArrayList<File>files=new ArrayList<>();
 
     private boolean hidden = true;

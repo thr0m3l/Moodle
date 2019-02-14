@@ -1,5 +1,7 @@
 package Moodle;
 
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +27,8 @@ import java.util.ResourceBundle;
 import static javafx.scene.paint.Color.*;
 
 public class ConversationController implements Initializable {
+    @FXML private ObservableList<Reply>replies=FXCollections.observableArrayList();
+    //private ArrayList<Reply>replyArrayList;
 
     @FXML private Label userNameLabel,coursecodeholder,coursenameholder;
     @FXML
@@ -39,6 +43,7 @@ public class ConversationController implements Initializable {
     private User currentUser;
     private Course currentCourse;
     private Post post;
+    private VBox box=new VBox();
 
     public Post getPost() {
         return post;
@@ -64,66 +69,8 @@ public class ConversationController implements Initializable {
 
 
     public void setPost(Post post) {
-        /*this.post = post;
-//        postListView.getItems().add("Posted at: "+post.getDate());
-        //      postListView.getItems().add("Posted by: "+post.getAdminName());
-        //    postListView.getItems().add(post.getTitle());
-        VBox box=new VBox();
-        //scrollpane e box add
-        sp.setContent(box);
-        VBox.setVgrow(sp, Priority.ALWAYS);
-        //while(true){
-        TextArea ta=new TextArea();
-        ta.setWrapText(true);
-        Text name=new Text("Started by: "+post.getAdminName());
-        name.setFont(new Font("Italic",20));
-        name.setFill(ORANGERED);
-        Text dateP=new Text("Started at :"+post.getDate());
-        dateP.setFill(ORANGERED);
-        //ta.setLayoutX(100);
-        //ta.setLayoutY(i);
-        ta.setMaxSize(1000,200);
-        ta.setFont(new Font("Arial",25));
-        ta.setText(post.getDetails());
-
-        Button btn=new Button("Reply");
-        box.getChildren().addAll(name,dateP,ta,btn);
-
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //CREATE A NEW TEXTAREA FOR TAKING REPLY
-                TextArea taR=new TextArea();
-                taR.setPromptText("Enter your replies here");
-                taR.setWrapText(true);
-                //taR.setLayoutX(100);
-                //taR.setLayoutY(i+200);
-                taR.setMaxSize(1000,200);
-                //NOW GET THE TEXT FROM TEXTAREA AND MAKING A REPLY OBJECT
-                taR.setFont(new Font("Arial",25));
-                DateFormat dtf=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date date=new Date();
-                String time=dtf.format(date);
-                Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
-                //MAKING A DUMMY TEXTAREA AND SHOW THE REPLY
-                //making a submit button
-                Button button=new Button("Submit");
-                button.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        button.setVisible(false);
-                        Label lb=new Label("Your reply has been submitted");
-                        box.getChildren().add(lb);
-                    }
-                });
-
-                box.getChildren().addAll(taR,button);
-            }
-        });*/
-
         this.post = post;
-
-        VBox box=new VBox();
+        replies.addAll(post.getReplies());
         //scrollpane e box add
         sp.setContent(box);
         VBox.setVgrow(sp, Priority.ALWAYS);
@@ -140,8 +87,12 @@ public class ConversationController implements Initializable {
         ta.setFont(new Font("Arial",25));
         ta.setText(post.getDetails());
 
+
+
         Button btn=new Button("Reply");
         box.getChildren().addAll(name,dateP,ta,btn);
+
+
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -162,6 +113,7 @@ public class ConversationController implements Initializable {
                 Date date=new Date();
                 String time=dtf.format(date);
                 Reply reply=new Reply(currentUser.getFullName(),currentCourse.getTitle(),post.getTitle(),time,taR.getText());
+                //replies.add(reply);
                 //MAKING A DUMMY TEXTAREA AND SHOW THE REPLY
                 //making a submit button
                 Button button=new Button("Submit");
@@ -171,10 +123,18 @@ public class ConversationController implements Initializable {
                         button.setVisible(false);
                         Label lb=new Label("Your reply has been submitted");
                         box.getChildren().add(lb);
+                        replies.add(reply);
+                        taR.setDisable(true);
+
+
+                        Message message = new Message();
+                        message.setMessageType(MessageType.REPLY);
+                        message.setReply(reply);
+                        Main.getClient().send(message);
                     }
                 });
                 box.getChildren().addAll(nameUser,taR,button);
-//                taR.setDisable(true);
+//
             }
         });
 
@@ -237,5 +197,19 @@ public class ConversationController implements Initializable {
             svg.setContent("M0 0 L" + (width * 2) + " 0 L" + width + " " + width + " Z");
 
         return svg;
+    }
+
+    public ObservableList<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(ObservableList<Reply> replies) {
+        this.replies = replies;
+    }
+
+    public void addReply(Reply reply){
+        TextArea textArea=new TextArea();
+        textArea.setText(reply.getUsername()+"\n"+reply.getTime()+"\n"+reply.getDetail());
+        box.getChildren().add(textArea);
     }
 }

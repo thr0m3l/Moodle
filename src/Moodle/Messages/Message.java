@@ -1,10 +1,8 @@
 package Moodle.Messages;
 
+import Moodle.*;
 import Moodle.Client.Group;
-import Moodle.Course;
-import Moodle.File;
-import Moodle.Post;
-import Moodle.User;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +21,15 @@ public class Message implements Serializable {
     private Post post;
     private ArrayList<User> users = new ArrayList<>();
     private LocalDateTime time = null;
+    private Reply reply;
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
+    }
 
     public LocalDateTime getTime() {
         return time;

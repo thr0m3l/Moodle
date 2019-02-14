@@ -354,6 +354,36 @@ public class Server {
                                 }
                                 userData.saveData();
                                 break;
+                            case REPLY:
+                                boolean done2 = false;
+
+                                for(User user1 : userData.getData()){
+                                    for(Course course : user1.getCourses()){
+                                        for(Post post :  course.getPosts()){
+                                            if(message.getReply().getPosttitle().equals(post.getTitle())){
+                                                post.getReplies().add(message.getReply());
+                                                done2 = true;
+                                                System.out.println("post added");
+                                                break;
+                                            }
+                                        }
+                                        if(done2) break;
+                                    }
+                                    if(done2) break;
+                                }
+
+                                for(User user1 : onlineUsers.keySet()){
+                                    for(Course course  : user1.getCourses()){
+                                        for(Post post : course.getPosts()){
+                                            if(message.getReply().getPosttitle().equals(post.getTitle())){
+                                                onlineUsers.get(user1).writeObject(message);
+                                                System.out.println("post sent");
+                                            }
+                                        }
+                                    }
+                                }
+                                userData.saveData();
+                                break;
                             }
 
                     }

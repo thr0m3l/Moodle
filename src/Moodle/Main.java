@@ -667,10 +667,12 @@ public class Main extends Application {
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
         //Scene scene=new Scene(contentRootRegion,1200,700);
         ConversationController controller = loader.getController();
+        client.setConversationController(controller);
         controller.setMain(this);
         controller.setCurrentCourse(course);
         controller.setCurrentUser(user);
         controller.setPost(post);
+
         // Set the primary stage
         stage.setTitle("Conversation");
         stage.setScene(scene);

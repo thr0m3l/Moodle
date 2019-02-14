@@ -44,6 +44,10 @@ public class Reply implements Serializable {
         return posttitle;
     }
 
+    public String getDetail() {
+        return detail;
+    }
+
     public void setPosttitle(String posttitle) {
         this.posttitle = posttitle;
     }
