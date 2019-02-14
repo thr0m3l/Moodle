@@ -1,120 +1,174 @@
 package Moodle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import Moodle.Messages.Message;
+import Moodle.Messages.MessageType;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.SVGPath;
-import javafx.util.Callback;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-public class SubmissionsController implements Initializable {
-    private Main main;
-    private User currentUser;
+public class SubmissionsController {
+
+    @FXML
+    private AnchorPane homeAnchorPane;
+
+    @FXML
+    private ImageView profilePicture;
+
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private Button btnOverview;
+
+    @FXML
+    private Button btnMessage;
+
+    @FXML
+    private Button btnFriends;
+
+    @FXML
+    private Button btnMenus;
+
+    @FXML
+    private Button btnStorage;
+
+    @FXML
+    private Button btnSettings;
+
+    @FXML
+    private Button PostBtn;
+
+    @FXML
+    private Button SiteNews;
+
+    @FXML
+    private Button btnSignout;
+
+    @FXML
+    private Pane pnlCustomer;
+
+    @FXML
+    private Pane pnlOrders;
+
+    @FXML
+    private Pane pnlMenus;
+
+    @FXML
+    private Pane pnlOverview;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private Label dueDate;
+
+    @FXML
+    private Label timeRemaining;
+
+    @FXML
+    private Label submissionTime;
+
+    @FXML
+    private Label timeLabel;
+
+    @FXML
+    private JFXButton addSubmission;
+    @FXML private JFXButton submit;
+
     private Course currentCourse;
-    public Main getMain() {
-        return main;
-    }
-    public void setMain(Main main) {
-        this.main = main;
-    }
-    @FXML
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-    @FXML private ListView<File> fileListView;
-    @FXML
-    private ObservableList<File> files = FXCollections.observableArrayList(Main.getCurrentUser().getFiles());
-    @FXML
-    public void setCurrentCourse(Course currentCourse) {
 
-        this.currentCourse = currentCourse;
+    private Post currentPost;
+    private Main main;
+    private java.io.File file = null;
+    private File submissionFile = null;
 
-    }
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(){
 
-
-        fileListView.setCellFactory(new Callback<ListView<File>,  ListCell<File>>() {
-            @Override
-            public ListCell<File> call(final ListView<File> lv) {
-                ListCell<File> cell = new ListCell<File>(){
-                    int height = 20;
-                    @Override
-                    protected void updateItem(final File item, boolean empty) {
-                        super.updateItem(item, empty);
-                        final HBox hbox = new HBox();
-                        setGraphic(hbox);
-                        if (item != null && getIndex() > -1) {
-                            final Label labelHeader = new Label(item.getName());
-                            labelHeader.setStyle("-fx-text-fill: #f7f9fc");
-//                            labelHeader.setGraphic(createArrowPath(height, false));
-                            labelHeader.setGraphicTextGap(20);
-                            labelHeader.setId("tableview-columnheader-default-bg");
-//                            labelHeader.setPrefWidth(fileList.getWidth() - 10);
-                            labelHeader.setPrefHeight(height);
-
-                            Button btn = new Button("Download");
-//                            Label owner = new Label("Owner : " +  item.getOwner());
-                            btn.setOnAction(event -> {
-                                item.byteToFile();
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("FILE DOWNLOAD SUCCESSFUL");
-                                alert.setHeaderText(item.getName() + " is downloaded successfully");
-                                alert.showAndWait();
-                            });
-
-                            Button btn1 = new Button("Properties");
-                            btn1.setOnAction( event -> {
-
-                            });
-
-
-
-                            labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                @Override
-                                public void handle(MouseEvent me) {
-//                                        labelHeader.setGraphic(createArrowPath(height, false));
-//                                        labelHeader.setGraphic(createArrowPath(height, true));
-                                    hbox.setSpacing(25);
-                                    item.setHidden(item.getHidden() ? false : true);
-                                    if(item.getHidden()){
-                                        hbox.getChildren().removeAll(btn,btn1);
-                                    }
-                                    else {
-                                        hbox.getChildren().addAll(btn,btn1);
-                                    }
-
-                                }
-                            });
-
-                            hbox.getChildren().add(labelHeader);
-                        }
-                    }
-
-                };
-                return cell;
+        btnOverview.setOnAction( event -> {
+            try {
+                main.showHomePage(Main.getCurrentUser());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
+
+
+        addSubmission.setOnAction( event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Please select a .zip file");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".zip files", "*.zip"));
+            file = fileChooser.showOpenDialog(homeAnchorPane.getScene().getWindow());
+
+            if(file!=null){
+                submissionFile = new File(file);
+            }
+        });
+
+        submit.setOnAction( event -> {
+            Message message = new Message();
+            message.setMessageType(MessageType.SUBMISSION);
+            message.setFile(submissionFile);
+            message.setUser(Main.getCurrentUser());
+            message.setTime(LocalDateTime.now());
+            message.setPost(currentPost);
+
+            Main.getClient().send(message);
+
+            try{
+                main.showCoursePage2(Main.getCurrentUser(),currentCourse);
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+        
     }
 
-    private SVGPath createArrowPath(int height, boolean up) {
-        SVGPath svg = new SVGPath();
-        int width = height / 4;
+    public void setCurrentPost(Post item) {
+        this.currentPost = item;
+        title.setText(currentPost.getTitle());
 
-        if (up)
-            svg.setContent("M" + width + " 0 L" + (width * 2) + " " + width + " L0 " + width + " Z");
-        else
-            svg.setContent("M0 0 L" + (width * 2) + " 0 L" + width + " " + width + " Z");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedDateTime = item.getDeadline().format(formatter);
+        dueDate.setText(formattedDateTime);
 
-        return svg;
+
+
+        long days = item.getDeadline().until( LocalDateTime.now(), ChronoUnit.DAYS);
+        LocalDateTime tempDateTime = item.getDeadline().plusDays(days );
+        long hours = tempDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS);
+        tempDateTime = tempDateTime.plusHours(hours);
+        long minutes = tempDateTime.until( LocalDateTime.now(), ChronoUnit.MINUTES);
+//        tempDateTime = tempDateTime.plusHours( hours );
+        timeRemaining.setText(Long.toString(-days) + " days " + Long.toString(-hours) + " hours " +
+                Long.toString(-minutes) + " minutes");
+
+        if(minutes > 0) {
+            addSubmission.setDisable(true);
+            timeRemaining.setTextFill(Color.RED);
+        }
+    }
+
+    public void setCurrentCourse(Course currentCourse) {
+        this.currentCourse = currentCourse;
+
+
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }

@@ -6,6 +6,7 @@ import Moodle.File;
 import Moodle.Post;
 import Moodle.User;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Message implements Serializable {
@@ -21,6 +22,15 @@ public class Message implements Serializable {
     private Course course;
     private Post post;
     private ArrayList<User> users = new ArrayList<>();
+    private LocalDateTime time = null;
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 
     public ArrayList<User> getUsers() {
         return users;

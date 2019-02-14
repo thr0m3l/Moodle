@@ -1,38 +1,32 @@
 package Moodle;
 
-
-import Moodle.Client.Client;
-import Moodle.Client.DialogController;
-import Moodle.Client.Group;
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListCell;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
-import java.io.IOException;
-import java.util.Optional;
+public class TeacherSubmissionsController {
 
-
-public class StorageController {
+    private Course currentCourse;
+    private Post currentPost;
+    private Main main;
 
     @FXML
     private AnchorPane homeAnchorPane;
+
+    @FXML
+    private ImageView profilePicture;
 
     @FXML
     private Label userNameLabel;
@@ -64,31 +58,64 @@ public class StorageController {
     @FXML
     private Button btnSignout;
 
+    @FXML
+    private Pane pnlCustomer;
 
     @FXML
-    private JFXListView<File> fileList;
+    private Pane pnlOrders;
 
     @FXML
-    private Button addFileButton;
-
-    private User currentUser;
-
-    private Main main;
-
-    private ObservableList<File> files = FXCollections.observableArrayList(Main.getCurrentUser().getFiles());
+    private Pane pnlMenus;
 
     @FXML
-    void showNewFileDialog(ActionEvent event) {
+    private Pane pnlOverview;
+
+    @FXML
+    private ListView<File> fileListView;
+
+    @FXML
+    private Label timeLabel;
+    private ObservableList<File> files = FXCollections.observableArrayList();
+
+    @FXML
+    void FriendAction(ActionEvent event) {
 
     }
-    FileChooser fileChooser = new FileChooser();
+
+    @FXML
+    void PostBtnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SiteNewsAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void logOut(ActionEvent event) {
+
+    }
+
+    public void setCurrentCourse(Course currentCourse) {
+        this.currentCourse = currentCourse;
+    }
+
+    public void setCurrentPost(Post item) {
+        this.currentPost = item;
+        System.out.println(item.toString() + currentPost.getFiles().toString());
+        files.addAll(currentPost.getFiles());
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
 
     @FXML
     public void initialize(){
 
-        fileList.setItems(files);
-
-
+        fileListView.setItems(files);
 
         btnSignout.setOnAction(event -> {
             try{
@@ -119,38 +146,8 @@ public class StorageController {
             }
         });
 
-        addFileButton.setOnAction( event -> {
-            fileChooser = new FileChooser();
-            fileChooser.setTitle("Select a text file");
-            java.io.File file = fileChooser.showOpenDialog(homeAnchorPane.getScene().getWindow());
 
-
-            System.out.println(file.getPath());
-
-            File newFile = new File(file);
-            newFile.setOwner(Main.getCurrentUser().getUserName());
-//            fileList.getItems().add(newFile);
-
-            Message fileMsg = new Message();
-            fileMsg.setUser(Main.getCurrentUser());
-            fileMsg.setFile(newFile);
-            fileMsg.setMessageType(MessageType.FILE);
-
-
-            Main.getClient().send(fileMsg);
-        });
-
-        Button btn2 = new Button("Share");
-        btn2.setOnAction( event -> {
-            try{
-                showShareDialog(event);
-            } catch (java.lang.Exception e){
-                e.printStackTrace();
-            }
-
-        });
-
-        fileList.setCellFactory(new Callback<ListView<File>,  ListCell<File>>() {
+        fileListView.setCellFactory(new Callback<ListView<File>, ListCell<File>>() {
             @Override
             public ListCell<File> call(final ListView<File> lv) {
                 ListCell<File> cell = new ListCell<File>(){
@@ -179,14 +176,9 @@ public class StorageController {
                                 alert.showAndWait();
                             });
 
-                            Button btn1 = new Button("Properties");
-                            btn1.setOnAction( event -> {
-
-                            });
 
 
-
-                                labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            labelHeader.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent me) {
 //                                        labelHeader.setGraphic(createArrowPath(height, false));
@@ -194,10 +186,10 @@ public class StorageController {
                                     hbox.setSpacing(25);
                                     item.setHidden(item.getHidden() ? false : true);
                                     if(item.getHidden()){
-                                        hbox.getChildren().removeAll(btn,btn1,btn2);
+                                        hbox.getChildren().removeAll(btn);
                                     }
                                     else {
-                                        hbox.getChildren().addAll(btn,btn1,btn2);
+                                        hbox.getChildren().addAll(btn);
                                     }
 
                                 }
@@ -215,85 +207,4 @@ public class StorageController {
 
 
     }
-
-    public void showShareDialog (ActionEvent event) throws Exception{
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(homeAnchorPane.getScene().getWindow());
-        dialog.setTitle("Share File");
-        dialog.setHeaderText("To add multiple users, put ';' between users ");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("newFileDialog.fxml"));
-        NewFileDialogController controller = fxmlLoader.getController();
-        try {
-            dialog.getDialogPane().setContent(fxmlLoader.load());
-
-        } catch(IOException e) {
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-            return;
-        }
-
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        if(result.isPresent() && result.get() == ButtonType.OK) {
-
-//                                    Group newGroup = controller.processResults();
-//                                    newGroup.getUsers().add(Main.getCurrentUser().getUserName());
-////            groupObservableList.add(newGroup);
-//                                    groupList.getSelectionModel().select(newGroup);
-//                                    groupList.refresh();
-        }
-    }
-    public void addToFileList(File file){
-        files.add(file);
-    }
-
-
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public Main getMain() {
-        return main;
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
-
-    @FXML
-    void PostBtnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void SiteNewsAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void logOut(ActionEvent event) {
-
-    }
-
-    @FXML
-    private Pane pnlCustomer;
-
-    @FXML
-    private Pane pnlOrders;
-
-    @FXML
-    private Pane pnlMenus;
-
-    @FXML
-    private Pane pnlOverview;
-
-
-
 }

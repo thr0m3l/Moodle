@@ -2,11 +2,8 @@ package Moodle.Server;
 
 
 
+import Moodle.*;
 import Moodle.Client.Group;
-import Moodle.Course;
-import Moodle.Data;
-import Moodle.Main;
-import Moodle.User;
 import Moodle.Messages.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -158,7 +155,7 @@ public class Server {
                                             currentUser.getFiles().add(file);
                                         }
                                     }
-
+                                    System.err.println(currentUser);
                                     newMsg.setUser(currentUser);
 
                                 }
@@ -276,7 +273,7 @@ public class Server {
                                 boolean done = false;
                                 for(User user1 : userData.getData()){
                                     for(Course course : user1.getCourses()){
-                                        if(course.getTitle().equals(message.getPost().getCourseName())){
+                                        if(course.getTitle().equals(message.getPost().getCourse().getTitle())){
                                             course.getPosts().add(message.getPost());
                                             System.out.println("Post added successfully");
                                             done = true;
@@ -288,11 +285,16 @@ public class Server {
                                 userData.saveData();
                                 for(User user1 : onlineUsers.keySet()){
                                     for(Course course : user1.getCourses()){
-                                        if(course.getTitle().equals(message.getPost().getCourseName())){
+                                        if(course.getTitle().equals(message.getPost().getCourse().getTitle())){
                                             onlineUsers.get(user1).writeObject(message);
                                         }
                                     }
                                 }
+
+                                if(message.getPost().getFile() != null) {
+                                    System.err.println("File received : " + message.getPost().getFile().getName());
+                                }
+
                                 break;
                             case GETUPDATE:
 //                                userData.loadData();
@@ -332,8 +334,27 @@ public class Server {
                                 adminMsg.setMessageType(MessageType.ADMINLOGIN);
                                 objectOutputStream.writeObject(adminMsg);
                                 break;
-
+                            case SUBMISSION:
+                                boolean done1 = false;
+                                for(User user1 : userData.getData()){
+                                    for(Course course : user1.getCourses()){
+                                        for(Post post :  course.getPosts()){
+                                            if(message.getPost().getTitle().equals(post.getTitle()) &&
+                                            message.getPost().getCourse().getTitle().equals(post.getCourse().getTitle())){
+                                                message.getFile().setOwner(message.getUser().getUserName());
+                                                post.getFiles().add(message.getFile());
+                                                System.err.println("Submission added : " + message.getFile().getName());
+                                                break;
+                                            }
+                                        }
+                                        if(done1) break;
+                                    }
+                                    if(done1) break;
+                                }
+                                userData.saveData();
+                                break;
                             }
+
                     }
 
 

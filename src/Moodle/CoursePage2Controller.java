@@ -97,19 +97,43 @@ public class CoursePage2Controller implements Initializable {
                                     else {
                                         labelHeader.setGraphic(createArrowPath(height, true));
                                         vbox.getChildren().add(new Label(item.getDetails()));
-                                        PostType type=item.getType();
-                                        //if(type == PostType.FILE)
-                                        Button btn = new Button("Enter");
-                                        btn.setVisible(true);
+                                        final PostType type=item.getType();
 
-                                        btn.setOnAction(new EventHandler<ActionEvent>() {
-                                            @Override public void handle(ActionEvent e) {
-                                                try{
-                                                    //main.showCoursePage(currentUser,item);
+                                        Button btn = new Button("Enter");
+                                        if(type == PostType.FILE) {
+                                            btn.setText("Download");
+                                        }
+
+                                        btn.setVisible(true);
+                                        btn.setOnAction( event -> {
+                                            try{
+                                                if(type == PostType.NORMAL){
                                                     main.showConversation(currentUser,currentCourse,item);
-                                                } catch (java.lang.Exception exception){
-                                                    exception.printStackTrace();
+                                                } else if (type == PostType.FILE) {
+                                                    if(item.getFile() != null) {
+                                                        item.getFile().byteToFile();
+                                                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                                        alert.setTitle("Successful");
+                                                        alert.setHeaderText("File downloaded successfully");
+                                                        alert.showAndWait();
+                                                    } else {
+                                                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                                                        alert.setTitle("Failed");
+                                                        alert.setHeaderText("Couldn't download the file!");
+                                                        alert.showAndWait();
+                                                    }
+
+                                                } else if(type == PostType.SUBMISSION){
+                                                    if(Main.getCurrentUser().getUserType().equals("Faculty")){
+                                                        main.showTeacherSubmissionLink(currentCourse,item);
+                                                    } else{
+                                                        main.showSubmissionLink(currentCourse, item);
+                                                    }
+
+
                                                 }
+                                            } catch (java.lang.Exception exception){
+                                                exception.printStackTrace();
                                             }
                                         });
                                         vbox.getChildren().add(btn);

@@ -173,8 +173,8 @@ public class ConversationController implements Initializable {
                         box.getChildren().add(lb);
                     }
                 });
-
                 box.getChildren().addAll(nameUser,taR,button);
+//                taR.setDisable(true);
             }
         });
 

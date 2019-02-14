@@ -12,16 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -48,10 +51,14 @@ public class CoursePostEditController implements Initializable {
     @FXML private VBox box;
     @FXML private Button btn;
     @FXML private Button filebtn;
-    @FXML private DatePicker datePicker;
-    private String posttype=null;
+    @FXML private DateTimePicker datePicker;
+    @FXML private AnchorPane anchorPane;
+    private String posttype="Normal";
     private ObservableSet<CheckBox> selectedCheckBoxes = FXCollections.observableSet();
     private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
+    private java.io.File file;
+    private File file1;
+    private LocalDateTime deadline;
 
     private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
 
@@ -106,6 +113,7 @@ public class CoursePostEditController implements Initializable {
                             datePicker.setVisible(true);
                         }
                     });
+
                 }
             }
         };
@@ -126,13 +134,19 @@ public class CoursePostEditController implements Initializable {
                     posttype="File";
                     btn.setText("Add Deadline");
                     System.out.println("click hoiseeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+
                     filebtn.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            FileChooser filechoser=new FileChooser();
-                            File file=filechoser.showOpenDialog(null);
+                            FileChooser filechoser = new FileChooser();
+                            file = filechoser.showOpenDialog(anchorPane.getScene().getWindow());
+                            if(file != null) {
+                                file1 = new File(file);
+                            }
                         }
                     });
+
                 }
             }
         };
@@ -167,10 +181,14 @@ public class CoursePostEditController implements Initializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         String time=date.toString();
+        deadline = datePicker.getDateTime();
+
+
 
 
         //postttype ekhane ui theke type zanar ekta dummy variable
-        Post post=new Post(title,time,currentUser.getFullName(),detail,currentCourse.getTitle());
+        Post post=new Post(title,time,currentUser.getFullName(),detail,currentCourse);
+        post.setDeadline(deadline);
         System.out.println("CoursePost Edit controller e post object: "+post);
         if(posttype.equals("File")){
             post.setType(PostType.FILE);
@@ -184,6 +202,10 @@ public class CoursePostEditController implements Initializable {
         Message postMsg = new Message();
         postMsg.setMessageType(MessageType.POST);
         postMsg.setPost(post);
+        if(file1 != null) {
+            postMsg.setFile(file1);
+        }
+//        System.err.println(postMsg.getFile().getName() + postMsg.getFile().getSize()/1024);
 
         Main.getClient().send(postMsg);
         main.showCoursePage2(Main.getCurrentUser(),currentCourse);

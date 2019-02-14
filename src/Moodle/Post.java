@@ -4,23 +4,60 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Post implements Serializable {
-    String title;
-    String date;
-    String adminName;
-    String details;
-    String courseName;
-    PostType type;
+    private String title;
+    private String date;
+    private String adminName;
+    private String details;
+    private Course course;
+    private PostType type;
+    private File file;
+    private LocalDateTime deadline;
+    private ArrayList<File> submissions = new ArrayList<>();
+
+    public ArrayList<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(ArrayList<File> files) {
+        this.files = files;
+    }
+
+    public ArrayList<Post> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(ArrayList<Post> replies) {
+        this.replies = replies;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
     private static final long serialVersionUID = 117L;
 
-    public Post(String title, String date, String admin, String details, String courseName) {
+    public Post(String title, String date, String admin, String details, Course course) {
         this.title = title;
         this.date = date;
         this.adminName = admin;
         this.details = details;
-        this.courseName = courseName;
+        this.course = course;
     }
 
 
@@ -61,12 +98,12 @@ public class Post implements Serializable {
         this.details = details;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public PostType getType() {
@@ -84,7 +121,7 @@ public class Post implements Serializable {
                 ", date='" + date + '\'' +
                 ", adminName='" + adminName + '\'' +
                 ", details='" + details + '\'' +
-                ", courseName='" + courseName + '\'' +
+                ", courseName='" + course.getTitle() + '\'' +
                 '}';
     }
     public String getAdminName() {

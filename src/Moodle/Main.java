@@ -678,4 +678,79 @@ public class Main extends Application {
         stage.setScene( scene );
         stage.show();
     }
+
+    public void showSubmissionLink(Course currentCourse, Post item) throws Exception {
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "Submission_student.fxml" ) );
+        Region contentRootRegion = loader.load();
+        double origW = 1280;
+        double origH = 720;
+
+
+        if ( contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefWidth( origW );
+        else
+            origW = contentRootRegion.getPrefWidth();
+        if ( contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefHeight( origH );
+        else
+            origH = contentRootRegion.getPrefHeight();
+        Group group = new Group( contentRootRegion );
+
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add(group);
+        stage.setTitle( "Submission Link" );
+        Scene scene = new Scene( rootPane, origW, origH );
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        //Set the scene to the window (stage) and show it
+        stage.setScene( scene );
+        stage.show();
+
+
+
+
+        // Loading the controller
+        SubmissionsController controller = loader.getController();
+        controller.setCurrentCourse(currentCourse);
+        controller.setCurrentPost(item);
+        controller.setMain(this);
+
+    }
+
+    public void showTeacherSubmissionLink (Course currentCourse, Post item) throws Exception{
+        FXMLLoader loader = new FXMLLoader( getClass().getResource( "Submission_teacher.fxml" ) );
+        Region contentRootRegion = loader.load();
+        double origW = 1280;
+        double origH = 720;
+
+
+        if ( contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefWidth( origW );
+        else
+            origW = contentRootRegion.getPrefWidth();
+        if ( contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE )
+            contentRootRegion.setPrefHeight( origH );
+        else
+            origH = contentRootRegion.getPrefHeight();
+        Group group = new Group( contentRootRegion );
+
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add(group);
+        stage.setTitle( "Moodle Storage" );
+        Scene scene = new Scene( rootPane, origW, origH );
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        //Set the scene to the window (stage) and show it
+        stage.setScene( scene );
+        stage.show();
+
+
+
+
+        // Loading the controller
+        TeacherSubmissionsController controller = loader.getController();
+        controller.setCurrentCourse(currentCourse);
+        controller.setCurrentPost(item);
+        controller.setMain(this);
+    }
 }

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.CoursePostEditController">
+<?import Moodle.DateTimePicker?>
+<AnchorPane fx:id="anchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Moodle.CoursePostEditController">
     <children>
         <Button fx:id="Post_to_Forum" layoutX="518.0" layoutY="586.0" mnemonicParsing="false" onAction="#PostSiteAction" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #B0E0E6;" text="Post to Site" />
         <Button fx:id="Back" layoutX="492.0" layoutY="631.0" mnemonicParsing="false" onAction="#BackAction" prefHeight="32.0" prefWidth="220.0" style="-fx-background-color: #B0E0E6;" text="Back to Course Page" />
@@ -41,7 +42,7 @@
                   <CheckBox fx:id="uploadfile" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" text="Upload a file" textFill="WHITE" />
                   <Button fx:id="btn" layoutX="16.0" layoutY="317.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="150.0" text="Add Deadline" />
                   <Button fx:id="filebtn" layoutX="17.0" layoutY="379.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="150.0" text="Add File" />
-                  <DatePicker fx:id="datePicker" layoutX="7.0" layoutY="448.0" />
+                  <DateTimePicker fx:id="datePicker" layoutX="7.0" layoutY="448.0" />
                </children>
             </AnchorPane>
          </children>
