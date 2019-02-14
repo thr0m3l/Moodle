@@ -196,7 +196,7 @@ public class CoursePage2Controller implements Initializable {
     }
 
     public void addPost (Post post) throws Exception{
-        postListView.getItems().add(post);
+        postObservableList.add(post);
 
     }
 }

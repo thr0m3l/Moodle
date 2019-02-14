@@ -229,7 +229,19 @@ public class Client implements Runnable{
                                     } catch (java.lang.Exception e){
                                         e.printStackTrace();
                                     }
+
+
+
                                 });
+
+                                    for(Course course : Main.getCurrentUser().getCourses()){
+                                        if(course.getTitle().equals(msg.getPost().getCourse().getTitle())){
+                                            course.getPosts().add(msg.getPost());
+                                            System.out.println("Post added successfully");
+                                            break;
+                                        }
+                                    }
+
                                 break;
                             case GETUPDATE:
                                 Main.setCurrentUser(msg.getUser());
@@ -262,6 +274,23 @@ public class Client implements Runnable{
                                 Platform.runLater( () -> {
                                     conversationController.addReply(replyMsg.getReply());
                                 });
+                                break;
+                            case SUBMISSION:
+                                boolean done1 = false;
+                                for(Course course : Main.getCurrentUser().getCourses()){
+                                    for(Post post :  course.getPosts()){
+                                        if(msg.getPost().getTitle().equals(post.getTitle()) &&
+                                                msg.getPost().getCourse().getTitle().equals(post.getCourse().getTitle())){
+                                            msg.getFile().setOwner(msg.getUser().getUserName());
+                                            post.getFiles().add(msg.getFile());
+                                            System.err.println("Submission added : " + msg.getFile().getName());
+                                            done1 = true;
+                                            break;
+                                        }
+                                    }
+                                    if(done1) break;
+                                }
+                                break;
 
                         }
                     }

@@ -240,12 +240,15 @@ public class Server {
                                 for(User user1 : onlineUsers.keySet()){
                                     if(message.getFile().getUsers().contains(user1.getUserName())){
                                         onlineUsers.get(user1).writeObject(message);
+                                    } else if(message.getFile().getOwner().equals(user1.getUserName())){
+                                        onlineUsers.get(user1).writeObject(message);
                                     }
                                 }
 
+
 //                                userData.saveData();
                                 fileData.saveData();
-                                objectOutputStream.writeObject(message);
+//                                objectOutputStream.writeObject(message);
                                 break;
                             case COURSE:
                                 System.out.println(message.getCourse().getTitle());
@@ -292,6 +295,7 @@ public class Server {
                                         }
                                     }
                                 }
+                                objectOutputStream.writeObject(message);
 
                                 if(message.getPost().getFile() != null) {
                                     System.err.println("File received : " + message.getPost().getFile().getName());
@@ -345,6 +349,26 @@ public class Server {
                                             message.getPost().getCourse().getTitle().equals(post.getCourse().getTitle())){
                                                 message.getFile().setOwner(message.getUser().getUserName());
                                                 post.getFiles().add(message.getFile());
+                                                System.err.println("Submission added : " + message.getFile().getName());
+                                                done1 = true;
+                                                break;
+                                            }
+                                        }
+                                        if(done1) break;
+                                    }
+                                    if(done1) break;
+                                }
+
+                                done1 = false;
+
+                                for(User user1 : onlineUsers.keySet()){
+                                    for(Course course : user1.getCourses()){
+                                        for(Post post : course.getPosts()){
+                                            if(message.getPost().getTitle().equals(post.getTitle()) &&
+                                                    message.getPost().getCourse().getTitle().equals(post.getCourse().getTitle())){
+                                                message.getFile().setOwner(message.getUser().getUserName());
+                                                post.getFiles().add(message.getFile());
+                                                onlineUsers.get(user1).writeObject(message);
                                                 System.err.println("Submission added : " + message.getFile().getName());
                                                 done1 = true;
                                                 break;

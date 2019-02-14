@@ -59,6 +59,15 @@ public class CoursePostEditController implements Initializable {
     private java.io.File file;
     private File file1;
     private LocalDateTime deadline;
+    private CoursePage2Controller coursePage2Controller = null;
+
+    public CoursePage2Controller getCoursePage2Controller() {
+        return coursePage2Controller;
+    }
+
+    public void setCoursePage2Controller(CoursePage2Controller coursePage2Controller) {
+        this.coursePage2Controller = coursePage2Controller;
+    }
 
     private IntegerBinding numCheckBoxesSelected = Bindings.size(selectedCheckBoxes);
 
@@ -208,6 +217,7 @@ public class CoursePostEditController implements Initializable {
 //        System.err.println(postMsg.getFile().getName() + postMsg.getFile().getSize()/1024);
 
         Main.getClient().send(postMsg);
+
         main.showCoursePage2(Main.getCurrentUser(),currentCourse);
 
     }

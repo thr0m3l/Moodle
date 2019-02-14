@@ -141,6 +141,17 @@ public class StorageController {
         });
 
 
+        Button btn2 = new Button("Share");
+        btn2.setOnAction( event -> {
+            try{
+                showShareDialog(event, fileList.getSelectionModel().getSelectedItem());
+            } catch (java.lang.Exception e){
+                e.printStackTrace();
+            }
+
+        });
+
+
 
         fileList.setCellFactory(new Callback<ListView<File>,  ListCell<File>>() {
             @Override
@@ -169,15 +180,6 @@ public class StorageController {
                                 alert.setTitle("FILE DOWNLOAD SUCCESSFUL");
                                 alert.setHeaderText(item.getName() + " is downloaded successfully");
                                 alert.showAndWait();
-                            });
-                            Button btn2 = new Button("Share");
-                            btn2.setOnAction( event -> {
-                                try{
-                                    showShareDialog(event, item);
-                                } catch (java.lang.Exception e){
-                                    e.printStackTrace();
-                                }
-
                             });
 
 
@@ -221,7 +223,6 @@ public class StorageController {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("newFileDialog.fxml"));
         NewFileDialogController controller = fxmlLoader.getController();
-        controller.setFile(file);
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
 
