@@ -1,7 +1,6 @@
 package Moodle.Client;
 
 import Moodle.*;
-import Moodle.Client.util.*;
 import Moodle.Messages.Message;
 import Moodle.Messages.MessageType;
 import Moodle.Messages.bubble.BubbleSpec;
@@ -84,23 +83,6 @@ public class ChatController implements Initializable {
             Main.getClient().send(msg);
 //            addToChat(msg);
             messageBox.clear();
-        }
-    }
-
-    public void recordVoiceMessage() throws IOException {
-        if (VoiceUtil.isRecording()) {
-            Platform.runLater(() -> {
-//                        microphoneImageView.setImage(microphoneInactiveImage);
-                    }
-            );
-            VoiceUtil.setRecording(false);
-        } else {
-            Platform.runLater(() -> {
-//                        microphoneImageView.setImage(microphoneActiveImage);
-
-                    }
-            );
-            VoiceRecorder.captureAudio();
         }
     }
 
